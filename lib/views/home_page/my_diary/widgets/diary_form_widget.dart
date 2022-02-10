@@ -22,24 +22,39 @@ class NoteFormWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        // TODO : Change the background color
-        backgroundColor: Colors.grey[300],
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                buildTitle(),
-                const SizedBox(height: 8),
-                buildDescription(),
-                const SizedBox(height: 16),
-              ],
-            ),
+  Widget build(BuildContext context) {
+    final _size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              buildTitle(),
+              const SizedBox(height: 8),
+              Container(
+                height: _size.height * 0.65,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.orange,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 8.0,
+                  ),
+                  child: buildDescription(),
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
           ),
         ),
-      );
+      ),
+    );
+  }
 
   Widget buildTitle() => TextFormField(
         maxLines: 1,
@@ -52,7 +67,7 @@ class NoteFormWidget extends StatelessWidget {
         decoration: const InputDecoration(
           border: InputBorder.none,
           hintText: 'Title',
-          hintStyle: TextStyle(color: Colors.white60),
+          hintStyle: TextStyle(color: Colors.black),
         ),
         validator: (title) =>
             title != null && title.isEmpty ? 'Please provide a Title' : null,
@@ -60,7 +75,7 @@ class NoteFormWidget extends StatelessWidget {
       );
 
   Widget buildDescription() => TextFormField(
-        maxLines: 20,
+        maxLines: 23,
         initialValue: description,
         style: const TextStyle(
           color: Colors.black,
@@ -71,9 +86,8 @@ class NoteFormWidget extends StatelessWidget {
           hintText: 'Type something...',
           hintStyle: TextStyle(color: Colors.black),
         ),
-        validator: (title) => title != null && title.isEmpty
-            ? 'The description cannot be empty'
-            : null,
+        validator: (title) =>
+            title != null && title.isEmpty ? 'Please add a description' : null,
         onChanged: onChangedDescription,
       );
 }

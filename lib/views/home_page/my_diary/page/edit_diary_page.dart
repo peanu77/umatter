@@ -56,24 +56,21 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
 
     return Align(
       alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FloatingActionButton.extended(
-          backgroundColor: Colors.orange,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
+      child: FloatingActionButton.extended(
+        backgroundColor: Colors.orange,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        tooltip: 'Save Diary',
+        onPressed: () => addOrUpdateNote(),
+        label: const Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 30.0,
           ),
-          tooltip: 'Save Diary',
-          onPressed: () => addOrUpdateNote(),
-          label: const Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 30.0,
-            ),
-            child: Text(
-              'Save',
-              style: TextStyle(
-                color: Colors.black,
-              ),
+          child: Text(
+            'Save',
+            style: TextStyle(
+              color: Colors.black,
             ),
           ),
         ),

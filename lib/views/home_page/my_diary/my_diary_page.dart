@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:umatter/db/diary_database.dart';
 import 'package:umatter/models/my_diary_model/diary.dart';
@@ -43,15 +44,22 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
           leading: IconButton(
-            icon: const Icon(Icons.chevron_left),
+            icon: const Icon(
+              Icons.chevron_left,
+              color: Colors.black,
+            ),
             onPressed: () => Get.back(),
           ),
           title: const Text(
             'My Diary',
-            style: TextStyle(fontSize: 24),
+            style: TextStyle(
+              fontSize: 24,
+              color: Colors.black,
+            ),
           ),
-          centerTitle: true,
           actions: const [
             SizedBox(width: 12),
           ],
@@ -61,9 +69,10 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
               ? const CircularProgressIndicator()
               : notes.isEmpty
                   // TODO : Change this to an Img
-                  ? const Text(
-                      'There is no notes at the moment',
-                      style: TextStyle(color: Colors.black, fontSize: 24),
+                  ? Lottie.asset(
+                      'assets/json/diary.json',
+                      height: 300.0,
+                      width: 300.0,
                     )
                   : ListView.builder(
                       padding: const EdgeInsets.symmetric(

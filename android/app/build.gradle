@@ -41,16 +41,9 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    // defaultConfig {
-    //     // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-    //     applicationId "com.example.umatter"
-    //     minSdkVersion flutter.minSdkVersion
-    //     targetSdkVersion flutter.targetSdkVersion
-    //     versionCode flutterVersionCode.toInteger()
-    //     versionName flutterVersionName
-    // }
-defaultConfig {
-        applicationId = "com.example.umatter"
+defaultConfig {  
+    // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.reboot.umatter"
         minSdk = 20
         targetSdk = 31
         versionCode = 1

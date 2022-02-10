@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lottie/lottie.dart';
-import 'package:umatter/controllers/intervention/intervention_page_controller.dart';
 import 'package:get/get.dart';
+import 'package:umatter/controllers/professionals_page_controller/external_directories_page_controller.dart';
 import 'package:umatter/models/contants/constants.dart';
 
 class ExternalDirectoriesPage extends StatefulWidget {

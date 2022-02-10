@@ -1,17 +1,15 @@
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:umatter/controllers/auth/auth_controller.dart';
 import 'package:umatter/controllers/dashboard_controller/dashboard_binding.dart';
 import 'package:umatter/views/authentication_page/login.dart';
-import 'package:umatter/views/dashboard_page/dashboard.dart';
 import 'package:umatter/views/home_page/discover/discover_page.dart';
-import 'package:umatter/views/home_page/intervention/intervention_page.dart';
 import 'package:umatter/views/home_page/meditate/meditate.dart';
 import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
 import 'package:umatter/views/home_page/my_mood/my_mood.dart';
+import 'package:umatter/views/home_page/professionals/professionals_page.dart';
 import 'package:umatter/views/onboarding_screen/onboarding_screen.dart';
 
 int? isViewed;
@@ -35,6 +33,7 @@ class MyApp extends StatelessWidget {
       title: 'Onboarding Screen Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        textTheme: GoogleFonts.montserratTextTheme(),
         primaryColor: const Color(0xff8cbbf1),
         // primarySwatch: Colors.orange.shade200,
       ),
@@ -65,7 +64,7 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: '/counselor',
-          page: () => InterventionPage(),
+          page: () => ProfessionalDirectoriesPage(),
         ),
       ],
     );

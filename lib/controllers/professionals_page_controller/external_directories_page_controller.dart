@@ -2,8 +2,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 class InterventionPageController {
   /// This function is responsible for launching or opening a web browser and open the given link (url)
-  final url = 'https://doh.gov.ph/NCMH-Crisis-Hotline';
-  Future<void> launchUrl() async {
+
+  InterventionPageController();
+  Future<void> launchUrl(url) async {
     if (await canLaunch(url)) {
       await launch(url,
           forceSafariVC: false,
@@ -34,4 +35,7 @@ class InterventionPageController {
   final prepaid2 = '0917-899-8727';
 
   final smartPrepaid = '0908-639-2672';
+
+  final fb_page = "@ncmhcrisishotline";
+  final twitter_page = '@ncmhhotline';
 }
