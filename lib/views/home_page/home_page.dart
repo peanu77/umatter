@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:umatter/db/auth/google_signin_auth_controller.dart';
 import 'package:umatter/models/contants/constants.dart';
 import 'package:umatter/controllers/home_page_controller/home_page_controller.dart';
 
 class HomePage extends GetView<HomePageController> {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
+  final user = users.id;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -33,10 +35,10 @@ class HomePage extends GetView<HomePageController> {
                       height: 15.0,
                     ),
                     Text(
-                      controller.name,
+                      user,
                       style: const TextStyle(
                         fontSize: 20.0,
-                        letterSpacing: 1.5,
+                        // letterSpacing: 1.0,
                       ),
                     ),
                   ],
@@ -187,7 +189,8 @@ class HomePage extends GetView<HomePageController> {
             child: Card(
               color: kCardMyMood,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
               child: Column(
                 children: [
                   Padding(
