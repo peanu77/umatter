@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:umatter/db/auth/google_signin_auth_controller.dart';
 import 'package:get/get.dart';
-import 'package:umatter/controllers/auth/auth_controller.dart';
-import 'package:umatter/models/contants/constants.dart';
 import 'package:umatter/models/contants/settings.dart';
+import 'package:umatter/views/authentication_page/login.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -296,7 +296,7 @@ class SettingsPage extends StatelessWidget {
                         height: _size.height * 0.10,
                         child: ElevatedButton(
                           style: sLogoutBtn,
-                          onPressed: () {},
+                          onPressed: signOutUser,
                           // onPressed: () => AuthController.instance.logout(),
                           child: Padding(
                             padding:
