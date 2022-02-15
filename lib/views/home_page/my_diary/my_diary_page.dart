@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-
-import 'package:umatter/db/diary_database.dart';
-import 'package:umatter/models/my_diary_model/diary.dart';
-import 'package:umatter/views/home_page/my_diary/page/edit_diary_page.dart';
-import 'package:umatter/views/home_page/my_diary/page/diary_detail_page.dart';
-import 'package:umatter/views/home_page/my_diary/widgets/diary_widget.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
+import 'package:umatter/views/home_page/my_diary/page/add_diary.dart';
+import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
+import 'package:umatter/views/home_page/my_diary/page/view_diary_page.dart';
 
 class MyDiaryPage extends StatefulWidget {
   const MyDiaryPage({Key? key}) : super(key: key);
@@ -16,94 +16,141 @@ class MyDiaryPage extends StatefulWidget {
 }
 
 class _MyDiaryPageState extends State<MyDiaryPage> {
-  late List<Diary> notes;
-  bool isLoading = false;
+  CollectionReference ref = FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser?.uid)
+      .collection('notes');
 
   @override
-  void initState() {
-    super.initState();
-
-    refreshNotes();
-  }
-
-  @override
-  void dispose() {
-    DiaryDatabase.instance.close();
-
-    super.dispose();
-  }
-
-  Future refreshNotes() async {
-    setState(() => isLoading = true);
-
-    notes = await DiaryDatabase.instance.readAllNotes();
-
-    setState(() => isLoading = false);
-  }
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.chevron_left,
-              color: Colors.black,
-            ),
-            onPressed: () => Get.back(),
-          ),
-          title: const Text(
-            'My Diary',
-            style: TextStyle(
-              fontSize: 24,
-              color: Colors.black,
-            ),
-          ),
-          actions: const [
-            SizedBox(width: 12),
-          ],
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'My Diary',
+          style: TextStyle(color: Colors.black),
         ),
-        body: Center(
-          child: isLoading
-              ? const CircularProgressIndicator()
-              : notes.isEmpty
-                  // TODO : Change this to an Img
-                  ? Lottie.asset(
-                      'assets/json/diary.json',
-                      height: 300.0,
-                      width: 300.0,
-                    )
-                  : ListView.builder(
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: const Icon(
+            Icons.chevron_left,
+            color: Colors.black,
+          ),
+        ),
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+      ),
+      body: SafeArea(
+        child: FutureBuilder<QuerySnapshot>(
+          future: ref.get(),
+          builder: (context, snapshot) {
+            /// This will check if the user associated with the account used for login has a data if not it will display the Lottie.asset() otherwise it will display the the data available.
+            if (snapshot.hasData) {
+              if (snapshot.data!.docs.isEmpty) {
+                return Center(
+                  child: Lottie.asset('assets/json/diary.json', width: 300.0),
+                );
+              }
+
+              return RefreshIndicator(
+                onRefresh: () async {
+                  /// We implement the use of set state simply to update the listview.builder once the user drag their finger to their screens.
+                  setState(() {});
+                },
+                child: ListView.builder(
+                  itemCount: snapshot.data?.docs.length,
+                  itemBuilder: (context, index) {
+                    /// We are fetching our data using the snapshot from our FutureBuilder to get the data from firebase firestore
+                    Map? data = snapshot.data!.docs[index].data() as Map?;
+                    DateTime dateTime = data!['created'].toDate();
+                    String formattedDatetime =
+                        DateFormat.yMMMd().add_jm().format(dateTime);
+
+                    return Padding(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 20.0,
-                        horizontal: 10.0,
+                        horizontal: 8.0,
+                        vertical: 2.0,
                       ),
-                      itemCount: notes.length,
-                      itemBuilder: (_, index) {
-                        final note = notes[index];
-                        return GestureDetector(
-                          onTap: () async {
-                            await Get.to(
-                                () => NoteDetailPage(noteId: note.id!));
-
-                            refreshNotes();
-                          },
-                          child: NoteCardWidget(note: note, index: index),
-                        );
-                      },
-                    ),
+                      child: Card(
+                        color: Colors.orangeAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: InkWell(
+                          /// Once the selected card is tap the this method will return the data, time and reference to the ViewDiaryPage
+                          onTap: (() => Get.to(
+                                () => ViewDiaryPage(
+                                  data: data,
+                                  time: formattedDatetime,
+                                  ref: snapshot.data!.docs[index].reference,
+                                ),
+                              )!
+                                  .then(
+                                (value) {
+                                  setState(() {});
+                                },
+                              )),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${data['title']}",
+                                  style: kPrimary,
+                                ),
+                                const SizedBox(
+                                  height: 15.0,
+                                ),
+                                SizedBox(
+                                  height: 20.0,
+                                  child: Text(
+                                    "${data['description']}",
+                                    style: kSecondary,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15.0,
+                                ),
+                                Text(
+                                  formattedDatetime,
+                                  style: kTimeFnt,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
         ),
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.orange,
-            tooltip: 'Create Diary',
-            child: const Icon(
-              Icons.add,
-              color: Colors.black,
-            ),
-            onPressed: () async {
-              await Get.to(() => const AddEditNotePage());
-              refreshNotes();
-            }),
-      );
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: kPrimaryFrmColor,
+        tooltip: "Create Diary",
+        child: const Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
+        onPressed: () => Navigator.of(context)
+            .push(
+          MaterialPageRoute(
+            builder: (context) => const AddDiaryPage(),
+          ),
+        )
+
+            /// We are using the .then to automatically refresh the page once the user created a diary.
+            .then((value) {
+          setState(() {});
+        }),
+      ),
+    );
+  }
 }
