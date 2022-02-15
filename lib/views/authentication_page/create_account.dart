@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:umatter/controllers/auth/auth_controller.dart';
+import 'package:umatter/db/auth/google_signin_auth_controller.dart';
 import 'package:umatter/views/authentication_page/login.dart';
+import 'package:umatter/views/dashboard_page/dashboard.dart';
 
 class CreateAccountPage extends StatefulWidget {
   const CreateAccountPage({Key? key}) : super(key: key);
@@ -103,11 +104,13 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         child: SizedBox(
                           height: _size.height * 0.08,
                           child: ElevatedButton(
-                            // onPressed: () => AuthController.instance.register(
-                            //   emailController.text.trim(),
-                            //   passwordController.text.trim(),
-                            // ),
-                            onPressed: () {},
+                            onPressed: () => signIn(emailController.text.trim(),
+                                    passwordController.text.trim())
+                                .whenComplete(
+                              () => Get.to(
+                                const BottomNavBarPage(),
+                              ),
+                            ),
                             child: const Text(
                               'Sign In',
                               style: TextStyle(letterSpacing: 1.0),
@@ -175,11 +178,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 filled: true,
                 fillColor: Colors.grey[300],
                 suffixIcon: IconButton(
-                    onPressed: () =>
-                        setState(() => isPasswordVisible = !isPasswordVisible),
-                    icon: isPasswordVisible
-                        ? const Icon(Icons.visibility_off)
-                        : const Icon(Icons.visibility)),
+                  onPressed: () =>
+                      setState(() => isPasswordVisible = !isPasswordVisible),
+                  icon: isPasswordVisible
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility),
+                ),
               ),
             ),
           ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:umatter/controllers/auth/auth_controller.dart';
+import 'package:umatter/db/auth/google_signin_auth_controller.dart';
 import 'package:umatter/views/authentication_page/create_account.dart';
 import 'package:umatter/views/dashboard_page/dashboard.dart';
 
@@ -24,167 +24,191 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              // Header
-              Container(
-                height: _size.height * 0.25,
-                width: double.infinity,
-                // color: Colors.orange,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Spacer(
-                      flex: 2,
-                    ),
-                    Text(
-                      'Welcome Back!',
-                      style: TextStyle(
-                        fontSize: 30.0,
-                        letterSpacing: 1.0,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 80.0),
-                      child: Text(
-                        'Welcome back, we\'ve missed you!',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          letterSpacing: 1.0,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Spacer(
-                      flex: 1,
-                    )
-                  ],
-                ),
-              ),
-              // Form
-              SizedBox(
-                height: _size.height * 0.3,
-                width: double.infinity,
-                // color: Colors.green,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+          child: StreamBuilder(
+              stream: firebaseAuth.authStateChanges(),
+              builder: (context, snapshot) {
+                return Column(
                   children: [
-                    const Spacer(flex: 2),
-                    _buildFormInput(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 5.0),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          'Forget Password?',
-                          style: TextStyle(letterSpacing: 1.0),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              // Button
-              SizedBox(
-                // color: Colors.blueGrey,
-                height: _size.height * 0.12,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: SizedBox(
-                          height: _size.height * 0.08,
-                          child: ElevatedButton(
-                            onPressed: () => Get.to(() => BottomNavBarPage()),
-                            // onPressed: () => AuthController.instance.login(
-                            //   emailController.text.trim(),
-                            //   passwordController.text.trim(),
-                            // ),
-                            child: const Text(
-                              'Sign In',
-                              style: TextStyle(letterSpacing: 1.0),
+                    // Header
+                    SizedBox(
+                      height: _size.height * 0.25,
+                      width: double.infinity,
+                      // color: Colors.orange,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Spacer(
+                            flex: 2,
+                          ),
+                          Text(
+                            'Welcome Back!',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                              letterSpacing: 1.0,
+                              fontWeight: FontWeight.w600,
                             ),
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          Spacer(),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 80.0),
+                            child: Text(
+                              'Welcome back, we\'ve missed you!',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                letterSpacing: 1.0,
                               ),
-                              primary: Colors.orange.shade700,
+                              textAlign: TextAlign.center,
                             ),
                           ),
-                        ),
+                          Spacer(
+                            flex: 1,
+                          )
+                        ],
                       ),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                height: _size.height * 0.15,
-                width: double.infinity,
-                // color: Colors.purple,
-                child: Column(
-                  children: [
-                    const Divider(
-                      color: Colors.black,
-                      indent: 20.0,
-                      endIndent: 20.0,
                     ),
-                    const Text('or continue using'),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 120.0, vertical: 15.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          onPrimary: Colors.black,
-                        ),
-                        // Implement Google Sign In
-                        onPressed: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 10.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              SizedBox(
-                                  height: 30.0,
-                                  width: 30.0,
-                                  child: SvgPicture.asset(
-                                      'assets/img/additional/google_icon.svg')),
-                              const Text('Google')
-                            ],
-                          ),
-                        ),
+                    // Form
+                    SizedBox(
+                      height: _size.height * 0.3,
+                      width: double.infinity,
+                      // color: Colors.green,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Spacer(flex: 2),
+                          _buildFormInput(),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 5.0),
+                            child: TextButton(
+                              onPressed: () {},
+                              child: const Text(
+                                'Forget Password?',
+                                style: TextStyle(letterSpacing: 1.0),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
-                    )
+                    ),
+                    // Button
+                    SizedBox(
+                      // color: Colors.blueGrey,
+                      height: _size.height * 0.12,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: SizedBox(
+                                height: _size.height * 0.08,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    signIn(
+                                      emailController.text.trim(),
+                                      passwordController.text.trim(),
+                                    ).whenComplete(
+                                      () => Get.to(
+                                        () => const BottomNavBarPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: const Text(
+                                    'Sign In',
+                                    style: TextStyle(letterSpacing: 1.0),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    primary: Colors.orange.shade700,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: _size.height * 0.15,
+                      width: double.infinity,
+                      // color: Colors.purple,
+                      child: Column(
+                        children: [
+                          const Divider(
+                            color: Colors.black,
+                            indent: 20.0,
+                            endIndent: 20.0,
+                          ),
+                          const Text('or continue using'),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 50.0,
+                              vertical: 15.0,
+                            ),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.white,
+                                  onPrimary: Colors.black,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  signInWithGoogle(context);
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    SizedBox(
+                                      height: 50.0,
+                                      width: 30.0,
+                                      child: SvgPicture.asset(
+                                          'assets/img/additional/google_icon.svg'),
+                                    ),
+                                    const Text('Continue with Google'),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: _size.height * 0.07,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text('Not yet a member?'),
+                          TextButton(
+                            // TODO: Redirect to Create Account Page
+                            onPressed: () => Get.to(
+                              () => const CreateAccountPage(),
+                            ),
+                            child: const Text('Create an Account'),
+                          )
+                        ],
+                      ),
+                    ),
                   ],
-                ),
-              ),
-              SizedBox(
-                height: _size.height * 0.07,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Not yet a member?'),
-                    TextButton(
-                      // TODO: Redirect to Create Account Page
-                      onPressed: () => Get.to(const CreateAccountPage()),
-                      child: const Text('Create an Account'),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
+                );
+              }),
         ),
       ),
     );
@@ -255,4 +279,10 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       );
+
+  // Future signIn() async {
+  //   await firebaseAuth.signInWithEmailAndPassword(
+  //       email: emailController.text.trim(),
+  //       password: passwordController.text.trim());
+  // }
 }
