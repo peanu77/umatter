@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:umatter/views/home_page/professionals/campus_professional_info.dart';
 
 class CampusProfessionalsPage extends StatelessWidget {
   const CampusProfessionalsPage({Key? key}) : super(key: key);
@@ -9,10 +10,12 @@ class CampusProfessionalsPage extends StatelessWidget {
     final _size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Intervention'),
+        title: const Text(
+          'List of Campus Professionals',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.transparent,
         elevation: 0.0,
-        centerTitle: true,
-        backgroundColor: Colors.orange,
         leading: IconButton(
           icon: const Icon(
             Icons.chevron_left,
@@ -21,43 +24,42 @@ class CampusProfessionalsPage extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2),
-          itemCount: 7,
-          itemBuilder: (_, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                // TODO : Edit this
-                onPressed: () {},
-                child: Container(
-                  width: _size.width * 0.35,
-                  height: _size.height * 0.9,
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+        ),
+        itemCount: 7,
+        itemBuilder: (_, index) {
+          return Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: InkWell(
+              onTap: () => Get.to(() => const CampusProfessionalsInfo()),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: Colors.orange.shade400,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 10.0),
                   child: Column(
                     children: [
-                      Image.asset('assets/img/intervention_img/cit.png'),
-                      const SizedBox(
-                        height: 15.0,
+                      SizedBox(
+                        height: _size.height * 0.14,
+                        child:
+                            Image.asset('assets/img/intervention_img/cit.png'),
                       ),
-                      const Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Text(
-                          'Ms. Therese Palacpac',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                      )
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      const Text("College of Information Technology")
                     ],
                   ),
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

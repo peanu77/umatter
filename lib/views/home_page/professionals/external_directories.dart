@@ -13,17 +13,21 @@ class ExternalDirectoriesPage extends StatefulWidget {
 
 class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
   final interventionPage = InterventionPageController();
-  final url = '';
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        title: const Text(
+          'DOH Directories',
+          style: TextStyle(color: Colors.black),
+        ),
         leading: IconButton(
           onPressed: () => Get.back(),
-          icon: const Icon(Icons.chevron_left),
+          icon: const Icon(Icons.chevron_left, color: Colors.black),
         ),
         elevation: 0.0,
+        backgroundColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -224,13 +228,12 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  interventionPage.fb_page,
+                  interventionPage.fbPage,
                   style: kBtnFnt,
                 ),
                 SvgPicture.asset(
                   'assets/img/additional/fb.svg',
-                  height: 50.0,
-                  width: 100.0,
+                  height: 40.0,
                 ),
               ],
             ),
@@ -258,13 +261,12 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  interventionPage.twitter_page,
+                  interventionPage.twitterPage,
                   style: kBtnFnt,
                 ),
                 SvgPicture.asset(
                   'assets/img/additional/twitter.svg',
-                  height: 50.0,
-                  width: 100.0,
+                  height: 40.0,
                 ),
               ],
             ),
@@ -275,6 +277,7 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
   _buildCardInfo() => Align(
         alignment: Alignment.bottomCenter,
         child: FloatingActionButton.extended(
+          backgroundColor: kBtnPrimary,
           onPressed: () {
             interventionPage
                 .launchUrl('https://doh.gov.ph/NCMH-Crisis-Hotline');
