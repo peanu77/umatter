@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "236428391763",
+    "project_id": "test-main-686b7",
+    "storage_bucket": "test-main-686b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236428391763:android:4ff63f05a6e15f89b85da6",
+        "android_client_info": {
+          "package_name": "com.reboot.umatter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236428391763-q2dv7g02r59og4dhq1hg6esvvtjoq0jd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOSB3W9AsvBw6NTYtbJQVWS_LP_dFJTic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "236428391763-q2dv7g02r59og4dhq1hg6esvvtjoq0jd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
