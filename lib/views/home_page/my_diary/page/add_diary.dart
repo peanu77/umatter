@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:umatter/db/auth/google_signin_auth_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 class AddDiaryPage extends StatefulWidget {
@@ -159,6 +158,7 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
   /// This function is for saving the user input into the firebase firestore database
   /// by the use of Collection reference we we are getting the instance of firebase firestore /// and use the collection to create a user and assign it with a document type UID
   addForm() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     CollectionReference ref = FirebaseFirestore.instance
         .collection('users')
         .doc(firebaseAuth.currentUser?.uid)
@@ -169,7 +169,7 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
       'description': desc,
       'created': DateTime.now(),
       // 'emojis': {}
-      'selectedColor': setBackgroundColor(_bgColor),
+      // 'selectedColor': setBackgroundColor(_bgColor),
     };
 
     if (_formKey.currentState!.validate()) {

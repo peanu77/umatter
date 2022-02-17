@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:umatter/views/home_page/professionals/campus_professional_info.dart';
+import 'package:umatter/views/home_page/professionals/campus_professional/professional_info.dart';
 
 class CampusProfessionalsPage extends StatelessWidget {
   const CampusProfessionalsPage({Key? key}) : super(key: key);
@@ -46,8 +46,7 @@ class CampusProfessionalsPage extends StatelessWidget {
                     children: [
                       SizedBox(
                         height: _size.height * 0.14,
-                        child:
-                            Image.asset('assets/img/intervention_img/cit.png'),
+                        child: Image.asset('assets/img/directories/cit.png'),
                       ),
                       const SizedBox(
                         height: 10.0,

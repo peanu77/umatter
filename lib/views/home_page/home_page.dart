@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:umatter/db/auth/google_signin_auth_controller.dart';
 import 'package:umatter/models/contants/constants.dart';
 import 'package:umatter/controllers/home_page_controller/home_page_controller.dart';
 
-class HomePage extends GetView<HomePageController> {
-  HomePage({Key? key}) : super(key: key);
-
-  final user = users.id;
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: Colors.orange.shade100,
       body: SingleChildScrollView(
@@ -25,7 +21,8 @@ class HomePage extends GetView<HomePageController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      controller.title,
+                      "Good Morning",
+                      // controller.title,
                       style: const TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
@@ -35,10 +32,10 @@ class HomePage extends GetView<HomePageController> {
                       height: 15.0,
                     ),
                     Text(
-                      user,
-                      style: const TextStyle(
+                      "User",
+                      // user.email.toString(),
+                      style: TextStyle(
                         fontSize: 20.0,
-                        // letterSpacing: 1.0,
                       ),
                     ),
                   ],
@@ -111,7 +108,8 @@ class HomePage extends GetView<HomePageController> {
             child: Card(
               color: kCardDiscover,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
               child: Column(
                 children: [
                   Padding(
@@ -144,7 +142,7 @@ class HomePage extends GetView<HomePageController> {
                             SizedBox(
                               width: _size.width * 0.5,
                               child: Text(
-                                controller.discoverDescript,
+                                discoverDescript,
                                 style: const TextStyle(
                                     fontSize: 16.0, letterSpacing: 1.0),
                               ),
@@ -152,7 +150,7 @@ class HomePage extends GetView<HomePageController> {
                           ],
                         ),
                         Image.asset(
-                          controller.kDiscoverImg,
+                          kDiscoverImg,
                         )
                       ],
                     ),
@@ -223,7 +221,7 @@ class HomePage extends GetView<HomePageController> {
                             SizedBox(
                               width: _size.width * 0.5,
                               child: Text(
-                                controller.myMoodDescript,
+                                myMoodDescript,
                                 style: const TextStyle(
                                     fontSize: 16.0, letterSpacing: 1.0),
                               ),
@@ -231,7 +229,7 @@ class HomePage extends GetView<HomePageController> {
                           ],
                         ),
                         Image.asset(
-                          controller.kMyMoodImg,
+                          kMyMoodImg,
                         )
                       ],
                     ),
@@ -257,6 +255,7 @@ class HomePage extends GetView<HomePageController> {
           ),
         ],
       );
+
   _buildMeditate(Size _size) => Column(
         children: [
           Padding(
@@ -299,7 +298,7 @@ class HomePage extends GetView<HomePageController> {
                             SizedBox(
                               width: _size.width * 0.5,
                               child: Text(
-                                controller.myMeditateDescript,
+                                myMeditateDescript,
                                 style: const TextStyle(
                                   fontSize: 16.0,
                                   letterSpacing: 1.0,
@@ -309,7 +308,7 @@ class HomePage extends GetView<HomePageController> {
                           ],
                         ),
                         Image.asset(
-                          controller.kMeditateImg,
+                          kMeditateImg,
                         ),
                       ],
                     ),
@@ -329,6 +328,7 @@ class HomePage extends GetView<HomePageController> {
           ),
         ],
       );
+
   _buildMyDiary(Size _size) => Column(
         children: [
           Padding(
@@ -372,7 +372,7 @@ class HomePage extends GetView<HomePageController> {
                               width: _size.width * 0.5,
                               height: _size.height * 0.1,
                               child: Text(
-                                controller.discoverDescript,
+                                discoverDescript,
                                 style: const TextStyle(
                                     fontSize: 16.0, letterSpacing: 1.0),
                               ),
@@ -380,7 +380,7 @@ class HomePage extends GetView<HomePageController> {
                           ],
                         ),
                         Image.asset(
-                          controller.kMyDiaryImg,
+                          kMyDiaryImg,
                         ),
                       ],
                     ),
@@ -404,6 +404,7 @@ class HomePage extends GetView<HomePageController> {
           ),
         ],
       );
+
   _buildProfessionalIntervention(Size _size) => Column(
         children: [
           Padding(
@@ -449,7 +450,7 @@ class HomePage extends GetView<HomePageController> {
                             SizedBox(
                               width: _size.width * 0.5,
                               child: Text(
-                                controller.counsellorDescript,
+                                counsellorDescript,
                                 style: const TextStyle(
                                   fontSize: 16.0,
                                   letterSpacing: 0.5,
@@ -459,7 +460,7 @@ class HomePage extends GetView<HomePageController> {
                           ],
                         ),
                         Image.asset(
-                          controller.kCounsellorImg,
+                          kCounsellorImg,
                         ),
                       ],
                     ),

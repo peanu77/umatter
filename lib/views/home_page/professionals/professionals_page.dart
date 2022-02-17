@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:umatter/controllers/professionals_page_controller/external_directories_page_controller.dart';
 import 'package:umatter/models/contants/constants.dart';
-import 'package:umatter/views/home_page/professionals/campus_professionals.dart';
+import 'package:umatter/views/home_page/professionals/campus_professional/professional_page.dart';
 import 'package:umatter/views/home_page/professionals/external_directories.dart';
 import 'package:umatter/views/home_page/professionals/mental_health_communities.dart';
 

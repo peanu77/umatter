@@ -9,11 +9,11 @@ class OnboardingController extends GetxController {
   var pageController = PageController();
 
   List<OnboardingInfo> onboardingPages = [
-    OnboardingInfo("assets/img/onboarding_img/1.jpg", 'Title',
+    OnboardingInfo("assets/img/onboarding/1.jpg", 'Title',
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "),
-    OnboardingInfo("assets/img/onboarding_img/2.jpg", 'Title',
+    OnboardingInfo("assets/img/onboarding/2.jpg", 'Title',
         "Lorem i sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  "),
-    OnboardingInfo("assets/img/onboarding_img/3.jpg", 'Title',
+    OnboardingInfo("assets/img/onboarding/3.jpg", 'Title',
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  "),
   ];
 }

@@ -36,6 +36,6 @@ class InterventionPageController {
 
   final smartPrepaid = '0908-639-2672';
 
-  final fb_page = "@ncmhcrisishotline";
-  final twitter_page = '@ncmhhotline';
+  final fbPage = "@ncmhcrisishotline";
+  final twitterPage = '@ncmhhotline';
 }

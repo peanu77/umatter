@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:umatter/auth/login.dart';
 import 'package:umatter/controllers/onboarding_screen_controller/onboarding_controller.dart';
 import 'package:umatter/controllers/onboarding_screen_controller/onboarding_page_info.dart';
 import 'package:umatter/models/contants/constants.dart';
-import 'package:umatter/views/authentication_page/login.dart';
-import 'package:umatter/views/dashboard_page/dashboard.dart';
+import 'package:umatter/views/nav_bar/navbar_page.dart';
+import 'package:umatter/views/onboarding_screen/constants/constant.dart';
 
 class OnboardingPage extends StatelessWidget {
   OnboardingPage({Key? key}) : super(key: key);
@@ -106,7 +107,7 @@ class OnboardingPage extends StatelessWidget {
                                             if (_controller.isLastPage ==
                                                 true) {
                                               Get.to(
-                                                () => LoginPage(),
+                                                () => LogInPage(),
                                                 // () => const BottomNavBarPage(),
                                               );
                                               await onboardingPageInfoController();
@@ -138,8 +139,9 @@ class OnboardingPage extends StatelessWidget {
                                           nextPageController() async {
                                             if (_controller.isLastPage ==
                                                 true) {
-                                              Get.to(() =>
-                                                  const BottomNavBarPage());
+                                              Get.to(
+                                                () => NavBarPage(),
+                                              );
                                               await onboardingPageInfoController();
                                             } else {
                                               _controller.pageController

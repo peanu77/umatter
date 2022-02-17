@@ -232,7 +232,7 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
                   style: kBtnFnt,
                 ),
                 SvgPicture.asset(
-                  'assets/img/additional/fb.svg',
+                  'assets/icons/json/fb.svg',
                   height: 40.0,
                 ),
               ],
@@ -265,7 +265,7 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
                   style: kBtnFnt,
                 ),
                 SvgPicture.asset(
-                  'assets/img/additional/twitter.svg',
+                  'assets/icons/json/twitter.svg',
                   height: 40.0,
                 ),
               ],

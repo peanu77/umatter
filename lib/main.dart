@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:umatter/auth/login.dart';
 import 'package:umatter/controllers/dashboard_controller/dashboard_binding.dart';
-import 'package:umatter/views/authentication_page/login.dart';
 import 'package:umatter/views/home_page/discover/discover_page.dart';
 import 'package:umatter/views/home_page/meditate/meditate.dart';
 import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
           // This automatically load the homepage or the first index in the our navigation bar
           name: '/',
           // This will check if the user has already visited the app before if not the app will be loaded with OnboardingPage otherwise it will load the HomePage.
-          page: () => isViewed != 0 ? OnboardingPage() : LogInPage(),
+          page: () => isViewed != 0 ? OnboardingPage() : const LogInPage(),
           binding: DashBoardBinding(),
         ),
         GetPage(
