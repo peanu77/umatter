@@ -42,7 +42,7 @@ class _ProfessionalDirectoriesPage extends State<ProfessionalDirectoriesPage> {
                 width: double.infinity,
                 child: FittedBox(
                   fit: BoxFit.fill,
-                  child: Lottie.asset('assets/json/talk.json'),
+                  child: Lottie.asset('assets/icons/json/talk.json'),
                 ),
               ),
               _buildCampusProfessional(_size),

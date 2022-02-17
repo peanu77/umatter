@@ -22,3 +22,5 @@ const kMyDiaryImg = 'assets/img/home_page/my_diary.png';
 const String counsellorDescript =
     'When nothing seems to work, always remember that there’s someone you can reach out to...';
 const kCounsellorImg = 'assets/img/home_page/consultation.png';
+
+
