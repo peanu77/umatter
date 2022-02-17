@@ -20,14 +20,6 @@ void main() async {
   isViewed = sharedPreferences.getInt("onboarding");
 
   await Firebase.initializeApp();
-
-  ///
-  // await Firebase.initializeApp().then(
-  //   (value) => Get.put(
-  //     AuthController(),
-  //   ),
-  // );
-
   runApp(const MyApp());
 }
 
