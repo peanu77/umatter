@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umatter/controllers/dashboard_controller/dashboard_binding.dart';
@@ -19,7 +18,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   isViewed = sharedPreferences.getInt("onboarding");
+
   await Firebase.initializeApp();
+
+  ///
+  // await Firebase.initializeApp().then(
+  //   (value) => Get.put(
+  //     AuthController(),
+  //   ),
+  // );
 
   runApp(const MyApp());
 }
@@ -33,6 +40,22 @@ class MyApp extends StatelessWidget {
       title: 'Onboarding Screen Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all<EdgeInsets>(
+              const EdgeInsets.all(24),
+            ),
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          ),
+        ),
+
         textTheme: GoogleFonts.montserratTextTheme(),
         primaryColor: const Color(0xff8cbbf1),
         // primarySwatch: Colors.orange.shade200,
@@ -43,7 +66,7 @@ class MyApp extends StatelessWidget {
           // This automatically load the homepage or the first index in the our navigation bar
           name: '/',
           // This will check if the user has already visited the app before if not the app will be loaded with OnboardingPage otherwise it will load the HomePage.
-          page: () => isViewed != 0 ? OnboardingPage() : const LoginPage(),
+          page: () => isViewed != 0 ? OnboardingPage() : LogInPage(),
           binding: DashBoardBinding(),
         ),
         GetPage(
