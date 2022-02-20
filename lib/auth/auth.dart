@@ -287,7 +287,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterfire_ui/auth.dart';
-import 'package:umatter/views/nav_bar/navbar_page.dart';
+import 'package:umatter/views/welcome_page/user_info.dart';
 
 class LogInPage extends StatelessWidget {
   const LogInPage({Key? key}) : super(key: key);
@@ -312,18 +312,33 @@ class LogInPage extends StatelessWidget {
                       : "By registering, you agree to our terms and conditions."),
                 );
               },
-              footerBuilder: (context, action) => Container(
-                // color: Colors.orange,
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Text(
-                    "By signing in, you agree to our terms and conditions.",
+              footerBuilder: (context, action) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {},
+                        // onPressed: () {
+                        //   showDialog(
+                        //       context: context,
+                        //       builder: (context) => PolicyDialogPage(
+                        //           mdFileName: 'terms_and_condition.md'));
+                        // },
+                        child: const Text('Terms and Condition'),
+                      ),
+                      const Text('and'),
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text('Privacy and Policy'),
+                      )
+                    ],
                   ),
-                ),
-              ),
+                );
+              },
             );
           }
-          return const NavBarPage();
+          return const UserInfoPage();
         },
       ),
     );
