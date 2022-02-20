@@ -1,98 +1,106 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:umatter/controllers/home_page_controller/constant.dart';
-import 'package:umatter/models/contants/constants.dart';
 import 'package:umatter/controllers/home_page_controller/home_page_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    CollectionReference _collectionRef =
+        FirebaseFirestore.instance.collection('user_info');
+
     return Scaffold(
       backgroundColor: Colors.orange.shade100,
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
+          child: FutureBuilder(
+              future: _collectionRef.get(),
+              builder: (context, snapshot) {
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Good Morning",
-                      // controller.title,
-                      style: const TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Good Morning!",
+                            // controller.title,
+                            style: const TextStyle(
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          Text(
+                            "sda",
+                            // user.email.toString(),
+                            style: TextStyle(
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 15.0,
-                    ),
-                    Text(
-                      "User",
-                      // user.email.toString(),
-                      style: TextStyle(
-                        fontSize: 20.0,
+                    Container(
+                      margin: const EdgeInsets.all(15.0),
+                      height: size.height * 0.18,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        color: const Color(0xffC1D4F0),
                       ),
                     ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 20.0,
+                      ),
+                      child: const Text(
+                        'Minor Interventions',
+                        style: TextStyle(
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.w400,
+                          letterSpacing: 1.3,
+                        ),
+                      ),
+                    ),
+
+                    /*  Interventions */
+                    // Discover
+                    _buildDiscover(size),
+                    // My Mood
+                    _buildMyMood(size),
+                    // Meditate
+                    _buildMeditate(size),
+                    // My Diary
+                    _buildMyDiary(size),
+
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 20.0,
+                      ),
+                      child: const Text(
+                        'Major Intervention',
+                        style: TextStyle(
+                          fontSize: 25.0,
+                          letterSpacing: 1.3,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    _buildProfessionalIntervention(size),
                   ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.all(15.0),
-                height: size.height * 0.18,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  color: const Color(0xffC1D4F0),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10.0,
-                  horizontal: 20.0,
-                ),
-                child: const Text(
-                  'Minor Interventions',
-                  style: TextStyle(
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.w400,
-                    letterSpacing: 1.3,
-                  ),
-                ),
-              ),
-
-              /*  Interventions */
-              // Discover
-              _buildDiscover(size),
-              // My Mood
-              _buildMyMood(size),
-              // Meditate
-              _buildMeditate(size),
-              // My Diary
-              _buildMyDiary(size),
-
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10.0,
-                  horizontal: 20.0,
-                ),
-                child: const Text(
-                  'Major Intervention',
-                  style: TextStyle(
-                    fontSize: 25.0,
-                    letterSpacing: 1.3,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-              _buildProfessionalIntervention(size),
-            ],
-          ),
+                );
+              }),
         ),
       ),
     );
