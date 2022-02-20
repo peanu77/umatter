@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:umatter/auth/login.dart';
+import 'package:umatter/auth/auth.dart';
 import 'package:umatter/controllers/dashboard_controller/dashboard_binding.dart';
 import 'package:umatter/views/home_page/discover/discover_page.dart';
 import 'package:umatter/views/home_page/meditate/meditate.dart';

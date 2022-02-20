@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/auth.dart';
+import 'package:umatter/auth/auth.dart';
 import 'package:umatter/models/contants/settings.dart';
 import 'package:umatter/views/settings_page/constant/settings_constant.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -277,50 +279,52 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  _buildLogOut(kBoxHeight) {
-    return SignOutButton();
-    // return SizedBox(
-    //   height: kBoxHeight,
-    //   child: ElevatedButton(
-    //     style: sLogoutBtn,
-    //     onPressed: () {
-    //       SignOutButton();
-    //       // AuthController.instance.logout();
-    //     },
-    //     child: Padding(
-    //       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-    //       child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //         children: [
-    //           Row(
-    //             crossAxisAlignment: CrossAxisAlignment.center,
-    //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //             children: const [
-    //               Icon(
-    //                 Icons.logout_outlined,
-    //                 size: 20.0,
-    //               ),
-    //               SizedBox(
-    //                 width: 30.0,
-    //               ),
-    //               Text(
-    //                 'Logout',
-    //                 style: kSettingsFnt,
-    //               ),
-    //             ],
-    //           ),
-    //           IconButton(
-    //             // TODO: Navigate to Notification Page
-    //             onPressed: () {},
-    //             icon: const Icon(
-    //               Icons.chevron_right,
-    //               size: 30.0,
-    //             ),
-    //           )
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
+  Future<void> signOut() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth.signOut();
+    return Get.to(() => LogInPage());
+  }
+
+  Widget _buildLogOut(kBoxHeight) {
+    return SizedBox(
+      height: kBoxHeight,
+      child: ElevatedButton(
+        style: sLogoutBtn,
+        onPressed: signOut,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Icon(
+                    Icons.logout_outlined,
+                    size: 20.0,
+                  ),
+                  SizedBox(
+                    width: 30.0,
+                  ),
+                  Text(
+                    'Logout',
+                    style: kSettingsFnt,
+                  ),
+                ],
+              ),
+              IconButton(
+                // TODO: Navigate to Notification Page
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.chevron_right,
+                  size: 30.0,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

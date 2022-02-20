@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:umatter/auth/login.dart';
+import 'package:umatter/auth/auth.dart';
 import 'package:umatter/controllers/onboarding_screen_controller/onboarding_controller.dart';
 import 'package:umatter/controllers/onboarding_screen_controller/onboarding_page_info.dart';
 import 'package:umatter/models/contants/constants.dart';

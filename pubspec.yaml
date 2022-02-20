@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_markdown: ^0.6.9
   flutter_svg: ^1.0.3
   flutterfire_ui: ^0.3.4
   get: ^4.6.1
@@ -43,3 +44,5 @@ flutter:
     - assets/img/
     - assets/icons/
     - assets/icons/json/
+    - assets/terms_of_use/
+    
