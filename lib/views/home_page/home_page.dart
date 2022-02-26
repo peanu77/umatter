@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/controllers/home_page_controller/constant.dart';
 import 'package:umatter/controllers/home_page_controller/home_page_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     CollectionReference _collectionRef =
         FirebaseFirestore.instance.collection('user_info');
-
+    _collectionRef.doc('users').collection('user_info').id;
     return Scaffold(
       backgroundColor: Colors.orange.shade100,
       body: SingleChildScrollView(
@@ -28,6 +34,7 @@ class HomePage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // TODO : This will adapt on user time
                           Text(
                             "Good Morning!",
                             // controller.title,
@@ -39,9 +46,9 @@ class HomePage extends StatelessWidget {
                           const SizedBox(
                             height: 15.0,
                           ),
+                          // TODO: Change this to username
                           Text(
-                            "sda",
-                            // user.email.toString(),
+                            "getDatabaseList()",
                             style: TextStyle(
                               fontSize: 20.0,
                             ),

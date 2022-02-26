@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:umatter/controllers/assessment_controller/assessment_controller.dart';
+import 'package:umatter/views/assessment_page/assessment_result.dart';
+import 'package:umatter/views/assessment_page/const.dart';
 
 class AssessmentPage extends StatefulWidget {
   const AssessmentPage({Key? key}) : super(key: key);
@@ -11,9 +14,11 @@ class AssessmentPage extends StatefulWidget {
 }
 
 class _AssessmentPageState extends State<AssessmentPage> {
+  PageController pageController = PageController();
+  bool isSelected = false;
   var selectedItem = '';
   final controller = AssessmentController();
-  String depression_level = '';
+  String depressionLevel = '';
   List selected = [];
   List<int> scores = [];
 
@@ -22,23 +27,38 @@ class _AssessmentPageState extends State<AssessmentPage> {
   /// After getting the input from the user we loop the selected list of options from the user and then we evaluate them by their type of serverity.
   sumScores() {
     num sum = 0;
-    scores.forEach((num e) {
+    for (var e in scores) {
       sum += e;
-    });
+    }
     if (sum >= 0 && sum <= 5) {
-      depression_level = "Mild";
-      return depression_level;
+      depressionLevel = "Mild";
+      return depressionLevel;
     } else if (sum >= 6 && sum <= 10) {
-      depression_level = "Moderate";
-      return depression_level;
+      depressionLevel = "Moderate";
+      return depressionLevel;
     } else if (sum >= 11 && sum <= 15) {
-      depression_level = "Moderately Severe";
-      return depression_level;
+      depressionLevel = "Moderately Severe";
+      return depressionLevel;
     } else if (sum >= 16) {
-      depression_level = "Severe Depression";
-      return depression_level;
+      depressionLevel = "Severe Depression";
+      return depressionLevel;
     }
     // return sum;
+  }
+
+  var selectedPageIndex = 0.obs;
+  bool get isLastPage =>
+      selectedPageIndex.value == controller.questionsController.length - 1;
+  nextPageController() {
+    if (isLastPage == true) {
+      Get.to(() => AssessmentResult(
+            assessmentRes: sumScores(),
+          ));
+      addForm();
+    } else {
+      pageController.nextPage(
+          duration: const Duration(milliseconds: 300), curve: Curves.ease);
+    }
   }
 
   @override
@@ -47,6 +67,9 @@ class _AssessmentPageState extends State<AssessmentPage> {
     return Scaffold(
       body: SafeArea(
         child: PageView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          onPageChanged: selectedPageIndex,
+          controller: pageController,
           itemCount: controller.questionsController.length,
           itemBuilder: (context, index) {
             return Padding(
@@ -58,11 +81,15 @@ class _AssessmentPageState extends State<AssessmentPage> {
                   Column(
                     children: [
                       Text(
-                        'Over the last 2 weeks, how often have you been..',
-                        textAlign: TextAlign.center,
+                        "Question ${index + 1} / ${controller.questionsController.length}",
                         style: Theme.of(context).textTheme.headline4,
                       ),
-                      const SizedBox(height: 20.0),
+                      // Text(
+                      //   'Over the last 2 weeks, how often have you been..',
+                      //   textAlign: TextAlign.center,
+                      //   style: Theme.of(context).textTheme.headline4,
+                      // ),
+                      const SizedBox(height: 25.0),
                       Text(
                         controller.questionsController[index].question,
                         textAlign: TextAlign.center,
@@ -75,90 +102,13 @@ class _AssessmentPageState extends State<AssessmentPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        InkWell(
-                          onTap: () {
-                            selectedItem = "Not at all";
-                            int score = 0;
-                            scores.add(score);
-                            selected.add(selectedItem);
-
-                            print(selectedItem);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15.0),
-                              color: Colors.orange,
-                            ),
-                            width: double.infinity,
-                            height: _size.height * 0.1,
-                            child: const Center(
-                              child: Text('Not at all'),
-                            ),
-                          ),
-                        ),
+                        _buildFirstBtn(),
                         const SizedBox(height: 15.0),
-                        InkWell(
-                          onTap: () {
-                            selectedItem = "Several days";
-                            selected.add(selectedItem);
-                            int score = 1;
-                            scores.add(score);
-                            print(selectedItem);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15.0),
-                              color: Colors.orange,
-                            ),
-                            width: double.infinity,
-                            height: _size.height * 0.1,
-                            child: const Center(
-                              child: Text('Several days'),
-                            ),
-                          ),
-                        ),
+                        _buildSecondBtn(),
                         const SizedBox(height: 15.0),
-                        InkWell(
-                          onTap: () {
-                            selectedItem = "More than half the days";
-                            selected.add(selectedItem);
-                            int score = 2;
-                            scores.add(score);
-                            print(selectedItem);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15.0),
-                              color: Colors.orange,
-                            ),
-                            width: double.infinity,
-                            height: _size.height * 0.1,
-                            child: const Center(
-                              child: Text('More than half the days'),
-                            ),
-                          ),
-                        ),
+                        _buildThirdBtn(_size),
                         const SizedBox(height: 15.0),
-                        InkWell(
-                          onTap: () {
-                            selectedItem = "Nearly everyday";
-                            selected.add(selectedItem);
-                            int score = 3;
-                            scores.add(score);
-                            print(selectedItem);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15.0),
-                              color: Colors.orange,
-                            ),
-                            width: double.infinity,
-                            height: _size.height * 0.1,
-                            child: const Center(
-                              child: Text('Nearly everyday'),
-                            ),
-                          ),
-                        ),
+                        _buildFourthBtn(),
                       ],
                     ),
                   ),
@@ -169,7 +119,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
                         print(selected[i]);
                       }
                       print(sumScores());
-                      // addForm();
+                      addForm();
                       // Navigator.of(context).push(
                       //   MaterialPageRoute(
                       //     builder: (context) =>
@@ -188,6 +138,125 @@ class _AssessmentPageState extends State<AssessmentPage> {
     );
   }
 
+  _buildFirstBtn() {
+    return SizedBox(
+      width: double.infinity,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          primary: kprimayColor,
+          backgroundColor: isSelected ? kSelectedColor : kNotSelected,
+          elevation: kbtnElevation,
+        ),
+        onPressed: () {
+          selectedItem = "Not at all";
+          int score = 0;
+          scores.add(score);
+          selected.add(selectedItem);
+          nextPageController();
+          setState(() {
+            if (isSelected) {
+              isSelected = true;
+            }
+          });
+          print(selectedItem);
+        },
+        child: Text(
+          'Not at all',
+          style: Theme.of(context).textTheme.headline6,
+        ),
+      ),
+    );
+  }
+
+  _buildSecondBtn() {
+    return SizedBox(
+      width: double.infinity,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          primary: kprimayColor,
+          backgroundColor: isSelected ? kSelectedColor : kNotSelected,
+          elevation: kbtnElevation,
+        ),
+        onPressed: () {
+          selectedItem = "Several days";
+          int score = 1;
+          scores.add(score);
+          selected.add(selectedItem);
+
+          nextPageController();
+          setState(() {
+            if (isSelected) {
+              isSelected = true;
+            }
+          });
+          print(selectedItem);
+        },
+        child: Text(
+          'Several days',
+          style: Theme.of(context).textTheme.headline6,
+        ),
+      ),
+    );
+  }
+
+  _buildThirdBtn(_size) {
+    return SizedBox(
+      width: double.infinity,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          primary: kprimayColor,
+          backgroundColor: isSelected ? kSelectedColor : kNotSelected,
+          elevation: kbtnElevation,
+        ),
+        onPressed: () {
+          selectedItem = "More than half the days";
+          int score = 2;
+          scores.add(score);
+          selected.add(selectedItem);
+          nextPageController();
+          setState(() {
+            if (isSelected) {
+              isSelected = true;
+            }
+          });
+          print(selectedItem);
+        },
+        child: Text(
+          'More than half the day',
+          style: Theme.of(context).textTheme.headline6,
+        ),
+      ),
+    );
+  }
+
+  _buildFourthBtn() {
+    return SizedBox(
+      width: double.infinity,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          primary: kprimayColor,
+          backgroundColor: isSelected ? kSelectedColor : kNotSelected,
+          elevation: kbtnElevation,
+        ),
+        onPressed: () {
+          selectedItem = "Nearly Everyday";
+          int score = 3;
+          scores.add(score);
+          selected.add(selectedItem);
+          nextPageController();
+          setState(() {
+            isSelected = true;
+          });
+          print(selectedItem);
+        },
+        child: Text(
+          'Nearly Everyday',
+          style: Theme.of(context).textTheme.headline6,
+        ),
+      ),
+    );
+  }
+
   addForm() async {
     CollectionReference ref = FirebaseFirestore.instance
         .collection('users')
@@ -196,11 +265,9 @@ class _AssessmentPageState extends State<AssessmentPage> {
 
     var data = {
       "question": controller.questionsController.length,
-      "selected": selected,
-      "total_scores": sumScores().toString(),
-      "depression_severity": depression_level,
+      "user_selection": selected,
+      "depression_severity": sumScores().toString(),
     };
     ref.add(data);
-    print('Done');
   }
 }

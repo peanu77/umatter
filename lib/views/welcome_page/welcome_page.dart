@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/views/assessment_page/assessment_page.dart';
-import 'package:umatter/views/nav_bar/navbar_page.dart';
+import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class WelcomePage extends StatelessWidget {
           IconButton(
             onPressed: () => Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => const NavBarPage(),
+                builder: (context) => NavBarPage(),
               ),
             ),
             icon: const Icon(Icons.skip_next),

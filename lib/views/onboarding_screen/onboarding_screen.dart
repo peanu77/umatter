@@ -4,7 +4,7 @@ import 'package:umatter/auth/auth.dart';
 import 'package:umatter/controllers/onboarding_screen_controller/onboarding_controller.dart';
 import 'package:umatter/controllers/onboarding_screen_controller/onboarding_page_info.dart';
 import 'package:umatter/models/contants/constants.dart';
-import 'package:umatter/views/nav_bar/navbar_page.dart';
+import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 import 'package:umatter/views/onboarding_screen/constants/constant.dart';
 
 class OnboardingPage extends StatelessWidget {

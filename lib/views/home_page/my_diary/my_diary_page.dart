@@ -47,7 +47,8 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
             if (snapshot.hasData) {
               if (snapshot.data!.docs.isEmpty) {
                 return Center(
-                  child: Lottie.asset('assets/json/diary.json', width: 300.0),
+                  child: Lottie.asset('assets/icons/json/diary.json',
+                      width: 300.0),
                 );
               }
 

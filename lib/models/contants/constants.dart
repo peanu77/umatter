@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 final kElevatedbtnprimary = ElevatedButton.styleFrom(
   primary: const Color(0xffFF9E44),
   onPrimary: Colors.black,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(15.0),
+  ),
 );
 
 const kBtnPrimary = Color(0xffFF9E44);

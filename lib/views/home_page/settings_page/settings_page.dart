@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/auth/auth.dart';
 import 'package:umatter/models/contants/settings.dart';
-import 'package:umatter/views/settings_page/constant/settings_constant.dart';
+import 'package:umatter/views/home_page/settings_page/constant/settings_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -265,7 +266,6 @@ class SettingsPage extends StatelessWidget {
                 ],
               ),
               IconButton(
-                // TODO: Navigate to Notification Page
                 onPressed: () {},
                 icon: const Icon(
                   Icons.chevron_right,

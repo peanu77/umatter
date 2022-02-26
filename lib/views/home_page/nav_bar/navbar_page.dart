@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/views/analytics_page/analytics_page.dart';
 import 'package:umatter/views/home_page/home_page.dart';
-import 'package:umatter/views/settings_page/settings_page.dart';
+import 'package:umatter/views/home_page/settings_page/settings_page.dart';
 
 class NavBarPage extends StatefulWidget {
   const NavBarPage({Key? key}) : super(key: key);

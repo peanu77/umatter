@@ -32,6 +32,7 @@ dev_dependencies:
     sdk: flutter
   google_sign_in: ^5.2.3
   share_plus: ^3.0.4
+  syncfusion_flutter_charts: ^19.4.53
 
 flutter:
 
@@ -45,4 +46,3 @@ flutter:
     - assets/icons/
     - assets/icons/json/
     - assets/terms_of_use/
-    
