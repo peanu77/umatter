@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/views/assessment_page/assessment_page.dart';
-import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
+import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
+import 'package:get/get.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -8,55 +9,98 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () => Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => NavBarPage(),
-              ),
-            ),
-            icon: const Icon(Icons.skip_next),
-          )
-        ],
-      ),
-      body: Column(
-        children: [
-          const Spacer(
-            flex: 1,
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 15.0,
+            vertical: 15.0,
           ),
-          Text('Hello There!'),
-          const Spacer(
-            flex: 2,
-          ),
-          Text('It\'s nice to meet you!'),
-          const Spacer(
-            flex: 2,
-          ),
-          Text('Before we proceed we !'),
-          const Spacer(
-            flex: 2,
-          ),
-          Row(
+          child: Column(
             children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const AssessmentPage(),
+              const Spacer(
+                flex: 2,
+              ),
+              Text(
+                'Before you proceed, let us assess your condition first',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              const Spacer(),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(25.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  primary: kPrimaryFrmColor,
+                ),
+                onPressed: () {
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
+                      titlePadding: const EdgeInsets.all(15.0),
+                      title: const Center(
+                        child: Text(
+                          'Disclaimer',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      content: const Text(
+                        'The following Assessment is from the Primary Care Evaluation of Mental Disorders Patient Health Questionnaire (PRIME-MD PHQ). The PHQ was developed by Drs. Robert L. Spitzer, Janet B.W. Williams, Kurt Kroenke and colleagues. For research information, contact Dr. Spitzer at rls8@columbia.edu. PRIME-MD® is a trademark of Pfizer Inc. Copyright© 1999 Pfizer Inc. All rights reserved. Reproduced with permission',
+                        style: TextStyle(fontSize: 16.0, letterSpacing: 1.0),
+                      ),
+                      actions: [
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: SizedBox(
+                            height: _size.height * 0.08,
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              // Navigate to Assessment Page
+                              onPressed: () =>
+                                  Get.to(() => const AssessmentPage()),
+                              child: const Text('Continue'),
+                              style: ElevatedButton.styleFrom(
+                                primary: kPrimaryFrmColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                    child: Text('Okay!'),
+                  );
+                },
+                child: const Text(
+                  'Take me to Assessment',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.0,
                   ),
                 ),
               ),
+              const Spacer(
+                flex: 2,
+              ),
+              Text(
+                "This Application is not intended to replace any clinical diagnosis or treatment.",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline6,
+              ),
             ],
           ),
-          const Spacer(),
-        ],
+        ),
       ),
     );
   }
