@@ -4,9 +4,10 @@ import 'package:lottie/lottie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
-import 'package:umatter/views/home_page/my_diary/page/add_diary.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
+import 'package:umatter/views/home_page/my_diary/page/select_emotion.dart';
 import 'package:umatter/views/home_page/my_diary/page/view_diary_page.dart';
+import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 
 class MyDiaryPage extends StatefulWidget {
   const MyDiaryPage({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
-          onPressed: () => Get.back(),
+          onPressed: () => Get.to(() => const NavBarPage()),
           icon: const Icon(
             Icons.chevron_left,
             color: Colors.black,
@@ -72,6 +73,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                         vertical: 2.0,
                       ),
                       child: Card(
+                        // TODO : Change this to a color stored in the firestore
                         color: Colors.orangeAccent,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
@@ -91,10 +93,28 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                                 },
                               )),
                           child: Padding(
-                            padding: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      formattedDatetime,
+                                      style: kTimeFnt,
+                                    ),
+
+                                    // TODO: Change this to a real emoji
+                                    Chip(
+                                      label: Text(data['emojis']),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 15.0,
+                                ),
                                 Text(
                                   "${data['title']}",
                                   style: kPrimary,
@@ -108,13 +128,6 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                                     "${data['description']}",
                                     style: kSecondary,
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 15.0,
-                                ),
-                                Text(
-                                  formattedDatetime,
-                                  style: kTimeFnt,
                                 ),
                               ],
                             ),
@@ -143,7 +156,9 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
         onPressed: () => Navigator.of(context)
             .push(
           MaterialPageRoute(
-            builder: (context) => const AddDiaryPage(),
+            builder: (context) => ChooseEmotionPage(
+              emotions: "",
+            ),
           ),
         )
 

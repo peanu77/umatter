@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/models/contants/constants.dart';
+import 'package:umatter/views/assessment_page/assessment_page.dart';
 import 'package:umatter/views/user_info_page/user_controller.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:umatter/views/welcome_page/welcome_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-int? isViewed;
+int? userOpen;
 
 class UserInfoPage extends StatefulWidget {
   const UserInfoPage({Key? key}) : super(key: key);
@@ -18,17 +22,19 @@ class UserInfoPage extends StatefulWidget {
 
 class _UserInfoPageState extends State<UserInfoPage> {
   PageController pageController = PageController();
+  DatabaseManager databaseManager = DatabaseManager();
+
+  final _formKey = GlobalKey<FormState>();
+  final controller = UserInfoController();
+
   String username = '';
   String age = '';
   String gender = '';
   String civilStatus = "Single";
-  final _formKey = GlobalKey<FormState>();
-  final controller = UserInfoController();
-  DatabaseManager databaseManager = DatabaseManager();
-
   int index = 0;
 
   final items = ['Single', 'Married', 'Separated'];
+
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
@@ -207,7 +213,11 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 width: 150.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
-                  color: Colors.orange,
+                  // color: Colors.orange,
+                ),
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Image.asset('assets/male.png'),
                 ),
               ),
             ),
@@ -221,7 +231,11 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 width: 150.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
-                  color: Colors.green,
+                  // color: Colors.green,
+                ),
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Image.asset('assets/woman.png'),
                 ),
               ),
             ),
@@ -309,7 +323,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
                 databaseManager.createUserInfo(
                     username, age, gender, civilStatus);
-                setData();
+                Get.to(() => const AssessmentPage());
               },
               child: const Text('Looks Good !'),
             ),
@@ -317,10 +331,5 @@ class _UserInfoPageState extends State<UserInfoPage> {
         ),
       ],
     );
-  }
-
-  Future<void> setData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    isViewed = sharedPreferences.getInt("signedIn");
   }
 }

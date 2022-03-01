@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           // TODO : This will adapt on user time
                           Text(
-                            "Good Morning!",
+                            "Hello There!",
                             // controller.title,
                             style: const TextStyle(
                               fontSize: 30.0,
@@ -83,8 +83,6 @@ class _HomePageState extends State<HomePage> {
                     /*  Interventions */
                     // Discover
                     _buildDiscover(size),
-                    // My Mood
-                    _buildMyMood(size),
                     // Meditate
                     _buildMeditate(size),
                     // My Diary
@@ -183,75 +181,6 @@ class _HomePageState extends State<HomePage> {
         ],
       );
 
-  _buildMyMood(Size _size) => Column(
-        children: [
-          Padding(
-            padding: kHomeCardPadding,
-            child: Card(
-              color: kCardMyMood,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 15.0,
-                      right: 8.0,
-                      top: 15.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: const Text(
-                                "My Mood",
-                                style: kHomeTitleStyle,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 15.0,
-                            ),
-                            SizedBox(
-                              width: _size.width * 0.5,
-                              child: Text(
-                                myMoodDescript,
-                                style: const TextStyle(
-                                    fontSize: 16.0, letterSpacing: 1.0),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Image.asset(
-                          kMyMoodImg,
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(10.0),
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: kHomeButton,
-                      onPressed: () => Get.toNamed('/my_mood'),
-                      child: const Text(
-                        'Let\'s Dive In',
-                        style: kHomeCardStyle,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      );
-
   _buildMeditate(Size _size) => Column(
         children: [
           Padding(
@@ -315,7 +244,7 @@ class _HomePageState extends State<HomePage> {
                         style: kHomeCardStyle,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

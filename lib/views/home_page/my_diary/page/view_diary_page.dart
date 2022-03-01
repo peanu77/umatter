@@ -7,7 +7,6 @@ class ViewDiaryPage extends StatefulWidget {
   final Map data;
   final String time;
   final DocumentReference ref;
-
   const ViewDiaryPage({
     Key? key,
     required this.data,
@@ -23,6 +22,7 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
   bool isEdit = false;
   String? title;
   String? desc;
+  String? emotion;
   @override
   Widget build(BuildContext context) {
     title = widget.data['title'];
@@ -137,9 +137,17 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    Text(
-                      "${widget.time} ",
-                      style: kfrmTime,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${widget.time} ",
+                          style: kfrmTime,
+                        ),
+                        Text(
+                          widget.data['emojis'],
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 15.0,

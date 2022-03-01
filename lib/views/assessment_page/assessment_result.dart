@@ -65,7 +65,7 @@ class _AssessmentResultState extends State<AssessmentResult> {
                     } else {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => NavBarPage(),
+                          builder: (context) => const NavBarPage(),
                         ),
                       );
                     }

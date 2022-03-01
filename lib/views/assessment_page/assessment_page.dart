@@ -15,51 +15,19 @@ class AssessmentPage extends StatefulWidget {
 
 class _AssessmentPageState extends State<AssessmentPage> {
   PageController pageController = PageController();
-  bool isSelected = false;
-  var selectedItem = '';
   final controller = AssessmentController();
-  String depressionLevel = '';
+
   List selected = [];
   List<int> scores = [];
 
-  /// This function is responsible for the logic of getting the assessment of the user
-  /// First we need to get the input of the user
-  /// After getting the input from the user we loop the selected list of options from the user and then we evaluate them by their type of serverity.
-  sumScores() {
-    num sum = 0;
-    for (var e in scores) {
-      sum += e;
-    }
-    if (sum >= 0 && sum <= 5) {
-      depressionLevel = "Mild";
-      return depressionLevel;
-    } else if (sum >= 6 && sum <= 10) {
-      depressionLevel = "Moderate";
-      return depressionLevel;
-    } else if (sum >= 11 && sum <= 15) {
-      depressionLevel = "Moderately Severe";
-      return depressionLevel;
-    } else if (sum >= 16) {
-      depressionLevel = "Severe Depression";
-      return depressionLevel;
-    }
-    // return sum;
-  }
-
+  bool isSelected = false;
+  var selectedItem = '';
+  String depressionLevel = '';
   var selectedPageIndex = 0.obs;
+
+  /// This will check if the user reached the last page
   bool get isLastPage =>
       selectedPageIndex.value == controller.questionsController.length - 1;
-  nextPageController() {
-    if (isLastPage == true) {
-      Get.to(() => AssessmentResult(
-            assessmentRes: sumScores(),
-          ));
-      addForm();
-    } else {
-      pageController.nextPage(
-          duration: const Duration(milliseconds: 300), curve: Curves.ease);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,18 +45,15 @@ class _AssessmentPageState extends State<AssessmentPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Spacer(),
+                  const Spacer(
+                    flex: 2,
+                  ),
                   Column(
                     children: [
                       Text(
                         "Question ${index + 1} / ${controller.questionsController.length}",
                         style: Theme.of(context).textTheme.headline4,
                       ),
-                      // Text(
-                      //   'Over the last 2 weeks, how often have you been..',
-                      //   textAlign: TextAlign.center,
-                      //   style: Theme.of(context).textTheme.headline4,
-                      // ),
                       const SizedBox(height: 25.0),
                       Text(
                         controller.questionsController[index].question,
@@ -97,7 +62,9 @@ class _AssessmentPageState extends State<AssessmentPage> {
                       ),
                     ],
                   ),
-                  const Spacer(),
+                  const Spacer(
+                    flex: 3,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -112,23 +79,9 @@ class _AssessmentPageState extends State<AssessmentPage> {
                       ],
                     ),
                   ),
-                  const Spacer(),
-                  ElevatedButton(
-                    onPressed: () {
-                      for (var i = 0; i < selected.length; i++) {
-                        print(selected[i]);
-                      }
-                      print(sumScores());
-                      addForm();
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) =>
-                      //         AfterAssessment(res: sumScores()),
-                      //   ),
-                      // );
-                    },
-                    child: Text('Get Result'),
-                  )
+                  const Spacer(
+                    flex: 2,
+                  ),
                 ],
               ),
             );
@@ -269,5 +222,41 @@ class _AssessmentPageState extends State<AssessmentPage> {
       "depression_severity": sumScores().toString(),
     };
     ref.add(data);
+  }
+
+  /// This function is responsible for the logic of getting the assessment of the user
+  /// First we need to get the input of the user
+  /// After getting the input from the user we loop the selected list of options from the user and then we evaluate them by their type of serverity.
+  sumScores() {
+    num sum = 0;
+    for (var e in scores) {
+      sum += e;
+    }
+    if (sum >= 0 && sum <= 5) {
+      depressionLevel = "Mild";
+      return depressionLevel;
+    } else if (sum >= 6 && sum <= 10) {
+      depressionLevel = "Moderate";
+      return depressionLevel;
+    } else if (sum >= 11 && sum <= 15) {
+      depressionLevel = "Moderately Severe";
+      return depressionLevel;
+    } else if (sum >= 16) {
+      depressionLevel = "Severe Depression";
+      return depressionLevel;
+    }
+    // return sum;
+  }
+
+  nextPageController() {
+    if (isLastPage == true) {
+      Get.to(() => AssessmentResult(
+            assessmentRes: sumScores(),
+          ));
+      addForm();
+    } else {
+      pageController.nextPage(
+          duration: const Duration(milliseconds: 300), curve: Curves.ease);
+    }
   }
 }

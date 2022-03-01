@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterfire_ui/auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 import 'package:umatter/views/user_info_page/user_info_page.dart';
-
-int? isViewed;
 
 class LogInPage extends StatelessWidget {
   const LogInPage({Key? key}) : super(key: key);
@@ -56,15 +52,10 @@ class LogInPage extends StatelessWidget {
               },
             );
           }
-          return UserInfoPage();
+          return const UserInfoPage();
           // return const UserInfoPage();
         },
       ),
     );
-  }
-
-  Future<void> setData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    isViewed = sharedPreferences.getInt("signedIn");
   }
 }

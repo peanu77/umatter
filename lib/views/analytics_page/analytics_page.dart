@@ -28,47 +28,25 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // body: SfCircularChart(
-        //   // Chart Title
-        //   title: ChartTitle(
-        //     // Title
-        //     text: 'Pre-Assessment Result',
-        //   ),
-        //   legend: Legend(
-        //       isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
-        //   tooltipBehavior: _tooltipBehavior,
-        //   series: <CircularSeries>[
-        //     PieSeries<Assessment, String>(
-        //       dataSource: _chartData,
-        //       // x and y value mapper
-        //       xValueMapper: (Assessment data, _) => data.gender,
-        //       yValueMapper: (Assessment data, _) => data.age,
-        //       // Enable Data Labels
-        //       dataLabelSettings: const DataLabelSettings(isVisible: true),
-        //     )
-        //   ],
-        // ),
-        body: StreamBuilder(
-          stream: users,
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.hasError) {
-              return Text("Error");
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text('Loading');
-            }
-            final data = snapshot.requireData;
-
-            return ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Text("${data[index]['user_info']}"),
-                    ],
-                  );
-                });
-          },
+        body: SfCircularChart(
+          // Chart Title
+          title: ChartTitle(
+            // Title
+            text: 'Pre-Assessment Result',
+          ),
+          legend: Legend(
+              isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
+          tooltipBehavior: _tooltipBehavior,
+          series: <CircularSeries>[
+            PieSeries<Assessment, String>(
+              dataSource: _chartData,
+              // x and y value mapper
+              xValueMapper: (Assessment data, _) => data.gender,
+              yValueMapper: (Assessment data, _) => data.age,
+              // Enable Data Labels
+              dataLabelSettings: const DataLabelSettings(isVisible: true),
+            )
+          ],
         ),
       ),
     );

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umatter/auth/auth.dart';
 import 'package:umatter/controllers/onboarding_screen_controller/onboarding_controller.dart';
-import 'package:umatter/controllers/onboarding_screen_controller/onboarding_page_info.dart';
+import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/models/contants/constants.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 import 'package:umatter/views/onboarding_screen/constants/constant.dart';
@@ -10,6 +11,7 @@ import 'package:umatter/views/onboarding_screen/constants/constant.dart';
 class OnboardingPage extends StatelessWidget {
   OnboardingPage({Key? key}) : super(key: key);
   final _controller = OnboardingController();
+  final sharedPref = SharePrefConfig();
 
   @override
   Widget build(BuildContext context) {
@@ -106,11 +108,11 @@ class OnboardingPage extends StatelessWidget {
                                             // Using the Getx package or module we use the Get.to to navigate to the homepage instead of the native way of navigating in flutter.
                                             if (_controller.isLastPage ==
                                                 true) {
-                                              Get.to(
-                                                () => LogInPage(),
-                                                // () => const BottomNavBarPage(),
-                                              );
-                                              await onboardingPageInfoController();
+                                              Get.to(() => const LogInPage()
+                                                  // () => const BottomNavBarPage(),
+                                                  );
+                                              await sharedPref
+                                                  .onboardingPageInfoController();
                                             } else {
                                               _controller.pageController
                                                   .nextPage(
@@ -142,7 +144,8 @@ class OnboardingPage extends StatelessWidget {
                                               Get.to(
                                                 () => NavBarPage(),
                                               );
-                                              await onboardingPageInfoController();
+                                              await sharedPref
+                                                  .onboardingPageInfoController;
                                             } else {
                                               _controller.pageController
                                                   .nextPage(

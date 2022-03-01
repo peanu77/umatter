@@ -7,17 +7,16 @@ import 'package:umatter/controllers/dashboard_controller/dashboard_binding.dart'
 import 'package:umatter/views/home_page/discover/discover_page.dart';
 import 'package:umatter/views/home_page/meditate/meditate.dart';
 import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
-import 'package:umatter/views/home_page/my_mood/my_mood.dart';
 import 'package:umatter/views/home_page/professionals/professionals_page.dart';
 import 'package:umatter/views/onboarding_screen/onboarding_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:umatter/views/user_info_page/user_info_page.dart';
 
 int? isViewed;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   isViewed = sharedPreferences.getInt("onboarding");
+  isViewed = sharedPreferences.getInt("user_info");
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -65,16 +64,8 @@ class MyApp extends StatelessWidget {
           binding: DashBoardBinding(),
         ),
         GetPage(
-          name: '/user_info',
-          page: () => const UserInfoPage(),
-        ),
-        GetPage(
           name: '/discover',
           page: () => const DiscoverPage(),
-        ),
-        GetPage(
-          name: '/my_mood',
-          page: () => const MyMoodPage(),
         ),
         GetPage(
           name: '/meditate',

@@ -1,13 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/models/diary_page_controller/my_diary_page_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 class AddDiaryPage extends StatefulWidget {
+  final String emotion;
+  final String reason;
   const AddDiaryPage({
     Key? key,
+    required this.emotion,
+    required this.reason,
   }) : super(key: key);
 
   @override
@@ -21,20 +25,28 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
   String desc = '';
   Color _bgColor = Colors.white;
 
-  setBackgroundColor(Color newColor) {
-    if (newColor != _bgColor) {
-      setState(() {
-        _bgColor = newColor;
-      });
-    }
-  }
-
   final message = const SnackBar(
     content: Text('Save'),
   );
+  selectEmoji() {
+    if (widget.emotion == "Happy") {
+      Lottie.asset('assets/icons/json/happy.json');
+    } else if (widget.emotion == "Sad") {
+      Lottie.asset('assets/icons/json/sad.json');
+    }
+  }
+
+  parseReasonList() {
+    for (var i = 0; i < widget.reason.length; i++) {
+      print(widget.reason[i]);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
+    String emotions = widget.emotion;
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -42,7 +54,9 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 ScaffoldMessenger.of(context).showSnackBar(message);
-                databaseManager.addForm(title, desc, _formKey);
+                // Calling the Database manager'
+                databaseManager.addForm(title, desc, _formKey, emotions);
+                Get.toNamed('/my_diary');
               } else {
                 return;
               }
@@ -51,7 +65,7 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
           )
         ],
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Get.toNamed("/my_diary"),
           icon: const Icon(Icons.chevron_left),
         ),
         elevation: 0.0,
@@ -81,7 +95,24 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: Column(
           children: [
+            const SizedBox(
+              height: 15.0,
+            ),
             _buildTitleForm(),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              children: [
+                Chip(
+                  label: Text(widget.emotion),
+                ),
+                const Spacer(),
+              ],
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
             _buildDescForm(),
             // _buildColorPicker(size),
           ],
@@ -92,9 +123,12 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
 
   _buildTitleForm() {
     return TextFormField(
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         hintText: "Title",
-        border: InputBorder.none,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        filled: true,
       ),
       style: kfrmTitle,
       validator: (value) =>
@@ -111,7 +145,7 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
       keyboardType: TextInputType.multiline,
       decoration: const InputDecoration.collapsed(
         border: InputBorder.none,
-        hintText: "Write something here...",
+        hintText: "Hello how are you feeling today?",
       ),
       validator: (value) => value != null && value.isEmpty
           ? "Description must not be Empty!"
@@ -121,6 +155,14 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
         desc = _val;
       },
     );
+  }
+
+  setBackgroundColor(Color newColor) {
+    if (newColor != _bgColor) {
+      setState(() {
+        _bgColor = newColor;
+      });
+    }
   }
 
   _buildColorPicker(Size size) {
