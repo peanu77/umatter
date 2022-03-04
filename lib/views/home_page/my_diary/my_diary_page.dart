@@ -10,7 +10,8 @@ import 'package:umatter/views/home_page/my_diary/page/view_diary_page.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 
 class MyDiaryPage extends StatefulWidget {
-  const MyDiaryPage({Key? key}) : super(key: key);
+  final emotion;
+  const MyDiaryPage({Key? key, this.emotion}) : super(key: key);
 
   @override
   _MyDiaryPageState createState() => _MyDiaryPageState();
@@ -21,6 +22,20 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
       .collection('users')
       .doc(FirebaseAuth.instance.currentUser?.uid)
       .collection('notes');
+
+  selectEmoji() {
+    if (widget.emotion.toString() == "Happy") {
+      return const Text(
+        '😀',
+        style: TextStyle(fontSize: 30.0),
+      );
+    } else if (widget.emotion.toString() == "Sad") {
+      return const Text(
+        '😞',
+        style: TextStyle(fontSize: 30.0),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,14 +82,27 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                     String formattedDatetime =
                         DateFormat.yMMMd().add_jm().format(dateTime);
 
-                    return Padding(
+                    selectedEmoji() {
+                      if (data['emojis'] == "Happy") {
+                        return const Text(
+                          '😀',
+                          style: TextStyle(fontSize: 30.0),
+                        );
+                      } else if (data['emojis'] == "Sad") {
+                        return const Text(
+                          '😞',
+                          style: TextStyle(fontSize: 30.0),
+                        );
+                      }
+                    }
+                   return Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 8.0,
                         vertical: 2.0,
                       ),
                       child: Card(
                         // TODO : Change this to a color stored in the firestore
-                        color: Colors.orangeAccent,
+                        // color: Color(data['selectedColor']),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
@@ -107,8 +135,8 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                                     ),
 
                                     // TODO: Change this to a real emoji
-                                    Chip(
-                                      label: Text(data['emojis']),
+                                    Container(
+                                      child: selectedEmoji(),
                                     ),
                                   ],
                                 ),
@@ -156,9 +184,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
         onPressed: () => Navigator.of(context)
             .push(
           MaterialPageRoute(
-            builder: (context) => ChooseEmotionPage(
-              emotions: "",
-            ),
+            builder: (context) => EmojiSelectorPage(),
           ),
         )
 

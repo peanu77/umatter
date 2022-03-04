@@ -180,7 +180,7 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
     );
   }
 
-  deleteForm() async {
+  void deleteForm() async {
     await widget.ref.delete();
     Navigator.pop(context);
   }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:umatter/views/home_page/my_diary/page/add_diary.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
-class ChooseEmotionPage extends StatelessWidget {
-  String emotions = 'Happy';
-  ChooseEmotionPage({Key? key, required this.emotions}) : super(key: key);
+class EmojiSelectorPage extends StatelessWidget {
+  EmojiSelectorPage({Key? key}) : super(key: key);
   String selectedReason = '';
+  String emotions = 'Happy';
   final reasonList = [];
   @override
   Widget build(BuildContext context) {
@@ -151,10 +150,12 @@ class ChooseEmotionPage extends StatelessWidget {
                 // TODO: Get to the Add Page Diary.
                 onPressed: () {
                   print(reasonList);
-                  Get.to(
-                    () => AddDiaryPage(
-                      reason: reasonList.toString(),
-                      emotion: emotions,
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => AddDiaryPage(
+                        emotion: emotions,
+                        reason: reasonList.toString(),
+                      ),
                     ),
                   );
                 },
