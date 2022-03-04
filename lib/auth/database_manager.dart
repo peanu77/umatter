@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:umatter/main.dart';
-import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
-
-import 'package:umatter/views/welcome_page/welcome_page.dart';
 
 class DatabaseManager {
   /// This function is for saving the user input into the firebase firestore database

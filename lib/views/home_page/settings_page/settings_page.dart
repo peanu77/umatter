@@ -4,7 +4,6 @@ import 'package:umatter/models/contants/settings.dart';
 import 'package:umatter/views/home_page/settings_page/constant/settings_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);

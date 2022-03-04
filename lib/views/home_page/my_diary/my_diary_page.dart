@@ -95,7 +95,8 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                         );
                       }
                     }
-                   return Padding(
+
+                    return Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 8.0,
                         vertical: 2.0,
@@ -113,6 +114,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                                   data: data,
                                   time: formattedDatetime,
                                   ref: snapshot.data!.docs[index].reference,
+                                  emotion: widget.emotion,
                                 ),
                               )!
                                   .then(

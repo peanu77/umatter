@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/controllers/home_page_controller/constant.dart';
 import 'package:umatter/controllers/home_page_controller/home_page_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -34,21 +33,17 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // TODO : This will adapt on user time
                           Text(
                             "Hello There!",
                             // controller.title,
-                            style: const TextStyle(
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Theme.of(context).textTheme.headline3,
                           ),
                           const SizedBox(
                             height: 15.0,
                           ),
                           // TODO: Change this to username
                           Text(
-                            "getDatabaseList()",
+                            "Ricardo Dalisay",
                             style: TextStyle(
                               fontSize: 20.0,
                             ),

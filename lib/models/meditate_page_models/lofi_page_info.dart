@@ -1,7 +1,7 @@
 class LofiPageInfo {
   String title;
   String coverImg;
-  final music;
+  final String music;
   String authorName;
   LofiPageInfo({
     required this.title,

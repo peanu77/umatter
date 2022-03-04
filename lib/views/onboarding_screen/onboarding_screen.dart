@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umatter/auth/auth.dart';
 import 'package:umatter/controllers/onboarding_screen_controller/onboarding_controller.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';

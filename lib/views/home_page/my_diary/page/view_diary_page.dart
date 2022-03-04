@@ -7,11 +7,13 @@ class ViewDiaryPage extends StatefulWidget {
   final Map data;
   final String time;
   final DocumentReference ref;
+  final String emotion;
   const ViewDiaryPage({
     Key? key,
     required this.data,
     required this.time,
     required this.ref,
+    required this.emotion,
   }) : super(key: key);
 
   @override
@@ -144,8 +146,8 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
                           "${widget.time} ",
                           style: kfrmTime,
                         ),
-                        Text(
-                          widget.data['emojis'],
+                        Container(
+                          child: selectedEmoji(),
                         ),
                       ],
                     ),
@@ -197,5 +199,19 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
     await Share.share(diary,
         subject: 'Description',
         sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+  }
+
+  selectedEmoji() {
+    if (widget.data['emojis'] == "Happy") {
+      return const Text(
+        '😀',
+        style: TextStyle(fontSize: 30.0),
+      );
+    } else if (widget.data['emojis'] == "Sad") {
+      return const Text(
+        '😞',
+        style: TextStyle(fontSize: 30.0),
+      );
+    }
   }
 }

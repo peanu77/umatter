@@ -1,17 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/models/contants/constants.dart';
 import 'package:umatter/views/assessment_page/assessment_page.dart';
 import 'package:umatter/views/user_info_page/user_controller.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:umatter/views/welcome_page/welcome_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-int? userOpen;
 
 class UserInfoPage extends StatefulWidget {
   const UserInfoPage({Key? key}) : super(key: key);
@@ -32,6 +25,9 @@ class _UserInfoPageState extends State<UserInfoPage> {
   String gender = '';
   String civilStatus = "Single";
   int index = 0;
+  bool notSelected = false;
+  bool isSelected = false;
+  Color color = Colors.white;
 
   final items = ['Single', 'Married', 'Separated'];
 
@@ -205,6 +201,11 @@ class _UserInfoPageState extends State<UserInfoPage> {
           children: [
             InkWell(
               onTap: () {
+                setState(() {
+                  isSelected = true;
+                  color = Colors.orange;
+                });
+
                 gender = "Male";
                 print("Male");
               },
@@ -213,7 +214,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 width: 150.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
-                  // color: Colors.orange,
+                  color: color,
                 ),
                 child: FittedBox(
                   fit: BoxFit.fill,

@@ -31,8 +31,8 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
 
   selectEmoji() {
     if (widget.emotion.toString() == "Happy") {
-      return InkWell(
-        child: const Text(
+      return const InkWell(
+        child:  Text(
           '😀',
           style: TextStyle(fontSize: 30.0),
         ),

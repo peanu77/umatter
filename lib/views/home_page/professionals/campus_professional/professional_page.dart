@@ -24,41 +24,55 @@ class CampusProfessionalsPage extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
       ),
-      body: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-        ),
-        itemCount: 7,
-        itemBuilder: (_, index) {
-          return Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: InkWell(
-              onTap: () => Get.to(() => const CampusProfessionalsInfo()),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  color: Colors.orange.shade400,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 10.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: _size.height * 0.14,
-                        child: Image.asset('assets/img/directories/cit.png'),
-                      ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      const Text("College of Information Technology")
-                    ],
+      body: Stack(
+        children: [
+          GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+            ),
+            itemCount: 7,
+            itemBuilder: (_, index) {
+              return Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: InkWell(
+                  onTap: () => Get.to(() => const CampusProfessionalsInfo()),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      color: Colors.orange.shade400,
+                    ),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 15.0,
+                        ),
+                        SizedBox(
+                          height: _size.height * 0.14,
+                          child: Image.asset('assets/img/directories/cit.png'),
+                        ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        Container(
+                          height: 40.0,
+                          width: double.infinity,
+                          color: Colors.green,
+                          child: Text(
+                            "College of Information Technology",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ],
       ),
     );
   }
