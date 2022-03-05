@@ -15,6 +15,7 @@ dependencies:
   flutter_markdown: ^0.6.9
   flutter_svg: ^1.0.3
   flutterfire_ui: ^0.3.4
+  font_awesome_flutter: ^9.2.0
   get: ^4.6.1
   google_fonts: ^2.3.1
   intl: ^0.17.0
@@ -48,3 +49,4 @@ flutter:
     - assets/terms_of_use/
     - assets/audio/
     - assets/
+    - json/

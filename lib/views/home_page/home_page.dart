@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           // TODO: Change this to username
                           Text(
-                            "Ricardo Dalisay",
+                            "Angelica May",
                             style: TextStyle(
                               fontSize: 20.0,
                             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -95,8 +96,9 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
             icon: isEdit
                 ? IconButton(
                     onPressed: updateForm,
-                    icon: const Icon(Icons.save),
-                  )
+                    icon: const FaIcon(
+                      FontAwesomeIcons.save,
+                    ))
                 : const Icon(
                     Icons.edit,
                   ),
