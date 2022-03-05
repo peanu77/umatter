@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:umatter/views/analytics_page/analytics_page.dart';
 import 'package:umatter/views/home_page/home_page.dart';
 import 'package:umatter/views/home_page/settings_page/settings_page.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:umatter/views/quotes_page/quotes_page.dart';
 
 class NavBarPage extends StatefulWidget {
   const NavBarPage({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class _NavBarPageState extends State<NavBarPage> {
   List pages = const [
     HomePage(),
     AnalyticsPage(),
+    QuotesPage(),
     SettingsPage(),
   ];
   int currentIndex = 0;
@@ -46,12 +49,20 @@ class _NavBarPageState extends State<NavBarPage> {
               icon: Icon(Icons.home),
             ),
             BottomNavigationBarItem(
-              label: "HomePage",
+              label: "Analytics",
               tooltip: "Analytics",
               icon: Icon(Icons.bar_chart),
             ),
             BottomNavigationBarItem(
-              label: "HomePage",
+              label: "Quotes",
+              tooltip: "Quotes",
+              icon: FaIcon(
+                FontAwesomeIcons.quoteLeft,
+                semanticLabel: "Quotes",
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "Settings",
               tooltip: "Settings",
               icon: Icon(Icons.settings),
             ),
