@@ -5,6 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'dart:math';
 
+import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
+
 class QuotesPage extends StatefulWidget {
   const QuotesPage({Key? key}) : super(key: key);
 
@@ -25,6 +27,7 @@ class _QuotesPageState extends State<QuotesPage> {
           /// This Method used to randomize the return data to the PageView.builder()
           randomData(jsonData);
           return PageView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: jsonData.length,
               itemBuilder: (context, index) {
                 return Column(
@@ -60,6 +63,27 @@ class _QuotesPageState extends State<QuotesPage> {
               });
         }),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: kPrimaryFrmColor,
+        onPressed: () async {
+          setState(() {});
+        },
+        tooltip: "Display new quotes",
+        label: Row(children: const [
+          Text(
+            'Get New Quotes',
+            style: TextStyle(color: Colors.black),
+          ),
+          SizedBox(
+            width: 10.0,
+          ),
+          Icon(
+            Icons.refresh,
+            color: Colors.black,
+          ),
+        ]),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
