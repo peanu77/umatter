@@ -51,7 +51,7 @@ class _NavBarPageState extends State<NavBarPage> {
             BottomNavigationBarItem(
               label: "Analytics",
               tooltip: "Analytics",
-              icon: Icon(Icons.bar_chart),
+              icon: FaIcon(FontAwesomeIcons.chartLine),
             ),
             BottomNavigationBarItem(
               label: "Quotes",
