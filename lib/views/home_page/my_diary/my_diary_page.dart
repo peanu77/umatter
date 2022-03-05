@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -179,9 +180,9 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: kPrimaryFrmColor,
         tooltip: "Create Diary",
-        child: const Icon(
-          Icons.add,
-          color: Colors.black,
+        child: const FaIcon(
+          FontAwesomeIcons.featherAlt,
+          // color: Colors.black,
         ),
         onPressed: () => Navigator.of(context)
             .push(
