@@ -114,7 +114,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                                   data: data,
                                   time: formattedDatetime,
                                   ref: snapshot.data!.docs[index].reference,
-                                  emotion: widget.emotion,
+                                  emotion: widget.emotion?.toString(),
                                 ),
                               )!
                                   .then(

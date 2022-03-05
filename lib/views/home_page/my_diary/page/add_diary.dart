@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/models/diary_page_controller/my_diary_page_controller.dart';
 import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
+import 'package:umatter/views/home_page/my_diary/page/view_diary_page.dart';
+import 'package:get/get.dart';
 
 class AddDiaryPage extends StatefulWidget {
-  final String emotion;
-  final String reason;
+  final emotion;
+  final reason;
   const AddDiaryPage({
     Key? key,
-    required this.emotion,
-    required this.reason,
+    this.emotion,
+    this.reason,
   }) : super(key: key);
 
   @override
@@ -32,7 +33,7 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
   selectEmoji() {
     if (widget.emotion.toString() == "Happy") {
       return const InkWell(
-        child:  Text(
+        child: Text(
           '😀',
           style: TextStyle(fontSize: 30.0),
         ),
@@ -57,6 +58,13 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
                 ScaffoldMessenger.of(context).showSnackBar(message);
                 // Calling the Database manager'
                 databaseManager.addForm(title, desc, _formKey, widget.emotion);
+                // Transfer data to the my diary home page
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyDiaryPage(
+                              emotion: widget.emotion,
+                            )));
                 Get.toNamed('/my_diary');
               } else {
                 return;

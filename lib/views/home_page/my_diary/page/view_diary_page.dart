@@ -7,7 +7,7 @@ class ViewDiaryPage extends StatefulWidget {
   final Map data;
   final String time;
   final DocumentReference ref;
-  final String emotion;
+  final emotion;
   const ViewDiaryPage({
     Key? key,
     required this.data,
