@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/add_diary.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
@@ -7,7 +8,10 @@ class EmojiSelectorPage extends StatelessWidget {
   EmojiSelectorPage({Key? key}) : super(key: key);
   String selectedReason = '';
   String emotions = 'Happy';
-  final reasonList = [];
+  // List<String> reasonList = [];
+
+  List<String> reasonList = SharePrefConfig.getReasons() ?? [];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -149,11 +153,12 @@ class EmojiSelectorPage extends StatelessWidget {
                 ),
                 // TODO: Get to the Add Page Diary.
                 onPressed: () {
+                  SharePrefConfig.setReasons(reasonList);
+                  SharePrefConfig.setEmoji(emotions);
                   print(reasonList);
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) => AddDiaryPage(
-                        emotion: emotions,
                         reason: reasonList.toString(),
                       ),
                     ),

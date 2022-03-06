@@ -12,7 +12,9 @@ import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 
 class MyDiaryPage extends StatefulWidget {
   final emotion;
-  const MyDiaryPage({Key? key, this.emotion}) : super(key: key);
+  final selectedColor;
+  const MyDiaryPage({Key? key, this.emotion, this.selectedColor})
+      : super(key: key);
 
   @override
   _MyDiaryPageState createState() => _MyDiaryPageState();
@@ -82,21 +84,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                     DateTime dateTime = data!['created'].toDate();
                     String formattedDatetime =
                         DateFormat.yMMMd().add_jm().format(dateTime);
-
-                    selectedEmoji() {
-                      if (data['emojis'] == "Happy") {
-                        return const Text(
-                          '😀',
-                          style: TextStyle(fontSize: 30.0),
-                        );
-                      } else if (data['emojis'] == "Sad") {
-                        return const Text(
-                          '😞',
-                          style: TextStyle(fontSize: 30.0),
-                        );
-                      }
-                    }
-
+                    selectedEmoji(data);
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 8.0,
@@ -104,7 +92,8 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                       ),
                       child: Card(
                         // TODO : Change this to a color stored in the firestore
-                        // color: Color(data['selectedColor']),
+                        // color: Colors.orange,
+                        color: data['selectedColor'],
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
@@ -139,7 +128,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
 
                                     // TODO: Change this to a real emoji
                                     Container(
-                                      child: selectedEmoji(),
+                                      child: selectedEmoji(data),
                                     ),
                                   ],
                                 ),
@@ -197,5 +186,19 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
         }),
       ),
     );
+  }
+
+  selectedEmoji(data) {
+    if (data['emojis'] == "Happy") {
+      return const Text(
+        '😀',
+        style: TextStyle(fontSize: 30.0),
+      );
+    } else if (data['emojis'] == "Sad") {
+      return const Text(
+        '😞',
+        style: TextStyle(fontSize: 30.0),
+      );
+    }
   }
 }

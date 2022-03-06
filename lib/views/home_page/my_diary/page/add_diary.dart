@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/auth/database_manager.dart';
+import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/models/diary_page_controller/my_diary_page_controller.dart';
 import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
-import 'package:umatter/views/home_page/my_diary/page/view_diary_page.dart';
-import 'package:get/get.dart';
 
 class AddDiaryPage extends StatefulWidget {
-  final emotion;
   final reason;
   const AddDiaryPage({
     Key? key,
-    this.emotion,
     this.reason,
   }) : super(key: key);
 
@@ -22,23 +19,24 @@ class AddDiaryPage extends StatefulWidget {
 class _AddDiaryPageState extends State<AddDiaryPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final databaseManager = DatabaseManager();
+  String emoji = SharePrefConfig.getEmoji() ?? "Happy";
   String title = '';
   String desc = '';
   Color bgColor = Colors.white;
-
+  List<String> reasonList = SharePrefConfig.getReasons() ?? [];
   final message = const SnackBar(
     content: Text('Save'),
   );
 
   selectEmoji() {
-    if (widget.emotion.toString() == "Happy") {
+    if (emoji.toString() == "Happy") {
       return const InkWell(
         child: Text(
           '😀',
           style: TextStyle(fontSize: 30.0),
         ),
       );
-    } else if (widget.emotion.toString() == "Sad") {
+    } else if (emoji.toString() == "Sad") {
       return const Text(
         '😞',
         style: TextStyle(fontSize: 30.0),
@@ -57,15 +55,15 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
               if (_formKey.currentState!.validate()) {
                 ScaffoldMessenger.of(context).showSnackBar(message);
                 // Calling the Database manager'
-                databaseManager.addForm(title, desc, _formKey, widget.emotion);
+                databaseManager.addForm(title, desc, _formKey, emoji);
                 // Transfer data to the my diary home page
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (context) => MyDiaryPage(
-                              emotion: widget.emotion,
+                              selectedColor: bgColor,
                             )));
-                Get.toNamed('/my_diary');
+                // Get.toNamed('/my_diary');
               } else {
                 return;
               }
@@ -75,8 +73,7 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
         ],
         leading: IconButton(
           onPressed: () => Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                  builder: (context) => MyDiaryPage(emotion: widget.emotion))),
+              MaterialPageRoute(builder: (context) => const MyDiaryPage())),
           icon: const Icon(Icons.chevron_left),
         ),
         elevation: 0.0,
