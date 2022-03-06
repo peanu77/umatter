@@ -9,7 +9,9 @@ import 'package:umatter/views/home_page/professionals/external_directories.dart'
 import 'package:umatter/views/home_page/professionals/mental_health_communities.dart';
 
 class ProfessionalDirectoriesPage extends StatefulWidget {
-  const ProfessionalDirectoriesPage({Key? key}) : super(key: key);
+  const ProfessionalDirectoriesPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ProfessionalDirectoriesPage> createState() =>
@@ -27,7 +29,11 @@ class _ProfessionalDirectoriesPage extends State<ProfessionalDirectoriesPage> {
         title: const Text('List of Directories',
             style: TextStyle(color: Colors.black)),
         leading: IconButton(
-          onPressed: () => Get.to(() => const NavBarPage()),
+          onPressed: () => Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const NavBarPage(),
+            ),
+          ),
           icon: const Icon(Icons.chevron_left, color: Colors.black),
         ),
         backgroundColor: Colors.transparent,

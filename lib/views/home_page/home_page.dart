@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:umatter/controllers/home_page_controller/constant.dart';
 import 'package:umatter/controllers/home_page_controller/home_page_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
+import 'package:umatter/views/home_page/professionals/professionals_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,18 +14,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final Stream<QuerySnapshot> users =
+      FirebaseFirestore.instance.collection('users').snapshots();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    CollectionReference _collectionRef =
-        FirebaseFirestore.instance.collection('user_info');
-    _collectionRef.doc('users').collection('user_info').id;
+    String name = '';
+    name = SharePrefConfig.getUsername() ?? "";
     return Scaffold(
       backgroundColor: Colors.orange.shade100,
       body: SingleChildScrollView(
         child: SafeArea(
-          child: FutureBuilder(
-              future: _collectionRef.get(),
+          child: StreamBuilder<QuerySnapshot>(
+              stream: users,
               builder: (context, snapshot) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,16 +40,18 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             "Hello There!",
                             // controller.title,
-                            style: Theme.of(context).textTheme.headline3,
+                            style: Theme.of(context).textTheme.headline4,
                           ),
                           const SizedBox(
                             height: 15.0,
                           ),
-                          // TODO: Change this to username
-                          Text(
-                            "Angelica May",
-                            style: TextStyle(
-                              fontSize: 20.0,
+
+                          /// TODO: Make this appealing to the user
+                          Container(
+                            color: Colors.orangeAccent,
+                            child: Text(
+                              name,
+                              style: const TextStyle(fontSize: 25.0),
                             ),
                           ),
                         ],
@@ -378,7 +384,11 @@ class _HomePageState extends State<HomePage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: kHomeButton,
-                      onPressed: () => Get.toNamed('/counselor'),
+                      onPressed: () => Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const ProfessionalDirectoriesPage())),
                       child: const Text(
                         'Let\'s Dive In',
                         style: kHomeCardStyle,
