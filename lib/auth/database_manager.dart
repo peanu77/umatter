@@ -39,7 +39,6 @@ class DatabaseManager {
       'description': desc,
       'created': DateTime.now(),
       'emojis': emotions.toString(),
-      // 'selectedColor': setBackgroundColor(_bgColor).toString(),
     };
 
     // Validate Form
