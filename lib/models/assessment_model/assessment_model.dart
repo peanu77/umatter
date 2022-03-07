@@ -1,4 +1,5 @@
 class QuestionsModel {
   final String question;
-  QuestionsModel(this.question);
+  final int res;
+  QuestionsModel(this.question, this.res);
 }

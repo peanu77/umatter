@@ -8,7 +8,6 @@ class EmojiSelectorPage extends StatelessWidget {
   EmojiSelectorPage({Key? key}) : super(key: key);
   String selectedReason = '';
   String emotions = 'Happy';
-  // List<String> reasonList = [];
 
   List<String> reasonList = SharePrefConfig.getReasons() ?? [];
 
@@ -45,101 +44,6 @@ class EmojiSelectorPage extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        selectedReason = "School";
-                        reasonList.add(selectedReason);
-                        print(selectedReason);
-                      },
-                      child: const Chip(
-                        label: Text('School'),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        selectedReason = "Work";
-                        reasonList.add(selectedReason);
-                        print(selectedReason);
-                      },
-                      child: const Chip(
-                        label: Text('Work'),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        selectedReason = 'Money';
-                        reasonList.add(selectedReason);
-                        print(selectedReason);
-                      },
-                      child: const Chip(
-                        label: Text('Money'),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        selectedReason = "Friends";
-                        reasonList.add(selectedReason);
-                        print(selectedReason);
-                      },
-                      child: const Chip(
-                        label: Text('Friends'),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        selectedReason = "School";
-                        reasonList.add(selectedReason);
-                        print(selectedReason);
-                      },
-                      child: const Chip(
-                        label: Text('School'),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        selectedReason = "Work";
-                        reasonList.add(selectedReason);
-                        print(selectedReason);
-                      },
-                      child: const Chip(
-                        label: Text('Work'),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        selectedReason = 'Money';
-                        reasonList.add(selectedReason);
-                        print(selectedReason);
-                      },
-                      child: const Chip(
-                        label: Text('Money'),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        selectedReason = "Friends";
-                        reasonList.add(selectedReason);
-                        print(selectedReason);
-                      },
-                      child: const Chip(
-                        label: Text('Friends'),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const Spacer(),
             Container(
               margin: const EdgeInsets.all(15.0),
               width: double.infinity,
@@ -153,7 +57,6 @@ class EmojiSelectorPage extends StatelessWidget {
                 ),
                 // TODO: Get to the Add Page Diary.
                 onPressed: () {
-                  SharePrefConfig.setReasons(reasonList);
                   SharePrefConfig.setEmoji(emotions);
                   print(reasonList);
                   Navigator.of(context).pushReplacement(

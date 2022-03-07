@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:umatter/controllers/assessment_controller/assessment_controller.dart';
+import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/assessment_page/assessment_result.dart';
 import 'package:umatter/views/assessment_page/const.dart';
 
@@ -17,10 +18,8 @@ class _AssessmentPageState extends State<AssessmentPage> {
   PageController pageController = PageController();
   final controller = AssessmentController();
 
-  List selected = [];
   List<int> scores = [];
-
-  bool isSelected = false;
+  List<String> assessmentList = [];
   var selectedItem = '';
   String depressionLevel = '';
   var selectedPageIndex = 0.obs;
@@ -97,20 +96,15 @@ class _AssessmentPageState extends State<AssessmentPage> {
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           primary: kprimayColor,
-          backgroundColor: isSelected ? kSelectedColor : kNotSelected,
           elevation: kbtnElevation,
         ),
         onPressed: () {
           selectedItem = "Not at all";
           int score = 0;
           scores.add(score);
-          selected.add(selectedItem);
+          assessmentList.add(selectedItem);
           nextPageController();
-          setState(() {
-            if (isSelected) {
-              isSelected = true;
-            }
-          });
+
           print(selectedItem);
         },
         child: Text(
@@ -127,21 +121,16 @@ class _AssessmentPageState extends State<AssessmentPage> {
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           primary: kprimayColor,
-          backgroundColor: isSelected ? kSelectedColor : kNotSelected,
           elevation: kbtnElevation,
         ),
         onPressed: () {
           selectedItem = "Several days";
           int score = 1;
           scores.add(score);
-          selected.add(selectedItem);
+          assessmentList.add(selectedItem);
 
           nextPageController();
-          setState(() {
-            if (isSelected) {
-              isSelected = true;
-            }
-          });
+
           print(selectedItem);
         },
         child: Text(
@@ -158,20 +147,15 @@ class _AssessmentPageState extends State<AssessmentPage> {
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           primary: kprimayColor,
-          backgroundColor: isSelected ? kSelectedColor : kNotSelected,
           elevation: kbtnElevation,
         ),
         onPressed: () {
           selectedItem = "More than half the days";
           int score = 2;
           scores.add(score);
-          selected.add(selectedItem);
+          assessmentList.add(selectedItem);
           nextPageController();
-          setState(() {
-            if (isSelected) {
-              isSelected = true;
-            }
-          });
+
           print(selectedItem);
         },
         child: Text(
@@ -188,18 +172,15 @@ class _AssessmentPageState extends State<AssessmentPage> {
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           primary: kprimayColor,
-          backgroundColor: isSelected ? kSelectedColor : kNotSelected,
           elevation: kbtnElevation,
         ),
         onPressed: () {
           selectedItem = "Nearly Everyday";
           int score = 3;
           scores.add(score);
-          selected.add(selectedItem);
+          assessmentList.add(selectedItem);
           nextPageController();
-          setState(() {
-            isSelected = true;
-          });
+          setState(() {});
           print(selectedItem);
         },
         child: Text(
@@ -218,7 +199,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
 
     var data = {
       "question": controller.questionsController.length,
-      "user_selection": selected,
+      "user_selection": assessmentList,
       "depression_severity": sumScores().toString(),
     };
     ref.add(data);
@@ -250,9 +231,16 @@ class _AssessmentPageState extends State<AssessmentPage> {
 
   nextPageController() {
     if (isLastPage == true) {
-      Get.to(() => AssessmentResult(
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AssessmentResult(
             assessmentRes: sumScores(),
-          ));
+          ),
+        ),
+      );
+
+      SharePrefConfig.setAssessment(assessmentList);
       addForm();
     } else {
       pageController.nextPage(

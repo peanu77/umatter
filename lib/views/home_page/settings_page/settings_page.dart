@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/auth/auth.dart';
+import 'package:umatter/auth/auth_pages/login_page.dart';
 import 'package:umatter/models/contants/settings.dart';
 import 'package:umatter/views/home_page/settings_page/constant/settings_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -112,7 +114,15 @@ class SettingsPage extends StatelessWidget {
       height: kBoxHeight,
       child: ElevatedButton(
         style: sReportBtn,
-        onPressed: () {},
+        onPressed: () async {
+          final toEmail = '4admiraks@gmail.com';
+          final url = 'mailto:$toEmail';
+
+          if (await canLaunch(url)) {
+            await launch(url);
+          }
+          print("tapped");
+        },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
           child: Row(
@@ -135,13 +145,8 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              IconButton(
-                // TODO: Navigate to Notification Page
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.chevron_right,
-                  size: 30.0,
-                ),
+              const Icon(
+                Icons.chevron_right,
               )
             ],
           ),
@@ -289,7 +294,7 @@ class SettingsPage extends StatelessWidget {
       height: kBoxHeight,
       child: ElevatedButton(
         style: sLogoutBtn,
-        onPressed: signOut,
+        onPressed: () => signOut(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
           child: Row(

@@ -12,9 +12,7 @@ import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 
 class MyDiaryPage extends StatefulWidget {
   final emotion;
-  final selectedColor;
-  const MyDiaryPage({Key? key, this.emotion, this.selectedColor})
-      : super(key: key);
+  const MyDiaryPage({Key? key, this.emotion}) : super(key: key);
 
   @override
   _MyDiaryPageState createState() => _MyDiaryPageState();
@@ -93,7 +91,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                       child: Card(
                         // TODO : Change this to a color stored in the firestore
                         // color: Colors.orange,
-                        color: data['selectedColor'],
+                        // color: int.parse(SharePrefConfig.getSelectedColor()),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),

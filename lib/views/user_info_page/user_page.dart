@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:umatter/auth/database_manager.dart';
+import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/models/contants/constants.dart';
 import 'package:umatter/views/assessment_page/assessment_page.dart';
 import 'package:umatter/views/user_info_page/user_controller.dart';
@@ -29,8 +30,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
   bool isSelected = false;
   Color color = Colors.white;
 
-  final items = ['Single', 'Married', 'Separated'];
-
+  final items = ['Single', 'Married', 'Separated', 'Widowed'];
+  SharePrefConfig sharePrefConfig = SharePrefConfig();
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
@@ -99,17 +100,16 @@ class _UserInfoPageState extends State<UserInfoPage> {
             height: _size.height * 0.06,
             child: ElevatedButton(
               style: kElevatedbtnprimary,
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   pageController.nextPage(
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.ease);
                   print(username);
-
-                  print('Form Valid');
                 }
+                await SharePrefConfig.setUsername(username);
               },
-              child: const Text('Looks Good !'),
+              child: const Text('Continue'),
             ),
           ),
         ),
@@ -174,7 +174,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   print('Form Valid');
                 }
               },
-              child: const Text('Looks Good !'),
+              child: const Text('Continue'),
             ),
           ),
         ),
@@ -188,7 +188,6 @@ class _UserInfoPageState extends State<UserInfoPage> {
         const Spacer(),
         Text(
           controller.userController[2].header,
-          // controller.userController[index].header,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline4,
         ),
@@ -258,7 +257,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.ease);
               },
-              child: const Text('Looks Good !'),
+              child: const Text('Continue'),
             ),
           ),
         ),
@@ -324,9 +323,15 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
                 databaseManager.createUserInfo(
                     username, age, gender, civilStatus);
-                Get.to(() => const AssessmentPage());
+                sharePrefConfig.userInfoController();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AssessmentPage(),
+                  ),
+                );
               },
-              child: const Text('Looks Good !'),
+              child: const Text('Continue'),
             ),
           ),
         ),

@@ -26,6 +26,14 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
   String? title;
   String? desc;
   String? emotion;
+
+  final message = const SnackBar(
+    content: Text('Save'),
+  );
+
+  final delete = const SnackBar(
+    content: Text('Deleted'),
+  );
   @override
   Widget build(BuildContext context) {
     title = widget.data['title'];
@@ -186,10 +194,12 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
 
   void deleteForm() async {
     await widget.ref.delete();
+    ScaffoldMessenger.of(context).showSnackBar(delete);
     Navigator.pop(context);
   }
 
   void updateForm() async {
+    ScaffoldMessenger.of(context).showSnackBar(message);
     await widget.ref.update({"title": title, 'description': desc});
     Navigator.of(context).pop();
   }

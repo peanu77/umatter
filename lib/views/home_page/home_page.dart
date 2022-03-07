@@ -4,6 +4,8 @@ import 'package:umatter/controllers/home_page_controller/constant.dart';
 import 'package:umatter/controllers/home_page_controller/home_page_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
+import 'package:umatter/views/assessment_page/const.dart';
+import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:umatter/views/home_page/professionals/professionals_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,105 +16,169 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final Stream<QuerySnapshot> users =
-      FirebaseFirestore.instance.collection('users').snapshots();
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     String name = '';
     name = SharePrefConfig.getUsername() ?? "";
     return Scaffold(
-      backgroundColor: Colors.orange.shade100,
+      backgroundColor: kHomeBgColor,
       body: SingleChildScrollView(
         child: SafeArea(
-          child: StreamBuilder<QuerySnapshot>(
-              stream: users,
-              builder: (context, snapshot) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Hello There!",
-                            // controller.title,
-                            style: Theme.of(context).textTheme.headline4,
-                          ),
-                          const SizedBox(
-                            height: 15.0,
-                          ),
+          child: StreamBuilder<QuerySnapshot>(builder: (context, snapshot) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Hello There!",
 
-                          /// TODO: Make this appealing to the user
-                          Container(
-                            color: Colors.orangeAccent,
-                            child: Text(
-                              name,
-                              style: const TextStyle(fontSize: 25.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(15.0),
-                      height: size.height * 0.18,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        color: const Color(0xffC1D4F0),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 20.0,
-                      ),
-                      child: const Text(
-                        'Minor Interventions',
+                        // controller.title,
                         style: TextStyle(
+                            fontSize: 30.0, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+
+                      /// TODO: Make this appealing to the user
+                      Text(
+                        name,
+                        style: const TextStyle(
                           fontSize: 25.0,
-                          fontWeight: FontWeight.w400,
-                          letterSpacing: 1.3,
+                          color: kPrimaryFrmColor,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
+                    ],
+                  ),
+                ),
 
-                    /*  Interventions */
-                    // Discover
-                    _buildDiscover(size),
-                    // Meditate
-                    _buildMeditate(size),
-                    // My Diary
-                    _buildMyDiary(size),
+                _buildAssessment(size),
 
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 20.0,
-                      ),
-                      child: const Text(
-                        'Major Intervention',
-                        style: TextStyle(
-                          fontSize: 25.0,
-                          letterSpacing: 1.3,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10.0,
+                    horizontal: 20.0,
+                  ),
+                  child: const Text(
+                    'Minor Interventions',
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 1.3,
                     ),
-                    _buildProfessionalIntervention(size),
-                  ],
-                );
-              }),
+                  ),
+                ),
+
+                /*  Interventions */
+
+                // Discover
+                _buildDiscover(size),
+                // Meditate
+                _buildMeditate(size),
+                // My Diary
+                _buildMyDiary(size),
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10.0,
+                    horizontal: 20.0,
+                  ),
+                  child: const Text(
+                    'Major Intervention',
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      letterSpacing: 1.3,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                _buildProfessionalIntervention(size),
+              ],
+            );
+          }),
         ),
       ),
     );
   }
 
   /// The following build methods used to separate it from the Scaffold.
+  _buildAssessment(Size _size) => Column(
+        children: [
+          Padding(
+            padding: kHomeCardPadding,
+            child: Card(
+              color: kCardAssessment,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 15.0,
+                      right: 8.0,
+                      top: 15.0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: const Text(
+                                "Assessment",
+                                style: kHomeTitleStyle,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 15.0,
+                            ),
+                            SizedBox(
+                              width: _size.width * 0.5,
+                              child: const Text(
+                                discoverDescript,
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  letterSpacing: 1.0,
+                                  color: Color(0xffefedfa),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Image.asset(
+                          kDiscoverImg,
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(10.0),
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: kHomeButton,
+                      onPressed: () => Get.toNamed('/assessment'),
+                      child: const Text(
+                        'Take Assessment',
+                        style: kHomeCardStyle,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
   _buildDiscover(Size _size) => Column(
         children: [
           Padding(
@@ -152,7 +218,10 @@ class _HomePageState extends State<HomePage> {
                               child: const Text(
                                 discoverDescript,
                                 style: TextStyle(
-                                    fontSize: 16.0, letterSpacing: 1.0),
+                                  fontSize: 16.0,
+                                  letterSpacing: 1.0,
+                                  color: kCardContent,
+                                ),
                               ),
                             ),
                           ],
@@ -223,6 +292,7 @@ class _HomePageState extends State<HomePage> {
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   letterSpacing: 1.0,
+                                  color: kCardContent,
                                 ),
                               ),
                             ),
@@ -292,7 +362,10 @@ class _HomePageState extends State<HomePage> {
                               child: const Text(
                                 discoverDescript,
                                 style: TextStyle(
-                                    fontSize: 16.0, letterSpacing: 1.0),
+                                  fontSize: 16.0,
+                                  letterSpacing: 1.0,
+                                  color: kCardContent,
+                                ),
                               ),
                             ),
                           ],
@@ -354,6 +427,7 @@ class _HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
@@ -368,6 +442,7 @@ class _HomePageState extends State<HomePage> {
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   letterSpacing: 0.5,
+                                  color: kCardContent,
                                 ),
                               ),
                             ),
@@ -385,10 +460,12 @@ class _HomePageState extends State<HomePage> {
                     child: ElevatedButton(
                       style: kHomeButton,
                       onPressed: () => Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const ProfessionalDirectoriesPage())),
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const ProfessionalDirectoriesPage(),
+                        ),
+                      ),
                       child: const Text(
                         'Let\'s Dive In',
                         style: kHomeCardStyle,

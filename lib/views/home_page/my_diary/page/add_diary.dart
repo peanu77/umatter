@@ -24,6 +24,7 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
   String desc = '';
   Color bgColor = Colors.white;
   List<String> reasonList = SharePrefConfig.getReasons() ?? [];
+
   final message = const SnackBar(
     content: Text('Save'),
   );
@@ -57,13 +58,13 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
                 // Calling the Database manager'
                 databaseManager.addForm(title, desc, _formKey, emoji);
                 // Transfer data to the my diary home page
+                SharePrefConfig.setSelectedColor(bgColor.toString());
                 Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MyDiaryPage(
-                              selectedColor: bgColor,
-                            )));
-                // Get.toNamed('/my_diary');
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MyDiaryPage(),
+                  ),
+                );
               } else {
                 return;
               }
