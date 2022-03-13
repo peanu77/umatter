@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'dart:math';
 
-import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
+import '../home_page/my_diary/page/constant/diary_constant.dart';
 
 class QuotesPage extends StatefulWidget {
   const QuotesPage({Key? key}) : super(key: key);

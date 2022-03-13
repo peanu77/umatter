@@ -9,10 +9,12 @@ import 'package:umatter/views/assessment_page/assessment_page.dart';
 import 'package:umatter/views/home_page/discover/discover_page.dart';
 import 'package:umatter/views/home_page/meditate/meditate.dart';
 import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
+import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 import 'package:umatter/views/home_page/professionals/professionals_page.dart';
 import 'package:umatter/views/onboarding_screen/onboarding_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:umatter/views/user_info_page/user_page.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 int? isViewed;
 int? userScreen;
@@ -35,65 +37,31 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-
-        outlinedButtonTheme: OutlinedButtonThemeData(
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all<EdgeInsets>(
-              const EdgeInsets.all(24),
-            ),
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-            shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-            ),
-          ),
-        ),
-
         textTheme: GoogleFonts.montserratTextTheme(),
         primaryColor: const Color(0xff8cbbf1),
-        // primarySwatch: Colors.orange.shade200,
       ),
       initialRoute: '/',
       getPages: [
         GetPage(
-          // This automatically load the homepage or the first index in the our navigation bar
           name: '/',
-          // This will check if the user has already visited the app before if not the app will be loaded with OnboardingPage otherwise it will load the HomePage.
           page: () => isViewed != 0 ? OnboardingPage() : const LogInPage(),
           binding: DashBoardBinding(),
         ),
-        GetPage(
-          name: '/assessment',
-          page: () =>
-              userScreen != 0 ? const UserInfoPage() : const AssessmentPage(),
-        ),
-        GetPage(
-          name: '/discover',
-          page: () => const DiscoverPage(),
-        ),
-        GetPage(
-          name: '/meditate',
-          page: () => const MeditatePage(),
-        ),
+        GetPage(name: '/login_page', page: () => const LogInPage()),
+        GetPage(name: '/home_page', page: () => const NavBarPage()),
+        GetPage(name: '/assessment', page: () => const AssessmentPage()),
+        GetPage(name: '/user_info', page: () => const UserInfoPage()),
+        GetPage(name: '/discover', page: () => const DiscoverPage()),
+        GetPage(name: '/meditate', page: () => const MeditatePage()),
+        GetPage(name: '/assessment', page: () => const AssessmentPage()),
         GetPage(
           name: '/my_diary',
-          page: () => const MyDiaryPage(),
+          page: () => ShowCaseWidget(
+              builder: Builder(builder: (_) => const MyDiaryPage())),
         ),
         GetPage(
-          name: '/counselor',
-          page: () => const ProfessionalDirectoriesPage(),
-        ),
-        GetPage(
-          name: '/assessment',
-          page: () => const AssessmentPage(),
-        ),
+            name: '/counselor',
+            page: () => const ProfessionalDirectoriesPage()),
       ],
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:umatter/auth/auth.dart';
+import 'package:lottie/lottie.dart';
 import 'package:umatter/auth/auth_pages/login_page.dart';
 import 'package:umatter/controllers/onboarding_screen_controller/onboarding_controller.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
@@ -21,6 +21,7 @@ class OnboardingPage extends StatelessWidget {
       body: Stack(
         children: [
           PageView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             controller: _controller.pageController,
             onPageChanged: _controller.selectedPageIndex,
             itemCount: _controller.onboardingPages.length,
@@ -30,19 +31,22 @@ class OnboardingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     const Spacer(),
-                    Image.asset(_controller.onboardingPages[index].imgAsset),
+                    SizedBox(
+                      height: _size.height * 0.4,
+                      child: Lottie.asset(
+                          _controller.onboardingPages[index].imgAsset),
+                    ),
                     const SizedBox(
                       height: 25.0,
                     ),
-                    const Spacer(),
                     Container(
                       height: _size.height * 0.46,
                       decoration: const BoxDecoration(
-                        // TODO : Modify the Color
-                        color: Color(0xff8cbbf1),
+                        color: Colors.white54,
                         borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(25.0),
-                            topLeft: Radius.circular(25.0)),
+                          topRight: Radius.circular(25.0),
+                          topLeft: Radius.circular(25.0),
+                        ),
                       ),
                       child: Column(
                         children: [
@@ -66,7 +70,6 @@ class OnboardingPage extends StatelessWidget {
                                       color:
                                           _controller.selectedPageIndex.value ==
                                                   index
-                                              // TODO : Change the color
                                               ? Colors.orange.shade500
                                               : Colors.orangeAccent[100],
                                       borderRadius: BorderRadius.circular(
@@ -81,7 +84,7 @@ class OnboardingPage extends StatelessWidget {
                           const Spacer(),
                           Text(
                             _controller.onboardingPages[index].title,
-                            style: kTitle,
+                            style: Theme.of(context).textTheme.headline4,
                           ),
                           const Spacer(),
                           Padding(
@@ -89,7 +92,7 @@ class OnboardingPage extends StatelessWidget {
                             child: Text(
                               _controller.onboardingPages[index].description,
                               textAlign: TextAlign.center,
-                              style: kDesc,
+                              style: Theme.of(context).textTheme.headline5,
                             ),
                           ),
                           const Spacer(),
@@ -110,7 +113,7 @@ class OnboardingPage extends StatelessWidget {
                                                 true) {
                                               await sharedPref
                                                   .onboardingPageInfoController();
-                                              Get.to(() => const LogInPage());
+                                              Get.offAllNamed('/login_page');
                                             } else {
                                               _controller.pageController
                                                   .nextPage(
@@ -139,11 +142,16 @@ class OnboardingPage extends StatelessWidget {
                                           nextPageController() async {
                                             if (_controller.isLastPage ==
                                                 true) {
-                                              Get.to(
-                                                () => const NavBarPage(),
-                                              );
+                                              // Navigator.pushNamedAndRemoveUntil(
+                                              //     context,
+                                              //     "/home_page",
+                                              //     (route) => false);
+                                              // Get.to(
+                                              //   () => const NavBarPage(),
+                                              // );
                                               // await sharedPref
                                               //     .onboardingPageInfoController;
+                                              Get.offAllNamed('/home_page');
                                             } else {
                                               _controller.pageController
                                                   .nextPage(
@@ -167,7 +175,8 @@ class OnboardingPage extends StatelessWidget {
                           const Spacer(),
                         ],
                       ),
-                    )
+                    ),
+                    const Spacer()
                   ],
                 ),
               );

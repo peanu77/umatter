@@ -6,6 +6,7 @@ import 'package:umatter/controllers/assessment_controller/assessment_controller.
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/assessment_page/assessment_result.dart';
 import 'package:umatter/views/assessment_page/const.dart';
+import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 class AssessmentPage extends StatefulWidget {
   const AssessmentPage({Key? key}) : super(key: key);
@@ -48,16 +49,22 @@ class _AssessmentPageState extends State<AssessmentPage> {
                     flex: 2,
                   ),
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        "Question ${index + 1} / ${controller.questionsController.length}",
-                        style: Theme.of(context).textTheme.headline4,
+                      Center(
+                        child: Text(
+                          "Question ${index + 1} / ${controller.questionsController.length}",
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
                       ),
                       const SizedBox(height: 25.0),
-                      Text(
-                        controller.questionsController[index].question,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline5,
+                      Center(
+                        child: Text(
+                          controller.questionsController[index].question,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
                       ),
                     ],
                   ),
@@ -68,13 +75,13 @@ class _AssessmentPageState extends State<AssessmentPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        _buildFirstBtn(),
+                        _buildFirstBtn(_size),
                         const SizedBox(height: 15.0),
-                        _buildSecondBtn(),
+                        _buildSecondBtn(_size),
                         const SizedBox(height: 15.0),
                         _buildThirdBtn(_size),
                         const SizedBox(height: 15.0),
-                        _buildFourthBtn(),
+                        _buildFourthBtn(_size),
                       ],
                     ),
                   ),
@@ -90,13 +97,16 @@ class _AssessmentPageState extends State<AssessmentPage> {
     );
   }
 
-  _buildFirstBtn() {
+  _buildFirstBtn(_size) {
     return SizedBox(
       width: double.infinity,
-      child: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          primary: kprimayColor,
-          elevation: kbtnElevation,
+      height: _size.height * 0.09,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          primary: kPrimaryFrmColor,
+          elevation: 2.0,
         ),
         onPressed: () {
           selectedItem = "Not at all";
@@ -115,13 +125,16 @@ class _AssessmentPageState extends State<AssessmentPage> {
     );
   }
 
-  _buildSecondBtn() {
+  _buildSecondBtn(_size) {
     return SizedBox(
       width: double.infinity,
-      child: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          primary: kprimayColor,
-          elevation: kbtnElevation,
+      height: _size.height * 0.09,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          primary: kPrimaryFrmColor,
+          elevation: 2.0,
         ),
         onPressed: () {
           selectedItem = "Several days";
@@ -144,10 +157,13 @@ class _AssessmentPageState extends State<AssessmentPage> {
   _buildThirdBtn(_size) {
     return SizedBox(
       width: double.infinity,
-      child: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          primary: kprimayColor,
-          elevation: kbtnElevation,
+      height: _size.height * 0.09,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          primary: kPrimaryFrmColor,
+          elevation: 2.0,
         ),
         onPressed: () {
           selectedItem = "More than half the days";
@@ -159,20 +175,23 @@ class _AssessmentPageState extends State<AssessmentPage> {
           print(selectedItem);
         },
         child: Text(
-          'More than half the day',
+          'More than half the days',
           style: Theme.of(context).textTheme.headline6,
         ),
       ),
     );
   }
 
-  _buildFourthBtn() {
+  _buildFourthBtn(_size) {
     return SizedBox(
       width: double.infinity,
-      child: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          primary: kprimayColor,
-          elevation: kbtnElevation,
+      height: _size.height * 0.09,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          elevation: 2.0,
+          primary: kPrimaryFrmColor,
         ),
         onPressed: () {
           selectedItem = "Nearly Everyday";
@@ -180,7 +199,6 @@ class _AssessmentPageState extends State<AssessmentPage> {
           scores.add(score);
           assessmentList.add(selectedItem);
           nextPageController();
-          setState(() {});
           print(selectedItem);
         },
         child: Text(

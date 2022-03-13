@@ -6,10 +6,8 @@ import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 class AddDiaryPage extends StatefulWidget {
-  final reason;
   const AddDiaryPage({
     Key? key,
-    this.reason,
   }) : super(key: key);
 
   @override
@@ -178,7 +176,8 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
 
   _buildColorPicker(Size size) {
     return SizedBox(
-      height: size.height * 0.060,
+      height: 120.0,
+      // height: size.height * 0.060,
       child: ListView.builder(
         itemCount: MyDiaryController().myDiaryController.length,
         itemBuilder: (context, index) {

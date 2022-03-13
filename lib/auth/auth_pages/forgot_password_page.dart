@@ -2,7 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
-import 'package:umatter/auth/auth.dart';
+import 'package:umatter/auth/login.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
@@ -14,9 +14,7 @@ class ForgetPasswordPage extends StatefulWidget {
 
 class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   final emailController = TextEditingController();
-  final message = SnackBar(
-    content: Text(''),
-  );
+
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
@@ -25,8 +23,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: _size.height * 0.05,
+              const SizedBox(
+                height: 25.0,
               ),
               _buildIcon(),
               SizedBox(
@@ -35,7 +33,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
               _buildFormField(),
               _buildReturnLogin(),
               SizedBox(
-                height: _size.height * 0.1,
+                height: _size.height * 0.08,
               ),
               _buildForgetBtn(_size),
             ],
@@ -45,7 +43,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     );
   }
 
-  _buildIcon() => Lottie.asset('assets/forget_password.json');
+  _buildIcon() =>
+      Lottie.asset('assets/img/authentication/forget_password.json');
   _buildFormField() => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: TextFormField(
@@ -60,13 +59,14 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         ),
       );
   _buildReturnLogin() => TextButton(
-      onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const LoginWidget(),
-            ),
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginWidget(),
           ),
-      child: const Text('Return to login page'));
+        ),
+        child: const Text('Return to login page'),
+      );
 
   _buildForgetBtn(_size) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -90,7 +90,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: emailController.text.trim());
-      final message = const SnackBar(
+      // Message Content
+      const message = SnackBar(
         content: Text("Reset Password Sent"),
       );
       ScaffoldMessenger.of(context).showSnackBar(message);

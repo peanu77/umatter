@@ -1,4 +1,4 @@
-import 'package:umatter/views/user_info_page/user_models.dart';
+import '../../models/user_page/user_models.dart';
 
 class UserInfoController {
   List<UserInfoModels> userController = [

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:umatter/controllers/home_page_controller/constant.dart';
 import 'package:umatter/controllers/home_page_controller/home_page_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
-import 'package:umatter/views/assessment_page/const.dart';
+import 'package:umatter/preferences/consts.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:umatter/views/home_page/professionals/professionals_page.dart';
+import 'package:umatter/views/user_info_page/user_info_page.dart';
+import 'package:umatter/preferences/run_preferences.dart';
+import 'package:umatter/views/welcome_page/welcome_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,8 +20,32 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final keyOne = GlobalKey();
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance?.addPostFrameCallback(
+        (timeStamp) => ShowCaseWidget.of(context)?.startShowCase([
+              keyOne,
+            ]));
+  }
+
+// Check Daytime
+  String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Good Morning';
+    }
+    if (hour < 17) {
+      return 'Good Afternoon';
+    }
+    return 'Good Evening';
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _runPreferences = RunPreferences();
     final size = MediaQuery.of(context).size;
     String name = '';
     name = SharePrefConfig.getUsername() ?? "";
@@ -35,17 +63,13 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Hello There!",
-
-                        // controller.title,
-                        style: TextStyle(
+                        greeting(),
+                        style: const TextStyle(
                             fontSize: 30.0, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 15.0,
                       ),
-
-                      /// TODO: Make this appealing to the user
                       Text(
                         name,
                         style: const TextStyle(
@@ -58,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
 
-                _buildAssessment(size),
+                _buildAssessment(size, _runPreferences),
 
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -76,7 +100,6 @@ class _HomePageState extends State<HomePage> {
                 ),
 
                 /*  Interventions */
-
                 // Discover
                 _buildDiscover(size),
                 // Meditate
@@ -108,76 +131,100 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// The following build methods used to separate it from the Scaffold.
-  _buildAssessment(Size _size) => Column(
-        children: [
-          Padding(
-            padding: kHomeCardPadding,
-            child: Card(
-              color: kCardAssessment,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 15.0,
-                      right: 8.0,
-                      top: 15.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: const Text(
-                                "Assessment",
-                                style: kHomeTitleStyle,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 15.0,
-                            ),
-                            SizedBox(
-                              width: _size.width * 0.5,
-                              child: const Text(
-                                discoverDescript,
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  letterSpacing: 1.0,
-                                  color: Color(0xffefedfa),
+  _buildAssessment(Size _size, RunPreferences runPreferences) => Showcase(
+        description: "Assessment Page",
+        key: keyOne,
+        child: Column(
+          children: [
+            Padding(
+              padding: kHomeCardPadding,
+              child: Card(
+                color: kCardAssessment,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 15.0,
+                        right: 8.0,
+                        top: 15.0,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: const Text(
+                                  "Assessment",
+                                  style: kHomeTitleStyle,
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        Image.asset(
-                          kDiscoverImg,
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(10.0),
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: kHomeButton,
-                      onPressed: () => Get.toNamed('/assessment'),
-                      child: const Text(
-                        'Take Assessment',
-                        style: kHomeCardStyle,
+                              const SizedBox(
+                                height: 15.0,
+                              ),
+                              SizedBox(
+                                width: _size.width * 0.5,
+                                child: const Text(
+                                  discoverDescript,
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    letterSpacing: 1.0,
+                                    color: Color(0xffefedfa),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Image.asset(
+                            kDiscoverImg,
+                          )
+                        ],
                       ),
                     ),
-                  )
-                ],
+                    Container(
+                      padding: const EdgeInsets.all(10.0),
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: kHomeButton,
+                        onPressed: () async {
+                          bool firstAssessment = await runPreferences
+                              .getFirstRun(assessmentRunKey);
+                          if (firstAssessment) {
+                            // runPreferences.disableFirstRun(assessmentRunKey);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const UserInfo(),
+                                // builder: (context) => const WelcomePage(),
+                              ),
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const WelcomePage(),
+                              ),
+                            );
+                          }
+                        },
+                        child: const Text(
+                          'Take Assessment',
+                          style: kHomeCardStyle,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
   _buildDiscover(Size _size) => Column(
         children: [

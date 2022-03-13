@@ -47,4 +47,15 @@ class DatabaseManager {
     }
     Get.back();
   }
+
+  Future deleteUser() async {
+    try {
+      await FirebaseAuth.instance.currentUser!.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        print(
+            'The user must reauthenticate before this operation can be executed.');
+      }
+    }
+  }
 }

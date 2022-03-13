@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:umatter/auth/auth.dart';
-import 'package:umatter/views/user_info_page/user_page.dart';
+import 'package:umatter/auth/login.dart';
+import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
+import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class LogInPage extends StatefulWidget {
 }
 
 class LogInPageState extends State<LogInPage> {
+  SharePrefConfig sharePrefConfig = SharePrefConfig();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +20,7 @@ class LogInPageState extends State<LogInPage> {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const UserInfoPage();
+              return const NavBarPage();
             } else {
               return const LoginWidget();
             }

@@ -5,14 +5,15 @@ import 'package:lottie/lottie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
+import 'package:showcaseview/showcaseview.dart';
+import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:umatter/views/home_page/my_diary/page/select_emotion.dart';
 import 'package:umatter/views/home_page/my_diary/page/view_diary_page.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 
 class MyDiaryPage extends StatefulWidget {
-  final emotion;
-  const MyDiaryPage({Key? key, this.emotion}) : super(key: key);
+  const MyDiaryPage({Key? key}) : super(key: key);
 
   @override
   _MyDiaryPageState createState() => _MyDiaryPageState();
@@ -25,17 +26,30 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
       .collection('notes');
 
   selectEmoji() {
-    if (widget.emotion.toString() == "Happy") {
+    if (SharePrefConfig.getEmoji.toString() == "Happy") {
       return const Text(
         '😀',
         style: TextStyle(fontSize: 30.0),
       );
-    } else if (widget.emotion.toString() == "Sad") {
+    } else if (SharePrefConfig.getEmoji.toString() == "Sad") {
       return const Text(
         '😞',
         style: TextStyle(fontSize: 30.0),
       );
     }
+  }
+
+  final keyOne = GlobalKey();
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+
+    WidgetsBinding.instance?.addPostFrameCallback(
+        (timeStamp) => ShowCaseWidget.of(context)?.startShowCase([
+              keyOne,
+            ]));
   }
 
   @override
@@ -89,7 +103,6 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                         vertical: 2.0,
                       ),
                       child: Card(
-                        // TODO : Change this to a color stored in the firestore
                         // color: Colors.orange,
                         // color: int.parse(SharePrefConfig.getSelectedColor()),
                         shape: RoundedRectangleBorder(
@@ -102,7 +115,8 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                                   data: data,
                                   time: formattedDatetime,
                                   ref: snapshot.data!.docs[index].reference,
-                                  emotion: widget.emotion?.toString(),
+                                  emotion:
+                                      SharePrefConfig.getEmoji()?.toString(),
                                 ),
                               )!
                                   .then(
@@ -164,24 +178,28 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: kPrimaryFrmColor,
-        tooltip: "Create Diary",
-        child: const FaIcon(
-          FontAwesomeIcons.featherAlt,
-          // color: Colors.black,
-        ),
-        onPressed: () => Navigator.of(context)
-            .push(
-          MaterialPageRoute(
-            builder: (context) => EmojiSelectorPage(),
+      floatingActionButton: Showcase(
+        key: keyOne,
+        description: "Create Diary",
+        child: FloatingActionButton(
+          backgroundColor: kPrimaryFrmColor,
+          tooltip: "Create Diary",
+          child: const FaIcon(
+            FontAwesomeIcons.featherAlt,
+            // color: Colors.black,
           ),
-        )
+          onPressed: () => Navigator.of(context)
+              .push(
+            MaterialPageRoute(
+              builder: (context) => EmojiSelectorPage(),
+            ),
+          )
 
-            /// We are using the .then to automatically refresh the page once the user created a diary.
-            .then((value) {
-          setState(() {});
-        }),
+              /// We are using the .then to automatically refresh the page once the user created a diary.
+              .then((value) {
+            setState(() {});
+          }),
+        ),
       ),
     );
   }

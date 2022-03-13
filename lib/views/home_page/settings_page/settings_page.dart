@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/auth/auth_pages/login_page.dart';
+import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/models/contants/settings.dart';
 import 'package:umatter/views/home_page/settings_page/constant/settings_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     final kBoxHeight = _size.height * 0.09;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -270,7 +270,7 @@ class SettingsPage extends StatelessWidget {
                 ],
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () async => await DatabaseManager().deleteUser(),
                 icon: const Icon(
                   Icons.chevron_right,
                   size: 30.0,
@@ -286,7 +286,7 @@ class SettingsPage extends StatelessWidget {
   Future<void> signOut() async {
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     await firebaseAuth.signOut();
-    return Get.to(() => LogInPage());
+    return Get.to(() => const LogInPage());
   }
 
   Widget _buildLogOut(kBoxHeight) {

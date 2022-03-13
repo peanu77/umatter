@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
-import 'package:umatter/auth/auth.dart';
+import 'package:umatter/auth/login.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
-import 'package:umatter/views/user_info_page/user_page.dart';
+import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 import 'package:email_validator/email_validator.dart';
 
 class CreateAccountPage extends StatefulWidget {
@@ -18,51 +19,63 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  bool connection = true;
+
+  @override
+  void initState() {
+    super.initState();
+// This will check if the user has a connection status
+    InternetConnectionChecker().onStatusChange.listen((status) {
+      final connection = status == InternetConnectionStatus.connected;
+      setState(() => this.connection = connection);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: _size.height * 0.07,
-              ),
-              _buildLottieIcon(),
-              _buildGreetings(),
-              SizedBox(
-                height: _size.height * 0.1,
-              ),
-              _buildEmailField(),
-              const SizedBox(
-                height: 15.0,
-              ),
-              Form(
-                  key: _formKey,
-                  child: Column(
+            child: connection
+                ? Column(
                     children: [
-                      _buildPasswordField(),
-                      _buildAlreadyHaveAccount(),
+                      _buildLottieIcon(),
+                      _buildGreetings(),
+                      SizedBox(
+                        height: _size.height * 0.1,
+                      ),
+                      _buildEmailField(),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              _buildPasswordField(),
+                              _buildAlreadyHaveAccount(),
+                            ],
+                          )),
+                      SizedBox(
+                        height: _size.height * 0.04,
+                      ),
+                      _buildCreateAccountBtn(_size),
                     ],
-                  )),
-              SizedBox(
-                height: _size.height * 0.06,
-              ),
-              _buildCreateAccountBtn(_size),
-            ],
-          ),
-        ),
+                  )
+                : Lottie.asset('assets/img/authentication/no-internet.json')),
       ),
     );
   }
 
-  _buildLottieIcon() => Lottie.asset('assets/sign_up.json', width: 270.0);
+  _buildLottieIcon() =>
+      Lottie.asset('assets/img/authentication/sign_up.json', width: 270.0);
 
   _buildGreetings() => const Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.0),
         child: Text(
-          "Welcome Back!, you've been missed",
+          "Create your account",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 30.0),
         ),
@@ -138,7 +151,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
           email: emailController.text.trim(),
           password: passwordController.text.trimLeft());
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const UserInfoPage()));
+          MaterialPageRoute(builder: (context) => const NavBarPage()));
     } on FirebaseAuthException catch (e) {
       final message = SnackBar(
         content: Text(e.message.toString()),

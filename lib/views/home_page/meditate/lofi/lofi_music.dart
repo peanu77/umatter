@@ -52,6 +52,7 @@ class LofiMusicPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     // TODO : Change this to Image
+                  
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(

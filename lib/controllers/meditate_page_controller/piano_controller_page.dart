@@ -4,7 +4,7 @@ class PianoPageController {
   List<PianoInfoPage> pianoPageInfo = [
     PianoInfoPage(
         title: "Piano Title",
-        coverImg: '',
+        coverImg: 'assets/img/music_therapy/piano.jpg',
         music: '',
         authorName: 'Piano Author')
   ];

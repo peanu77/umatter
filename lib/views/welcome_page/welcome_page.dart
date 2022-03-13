@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/views/assessment_page/assessment_page.dart';
+import 'package:umatter/views/assessment_page/welcome_page.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
-import 'package:get/get.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -65,8 +64,13 @@ class WelcomePage extends StatelessWidget {
                             width: double.infinity,
                             child: ElevatedButton(
                               // Navigate to Assessment Page
-                              onPressed: () =>
-                                  Get.to(() => const AssessmentPage()),
+                              onPressed: () => Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LabelPage(),
+                                ),
+                              ),
+
                               child: const Text('Continue'),
                               style: ElevatedButton.styleFrom(
                                 primary: kPrimaryFrmColor,

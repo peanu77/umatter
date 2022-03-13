@@ -40,11 +40,11 @@ class _AcousticGuitarPageState extends State<AcousticGuitarPage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
-                      // TODO : Change this to Image
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Column(
                           children: [
+                            // Title
                             Text(
                               controller.acousticPageController[index].title,
                               style: Theme.of(context).textTheme.headline4,

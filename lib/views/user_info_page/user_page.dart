@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/models/contants/constants.dart';
-import 'package:umatter/views/assessment_page/assessment_page.dart';
+import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 import 'package:umatter/views/user_info_page/user_controller.dart';
 import 'package:get/get.dart';
+import 'package:umatter/views/welcome_page/welcome_page.dart';
+import 'package:umatter/preferences/run_preferences.dart';
+import 'package:umatter/preferences/consts.dart';
 
 class UserInfoPage extends StatefulWidget {
   const UserInfoPage({Key? key}) : super(key: key);
@@ -20,6 +23,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
   final _formKey = GlobalKey<FormState>();
   final controller = UserInfoController();
+  final _runPreferences = RunPreferences();
 
   String username = '';
   String age = '';
@@ -46,7 +50,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
               _buildUsernamePage(_size),
               _buildAgePage(_size),
               _buildGenderPage(_size),
-              _buildCivilStatusPage(_size),
+              _buildCivilStatusPage(_size, _runPreferences),
             ],
           ),
         ),
@@ -217,7 +221,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 ),
                 child: FittedBox(
                   fit: BoxFit.fill,
-                  child: Image.asset('assets/male.png'),
+                  child: Image.asset('assets/img/gender/male.png'),
                 ),
               ),
             ),
@@ -235,7 +239,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 ),
                 child: FittedBox(
                   fit: BoxFit.fill,
-                  child: Image.asset('assets/woman.png'),
+                  child: Image.asset('assets/img/gender/woman.png'),
                 ),
               ),
             ),
@@ -265,7 +269,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
     );
   }
 
-  _buildCivilStatusPage(_size) {
+  _buildCivilStatusPage(_size, RunPreferences runPreferences) {
     return Column(
       children: [
         const Spacer(
@@ -324,12 +328,17 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 databaseManager.createUserInfo(
                     username, age, gender, civilStatus);
                 sharePrefConfig.userInfoController();
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AssessmentPage(),
-                  ),
-                );
+                runPreferences.disableFirstRun(assessmentRunKey);
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const WelcomePage(),
+                //   ),
+                // );
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => const WelcomePage()),
+                    (route) => false);
               },
               child: const Text('Continue'),
             ),

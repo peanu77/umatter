@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/models/contants/constants.dart';
+import 'package:umatter/views/home_page/discover/discover_page.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
+import 'package:umatter/views/home_page/professionals/professionals_page.dart';
 
 class AssessmentResult extends StatefulWidget {
   final String assessmentRes;
@@ -63,11 +65,10 @@ class _AssessmentResultState extends State<AssessmentResult> {
                         widget.assessmentRes == "Severe Depression") {
                       _buildDialog();
                     } else {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const NavBarPage(),
-                        ),
-                      );
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => const DiscoverPage()),
+                          (route) => false);
                     }
                   },
                   child: const Text('What now?'),
@@ -102,7 +103,8 @@ class _AssessmentResultState extends State<AssessmentResult> {
                   onPressed: () => Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const NavBarPage()),
+                          builder: (context) =>
+                              const ProfessionalDirectoriesPage()),
                       (route) => false),
                   child: const Text('Proceed'),
                 ),

@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/add_diary.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
-class EmojiSelectorPage extends StatelessWidget {
-  EmojiSelectorPage({Key? key}) : super(key: key);
-  String selectedReason = '';
+import '../../../../controllers/shared_pref_controller/shared_pref_controller.dart';
+
+class EmojiSelectorPage extends StatefulWidget {
+  const EmojiSelectorPage({Key? key}) : super(key: key);
+
+  @override
+  State<EmojiSelectorPage> createState() => _EmojiSelectorPageState();
+}
+
+class _EmojiSelectorPageState extends State<EmojiSelectorPage> {
   String emotions = 'Happy';
 
   List<String> reasonList = SharePrefConfig.getReasons() ?? [];
@@ -38,8 +44,8 @@ class EmojiSelectorPage extends StatelessWidget {
                   print(emotions);
                 },
                 children: [
-                  Lottie.asset('assets/icons/json/happy.json'),
-                  Lottie.asset('assets/icons/json/sad.json'),
+                  Lottie.asset('assets/img/diary/happy.json'),
+                  Lottie.asset('assets/img/diary/sad.json'),
                 ],
               ),
             ),
@@ -55,15 +61,11 @@ class EmojiSelectorPage extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   primary: kPrimaryFrmColor,
                 ),
-                // TODO: Get to the Add Page Diary.
                 onPressed: () {
                   SharePrefConfig.setEmoji(emotions);
-                  print(reasonList);
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => AddDiaryPage(
-                        reason: reasonList.toString(),
-                      ),
+                      builder: (context) => const AddDiaryPage(),
                     ),
                   );
                 },

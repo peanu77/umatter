@@ -55,7 +55,8 @@ class MeditatePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15.0),
                           color: Colors.orange,
                           image: const DecorationImage(
-                            image: AssetImage('assets/img/lofi.jpg'),
+                            image:
+                                AssetImage('assets/img/music_therapy/lofi.jpg'),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -77,7 +78,8 @@ class MeditatePage extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
                           image: const DecorationImage(
-                            image: AssetImage('assets/img/acoustic_guitar.jpg'),
+                            image: AssetImage(
+                                'assets/img/music_therapy/acoustic_guitar.jpg'),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -101,7 +103,7 @@ class MeditatePage extends StatelessWidget {
                           color: Colors.orange,
                           image: const DecorationImage(
                             image: AssetImage(
-                              'assets/img/piano.jpg',
+                              'assets/img/music_therapy/piano.jpg',
                             ),
                             fit: BoxFit.fill,
                           ),
