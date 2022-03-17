@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,7 +8,7 @@ import 'package:umatter/controllers/dashboard_controller/dashboard_binding.dart'
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/assessment_page/assessment_page.dart';
 import 'package:umatter/views/home_page/discover/discover_page.dart';
-import 'package:umatter/views/home_page/meditate/meditate.dart';
+import 'package:umatter/views/home_page/meditate/meditate_page.dart';
 import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 import 'package:umatter/views/home_page/professionals/professionals_page.dart';
@@ -20,6 +21,11 @@ int? isViewed;
 int? userScreen;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Prevent the screen to rotate
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+// Shared Preferences
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   isViewed = sharedPreferences.getInt("onboarding");
   userScreen = await sharedPreferences.getInt("userScreen");
