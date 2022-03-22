@@ -7,9 +7,7 @@ class QuotesInfoPage {
   });
 
   QuotesInfoPage.fromJson(Map<String, dynamic> json) {
-    text:
     json['text'];
-    author:
     json['author'];
   }
 }
