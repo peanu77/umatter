@@ -94,14 +94,10 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              IconButton(
-                // TODO: Navigate to Notification Page
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.chevron_right,
-                  size: 30.0,
-                ),
-              )
+              const Icon(
+                Icons.chevron_right,
+                size: 30.0,
+              ),
             ],
           ),
         ),
@@ -183,14 +179,10 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              IconButton(
-                // TODO: Navigate to Notification Page
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.chevron_right,
-                  size: 30.0,
-                ),
-              )
+              const Icon(
+                Icons.chevron_right,
+                size: 30.0,
+              ),
             ],
           ),
         ),
@@ -226,14 +218,10 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              IconButton(
-                // TODO: Navigate to Notification Page
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.chevron_right,
-                  size: 30.0,
-                ),
-              )
+              const Icon(
+                Icons.chevron_right,
+                size: 30.0,
+              ),
             ],
           ),
         ),
@@ -246,7 +234,7 @@ class SettingsPage extends StatelessWidget {
       height: kBoxHeight,
       child: ElevatedButton(
         style: sDeleteBtn,
-        onPressed: () {},
+        onPressed: () async => await DatabaseManager().deleteUser(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
           child: Row(
@@ -269,13 +257,10 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              IconButton(
-                onPressed: () async => await DatabaseManager().deleteUser(),
-                icon: const Icon(
-                  Icons.chevron_right,
-                  size: 30.0,
-                ),
-              )
+              const Icon(
+                Icons.chevron_right,
+                size: 30.0,
+              ),
             ],
           ),
         ),
@@ -317,14 +302,10 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              IconButton(
-                // TODO: Navigate to Notification Page
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.chevron_right,
-                  size: 30.0,
-                ),
-              )
+              const Icon(
+                Icons.chevron_right,
+                size: 30.0,
+              ),
             ],
           ),
         ),

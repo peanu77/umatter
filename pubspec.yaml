@@ -23,6 +23,7 @@ dependencies:
   lottie: ^1.2.1
   shared_preferences: ^2.0.13
   showcaseview: ^1.1.5
+  smooth_page_indicator: ^1.0.0+2
   url_launcher: ^6.0.18
 
 dev_dependencies:
@@ -51,6 +52,7 @@ flutter:
     - assets/img/authentication/
     - assets/img/music_therapy/
     - assets/img/diary/
+    - assets/img/discover/
     - assets/img/
     - assets/icons/
     - assets/icons/json/

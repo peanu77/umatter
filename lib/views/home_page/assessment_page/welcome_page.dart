@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/views/assessment_page/assessment_page.dart';
-import 'package:umatter/views/assessment_page/option_controller.dart';
+import 'package:umatter/views/home_page/assessment_page/assessment_page.dart';
+import 'package:umatter/views/home_page/assessment_page/option_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 class LabelPage extends StatefulWidget {

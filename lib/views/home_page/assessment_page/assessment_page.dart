@@ -4,8 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:umatter/controllers/assessment_controller/assessment_controller.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
-import 'package:umatter/views/assessment_page/assessment_result.dart';
-import 'package:umatter/views/assessment_page/const.dart';
+import 'package:umatter/views/home_page/assessment_page/assessment_result.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 class AssessmentPage extends StatefulWidget {

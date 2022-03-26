@@ -24,34 +24,26 @@ class _ProfessionalDirectoriesPage extends State<ProfessionalDirectoriesPage> {
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('List of Directories',
-            style: TextStyle(color: Colors.black)),
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => const NavBarPage(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('List of Directories',
+              style: TextStyle(color: Colors.black)),
+          leading: IconButton(
+            onPressed: () => Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const NavBarPage(),
+              ),
             ),
+            icon: const Icon(Icons.chevron_left, color: Colors.black),
           ),
-          icon: const Icon(Icons.chevron_left, color: Colors.black),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: _size.height * 0.35,
-                width: double.infinity,
-                child: FittedBox(
-                  fit: BoxFit.fill,
-                  child: Lottie.asset('assets/icons/json/talk.json'),
-                ),
-              ),
               _buildCampusProfessional(_size),
               _buildExternalDirectories(_size),
               _buildCommunity(_size),

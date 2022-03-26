@@ -42,8 +42,6 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
   final keyOne = GlobalKey();
   @override
   void initState() {
-    // TODO: implement initState
-
     super.initState();
 
     WidgetsBinding.instance?.addPostFrameCallback(
@@ -191,7 +189,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
           onPressed: () => Navigator.of(context)
               .push(
             MaterialPageRoute(
-              builder: (context) => EmojiSelectorPage(),
+              builder: (context) => const EmojiSelectorPage(),
             ),
           )
 

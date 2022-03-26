@@ -23,10 +23,13 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
   Color bgColor = Colors.white;
   List<String> reasonList = SharePrefConfig.getReasons() ?? [];
 
+  // Snackbar
+
   final message = const SnackBar(
     content: Text('Save'),
   );
 
+// Emoji Logic
   selectEmoji() {
     if (emoji.toString() == "Happy") {
       return const InkWell(
@@ -123,12 +126,9 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
 
   _buildTitleForm() {
     return TextFormField(
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         hintText: "Title",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        filled: true,
+        // filled: true,
       ),
       style: kfrmTitle,
       validator: (value) =>
@@ -148,6 +148,7 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
     );
   }
 
+// Description
   _buildDescForm() {
     return TextFormField(
       maxLines: null,
@@ -166,6 +167,7 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
     );
   }
 
+// Background Color Setter
   setBackgroundColor(Color newColor) {
     if (newColor != bgColor) {
       setState(() {
@@ -174,6 +176,7 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
     }
   }
 
+// Color Picker
   _buildColorPicker(Size size) {
     return SizedBox(
       height: 120.0,

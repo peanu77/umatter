@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/views/assessment_page/welcome_page.dart';
+import 'package:umatter/views/home_page/assessment_page/welcome_page.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
+import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -54,6 +55,7 @@ class WelcomePage extends StatelessWidget {
                       ),
                       content: const Text(
                         'The following Assessment is from the Primary Care Evaluation of Mental Disorders Patient Health Questionnaire (PRIME-MD PHQ). The PHQ was developed by Drs. Robert L. Spitzer, Janet B.W. Williams, Kurt Kroenke and colleagues. For research information, contact Dr. Spitzer at rls8@columbia.edu. PRIME-MD® is a trademark of Pfizer Inc. Copyright© 1999 Pfizer Inc. All rights reserved. Reproduced with permission',
+                        textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 16.0, letterSpacing: 1.0),
                       ),
                       actions: [
@@ -92,6 +94,19 @@ class WelcomePage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.0,
                   ),
+                ),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) => const NavBarPage(),
+                    ),
+                    (route) => false),
+                child: const Text(
+                  'Not Now',
+                  style: TextStyle(
+                      color: Colors.black,
+                      decoration: TextDecoration.underline),
                 ),
               ),
               const Spacer(

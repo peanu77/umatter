@@ -25,46 +25,45 @@ class _QuotesPageState extends State<QuotesPage> {
           /// This Method used to randomize the return data to the PageView.builder()
           randomData(jsonData);
           return PageView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: jsonData.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Align(
-                      widthFactor: 15.0,
-                      alignment: Alignment.topLeft,
-                      child: FaIcon(FontAwesomeIcons.quoteLeft),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      // Quotes
-                      child: Text(
-                        jsonData[randomData(jsonData)]['text'],
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline4,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: jsonData.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Align(
+                        widthFactor: 15.0,
+                        alignment: Alignment.topLeft,
+                        child: FaIcon(FontAwesomeIcons.quoteLeft),
                       ),
-                    ),
-                    const Align(
-                      widthFactor: 15.0,
-                      alignment: Alignment.bottomRight,
-                      child: FaIcon(FontAwesomeIcons.quoteRight),
-                    ),
-                    const SizedBox(
-                      height: 40.0,
-                    ),
-                    Text(
-                      // Author
-                      "- " + jsonData[randomData(jsonData)]['author'],
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                        // Quotes
+                        child: Text(
+                          jsonData[randomData(jsonData)]['text'],
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                      ),
+                      const Align(
+                        widthFactor: 15.0,
+                        alignment: Alignment.bottomRight,
+                        child: FaIcon(FontAwesomeIcons.quoteRight),
+                      ),
+                      const SizedBox(
+                        height: 40.0,
+                      ),
+                      Text(
+                        // Author
+                        "- " + jsonData[randomData(jsonData)]['author'],
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    ],
+                  ),
+                );
+              });
         }),
       ),
       floatingActionButton: FloatingActionButton(
@@ -73,7 +72,6 @@ class _QuotesPageState extends State<QuotesPage> {
         },
         child: const Icon(Icons.refresh),
         backgroundColor: kPrimaryFrmColor,
-        elevation: 1.0,
       ),
     );
   }

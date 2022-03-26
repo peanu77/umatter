@@ -1,6 +1,6 @@
 class OnboardingInfo {
-  final String imgAsset;
+  final String img;
   final String title;
-  final String description;
-  OnboardingInfo(this.imgAsset, this.title, this.description);
+  final String desc;
+  OnboardingInfo(this.img, this.title, this.desc);
 }

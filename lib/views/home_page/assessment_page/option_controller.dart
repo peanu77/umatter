@@ -1,4 +1,4 @@
-import 'package:umatter/views/assessment_page/option_info_models.dart';
+import 'package:umatter/views/home_page/assessment_page/option_info_models.dart';
 
 class OptionControllerPage {
   List<OptionInfoModel> optionInfoModel = [
