@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:umatter/controllers/home_page_controller/constant.dart';
+import 'package:umatter/constants/const.dart';
 
-import '../../discover/fact_check/fact_page.dart';
+import '../../discover/fact_page/fact_page.dart';
 
-class FactCheckWidget extends StatelessWidget {
+class FactWidget extends StatelessWidget {
   final discoverControllerPage;
   final size;
-  const FactCheckWidget({Key? key, this.discoverControllerPage, this.size})
+  const FactWidget({Key? key, this.discoverControllerPage, this.size})
       : super(key: key);
 
   @override
@@ -75,7 +75,7 @@ class FactCheckWidget extends StatelessWidget {
                     style: kHomeButton,
                     onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                            builder: (context) => const FactCheckPage())),
+                            builder: (context) => const FactPage())),
                     child: Text(
                       discoverControllerPage.discoverPage[0].btnTxt,
                       style: kHomeCardStyle,

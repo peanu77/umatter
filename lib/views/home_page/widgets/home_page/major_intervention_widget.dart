@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:umatter/controllers/home_page_controller/constant.dart';
+import 'package:umatter/constants/const.dart';
 
 import '../../../../controllers/home_page_controller/home_page_controller.dart';
 import '../../professionals/professionals_page.dart';

@@ -21,10 +21,10 @@ class WelcomePage extends StatelessWidget {
               const Spacer(
                 flex: 2,
               ),
-              Text(
+              const Text(
                 'Before you proceed, let us assess your condition first',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline4,
+                style: TextStyle(fontSize: 30.0),
               ),
               const Spacer(),
               ElevatedButton(
@@ -55,8 +55,11 @@ class WelcomePage extends StatelessWidget {
                       ),
                       content: const Text(
                         'The following Assessment is from the Primary Care Evaluation of Mental Disorders Patient Health Questionnaire (PRIME-MD PHQ). The PHQ was developed by Drs. Robert L. Spitzer, Janet B.W. Williams, Kurt Kroenke and colleagues. For research information, contact Dr. Spitzer at rls8@columbia.edu. PRIME-MD® is a trademark of Pfizer Inc. Copyright© 1999 Pfizer Inc. All rights reserved. Reproduced with permission',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16.0, letterSpacing: 1.0),
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          letterSpacing: 1.0,
+                        ),
                       ),
                       actions: [
                         Padding(
@@ -105,8 +108,8 @@ class WelcomePage extends StatelessWidget {
                 child: const Text(
                   'Not Now',
                   style: TextStyle(
-                      color: Colors.black,
-                      decoration: TextDecoration.underline),
+                    color: Colors.black,
+                  ),
                 ),
               ),
               const Spacer(

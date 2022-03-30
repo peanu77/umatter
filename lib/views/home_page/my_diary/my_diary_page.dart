@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -56,7 +57,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
       appBar: AppBar(
         title: const Text(
           'My Diary',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.black, fontSize: 30.0),
         ),
         leading: IconButton(
           onPressed: () => Get.to(() => const NavBarPage()),
@@ -65,6 +66,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
             color: Colors.black,
           ),
         ),
+        centerTitle: true,
         elevation: 0.0,
         backgroundColor: Colors.transparent,
       ),
@@ -72,12 +74,27 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
         child: FutureBuilder<QuerySnapshot>(
           future: ref.get(),
           builder: (context, snapshot) {
-            /// This will check if the user associated with the account used for login has a data if not it will display the Lottie.asset() otherwise it will display the the data available.
+            //  Check if has data otherwise it will display a Exeption
             if (snapshot.hasData) {
               if (snapshot.data!.docs.isEmpty) {
-                return Center(
-                  child: Lottie.asset('assets/icons/json/diary.json',
-                      width: 300.0),
+                return Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/img/diary/no_notes.svg',
+                        height: 200.0,
+                        width: 200.0,
+                      ),
+                      const SizedBox(height: 30.0),
+                      Text(
+                        "Can't Find Notes!",
+                        style: TextStyle(
+                            fontSize: 30.0, color: Colors.grey.shade600),
+                      ),
+                    ],
+                  ),
                 );
               }
 

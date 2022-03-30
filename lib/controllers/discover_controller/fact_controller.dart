@@ -1,4 +1,4 @@
-import 'package:umatter/views/home_page/discover/fact_check/fact_info_page.dart';
+import 'package:umatter/models/discover_model/fact_info_page.dart';
 
 class FactCheckController {
   /// Source to this Facts about Depression

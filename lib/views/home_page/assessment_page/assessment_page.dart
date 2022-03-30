@@ -40,7 +40,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
           itemCount: controller.questionsController.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -54,15 +54,17 @@ class _AssessmentPageState extends State<AssessmentPage> {
                       Center(
                         child: Text(
                           "Question ${index + 1} / ${controller.questionsController.length}",
-                          style: Theme.of(context).textTheme.headline4,
+                          // style: Theme.of(context).textTheme.headline4,
+                          style: TextStyle(fontSize: 18.0),
                         ),
                       ),
                       const SizedBox(height: 25.0),
                       Center(
                         child: Text(
                           controller.questionsController[index].question,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline5,
+                          // textAlign: TextAlign.center,
+                          // style: Theme.of(context).textTheme.headline5,
+                          style: TextStyle(fontSize: 30.0),
                         ),
                       ),
                     ],
@@ -70,19 +72,16 @@ class _AssessmentPageState extends State<AssessmentPage> {
                   const Spacer(
                     flex: 3,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        _buildFirstBtn(_size),
-                        const SizedBox(height: 15.0),
-                        _buildSecondBtn(_size),
-                        const SizedBox(height: 15.0),
-                        _buildThirdBtn(_size),
-                        const SizedBox(height: 15.0),
-                        _buildFourthBtn(_size),
-                      ],
-                    ),
+                  Column(
+                    children: [
+                      _buildFirstBtn(_size),
+                      const SizedBox(height: 15.0),
+                      _buildSecondBtn(_size),
+                      const SizedBox(height: 15.0),
+                      _buildThirdBtn(_size),
+                      const SizedBox(height: 15.0),
+                      _buildFourthBtn(_size),
+                    ],
                   ),
                   const Spacer(
                     flex: 2,

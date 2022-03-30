@@ -18,7 +18,7 @@ class UserInfo extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Text(
-                'Please provide the needed information on the next page',
+                'Please in',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline4,
               ),

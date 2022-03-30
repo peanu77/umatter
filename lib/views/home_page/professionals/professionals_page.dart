@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
+import 'package:umatter/constants/const.dart';
 import 'package:umatter/controllers/professionals_page_controller/external_directories_page_controller.dart';
-import 'package:umatter/models/contants/constants.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
-import 'package:umatter/views/home_page/professionals/campus_professional/professional_page.dart';
-import 'package:umatter/views/home_page/professionals/external_directories.dart';
-import 'package:umatter/views/home_page/professionals/mental_health_communities.dart';
+import 'package:umatter/views/home_page/widgets/professional_page/professional_card_widget.dart';
+import 'package:umatter/views/home_page/professionals/professional_controller.dart';
 
 class ProfessionalDirectoriesPage extends StatefulWidget {
   const ProfessionalDirectoriesPage({
@@ -20,237 +17,41 @@ class ProfessionalDirectoriesPage extends StatefulWidget {
 
 class _ProfessionalDirectoriesPage extends State<ProfessionalDirectoriesPage> {
   final interventionPage = InterventionPageController();
-
+  final _professionalController = ProfessionalControllerPage();
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('List of Directories',
-              style: TextStyle(color: Colors.black)),
+          title: Text('List of Directories',
+              style: Theme.of(context).textTheme.headline5),
+          centerTitle: true,
           leading: IconButton(
-            onPressed: () => Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const NavBarPage(),
-              ),
-            ),
+            onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const NavBarPage())),
             icon: const Icon(Icons.chevron_left, color: Colors.black),
           ),
           backgroundColor: Colors.transparent,
           elevation: 0.0,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildCampusProfessional(_size),
-              _buildExternalDirectories(_size),
-              _buildCommunity(_size),
-            ],
+        body: ListView.builder(
+          itemCount: _professionalController.professionalInfoController.length,
+          itemBuilder: (context, index) => professionalCardWidget(
+            context: context,
+            width: double.infinity,
+            title:
+                _professionalController.professionalInfoController[index].title,
+            subtitle: _professionalController
+                .professionalInfoController[index].subtitle,
+            cardColor: Color(_professionalController
+                .professionalInfoController[index].color),
+            btnText: "Let's Go!",
+            btnColor: kPrimary,
+            route:
+                _professionalController.professionalInfoController[index].route,
           ),
         ),
       ),
     );
   }
-
-  _buildCampusProfessional(Size size) => Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 5.0,
-            ),
-            child: Card(
-              color: Colors.green.shade300,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 15.0,
-                      right: 8.0,
-                      top: 15.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: const Text(
-                                "Campus Professionals",
-                                style: kTitle,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 15.0,
-                            ),
-                            SizedBox(
-                              width: size.width * 0.8,
-                              child: const Text(
-                                'Visit the list of available campus professionals that may help you',
-                                style: kDesc,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(10.0),
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: kElevatedbtnprimary,
-                      onPressed: () =>
-                          Get.to(() => const CampusProfessionalsPage()),
-                      child: const Text('Let\'s Go!', style: kBtnFnt),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      );
-
-  _buildExternalDirectories(Size size) => Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 5.0,
-            ),
-            child: Card(
-              color: Colors.greenAccent,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 15.0,
-                      right: 8.0,
-                      top: 15.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: const Text(
-                                "Department of Health Directories",
-                                style: kTitle,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 15.0,
-                            ),
-                            SizedBox(
-                              width: size.width * 0.8,
-                              child: const Text(
-                                'Feel free to talk to the Departmen of Health professionals.',
-                                style: kDesc,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(10.0),
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: kElevatedbtnprimary,
-                      onPressed: () =>
-                          Get.to(() => const ExternalDirectoriesPage()),
-                      child: const Text(
-                        'Let\'s Go!',
-                        style: kBtnFnt,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      );
-  _buildCommunity(Size size) => Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 5.0,
-            ),
-            child: Card(
-              color: Colors.greenAccent,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 15.0,
-                      right: 8.0,
-                      top: 15.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: const Text(
-                                "Mental Health Communities",
-                                style: kTitle,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 15.0,
-                            ),
-                            SizedBox(
-                              width: size.width * 0.8,
-                              child: const Text(
-                                'We provide the list of available communities out there for you to visit and interact to other people like you or interact with the professionals.',
-                                style: kDesc,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(10.0),
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: kElevatedbtnprimary,
-                      onPressed: () =>
-                          Get.to(() => const MentalHealthCommunitiesPage()),
-                      child: const Text(
-                        'Let\'s Go!',
-                        style: kBtnFnt,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      );
 }

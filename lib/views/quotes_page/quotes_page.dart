@@ -29,7 +29,7 @@ class _QuotesPageState extends State<QuotesPage> {
               itemCount: jsonData.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -44,7 +44,8 @@ class _QuotesPageState extends State<QuotesPage> {
                         child: Text(
                           jsonData[randomData(jsonData)]['text'],
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline4,
+                          // style: Theme.of(context).textTheme.headline4,
+                          style: const TextStyle(fontSize: 20.0),
                         ),
                       ),
                       const Align(
@@ -58,7 +59,8 @@ class _QuotesPageState extends State<QuotesPage> {
                       Text(
                         // Author
                         "- " + jsonData[randomData(jsonData)]['author'],
-                        style: Theme.of(context).textTheme.headline5,
+                        // style: Theme.of(context).textTheme.headline6,
+                        style: const TextStyle(fontSize: 14.0),
                       ),
                     ],
                   ),

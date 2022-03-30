@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/views/home_page/discover/knowledge_test/knowledge_controller.dart';
+import 'package:umatter/controllers/discover_controller/knowledge_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 class KnowledgeCheckPage extends StatefulWidget {

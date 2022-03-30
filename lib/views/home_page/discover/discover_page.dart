@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/views/home_page/discover/discover_controller_page.dart';
+import 'package:umatter/controllers/discover_controller/discover_controller_page.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
-import '../widgets/discover_page/fact_check_widget.dart';
+import '../widgets/discover_page/fact_widget.dart';
 import '../widgets/discover_page/knowledge_test_widget.dart';
 
 class DiscoverPage extends StatefulWidget {
@@ -20,6 +20,10 @@ class _DiscoverPageState extends State<DiscoverPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          title: Text(
+            'Discover Page',
+            style: Theme.of(context).textTheme.headline4,
+          ),
           leading: IconButton(
             icon: const Icon(Icons.chevron_left, color: Colors.black),
             onPressed: () => Navigator.of(context).push(
@@ -27,10 +31,6 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 builder: (context) => const NavBarPage(),
               ),
             ),
-          ),
-          title: Text(
-            'Discover Page',
-            style: Theme.of(context).textTheme.headline4,
           ),
           elevation: 0.0,
           backgroundColor: Colors.transparent,
@@ -42,7 +42,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
               height: 15.0,
             ),
             // FactCheck  Widget
-            FactCheckWidget(
+            FactWidget(
               size: _size,
               discoverControllerPage: _discoverControllerPage,
             ),

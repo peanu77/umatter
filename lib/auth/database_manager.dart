@@ -9,6 +9,7 @@ class DatabaseManager {
   /// In this function we are calling the FirebaseAuth instance
   /// an CollectionReference of FirebaseFirestore
   /// and it is creating a collections of users that is based on the user UID or Unique User ID and once it created it will create another collection of user_info to store the user username.
+
   createUserInfo(username, age, gender, civilStatus) {
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     CollectionReference ref = FirebaseFirestore.instance
@@ -54,7 +55,7 @@ class DatabaseManager {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
         print(
-            'The user must reauthenticate before this operation can be executed.');
+            'The user must reauthenticate before this operation can be executed');
       }
     }
   }

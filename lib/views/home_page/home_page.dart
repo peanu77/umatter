@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:showcaseview/showcaseview.dart';
+import 'package:umatter/constants/const.dart';
 import 'package:umatter/constants/daytime_checker.dart';
-import 'package:umatter/controllers/home_page_controller/constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:umatter/views/home_page/widgets/home_page/assessment_widget.dart';
 import 'package:umatter/views/home_page/widgets/home_page/discover_widget.dart';
+import 'package:umatter/views/home_page/widgets/home_page/home_page_widget.dart';
 import 'package:umatter/views/home_page/widgets/home_page/journal_widget.dart';
 import 'package:umatter/views/home_page/widgets/home_page/major_intervention_widget.dart';
 import 'package:umatter/views/home_page/widgets/home_page/meditate_widget.dart';
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
     // final _runPreferences = RunPreferences();
     final _dayTimeChecker = DayTimeChecker();
     final size = MediaQuery.of(context).size;
-
+    final _runPreferences = RunPreferences();
     String name = '';
     name = SharePrefConfig.getUsername() ?? "";
     return Scaffold(
@@ -47,6 +48,15 @@ class _HomePageState extends State<HomePage> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                homePageWidget(
+                  pref: '',
+                  title: 'title',
+                  subtitle: 'sub',
+                  imgAsset: '',
+                  cardColor: '',
+                  btnColor: Colors.orange,
+                ),
+
                 Container(
                   padding: const EdgeInsets.all(15.0),
                   child: Column(

@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umatter/auth/auth_pages/login_page.dart';
+import 'package:umatter/constants/const.dart';
 import 'package:umatter/controllers/dashboard_controller/dashboard_binding.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/onboarding_screen/onboarding_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 int? isViewed;
-int? userScreen;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Prevent the screen to rotate
@@ -20,9 +20,9 @@ void main() async {
 // Shared Preferences
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   isViewed = sharedPreferences.getInt("onboarding");
+  await SharePrefConfig.init();
   // userScreen = await sharedPreferences.getInt("userScreen");
 
-  await SharePrefConfig.init();
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -35,8 +35,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        textTheme: GoogleFonts.montserratTextTheme(),
-        primaryColor: const Color(0xff8cbbf1),
+        // textTheme: GoogleFonts.montserratTextTheme(),
+        textTheme: GoogleFonts.robotoTextTheme(),
+        primaryColor: kPrimary,
       ),
       initialRoute: '/',
       getPages: [

@@ -17,40 +17,39 @@ class _LabelPageState extends State<LabelPage> {
     final _size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const Spacer(),
+              const Text(
                 'Over the last 2 weeks, how often have you been bothered by any of the following problems?',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline4,
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 30.0),
               ),
-            ),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  'Options',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                Text(
-                  'Scores',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-              ],
-            ),
-            const Spacer(),
-            SizedBox(
-              height: _size.height / 3,
-              child: ListView.builder(
-                itemCount: _optionControllerPage.optionInfoModel.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Column(
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: const [
+                  Text(
+                    'Selections',
+                    // style: Theme.of(context).textTheme.headline5,
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  Text(
+                    'Scores',
+                    // style: Theme.of(context).textTheme.headline5,
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              SizedBox(
+                height: _size.height / 3,
+                child: ListView.builder(
+                  itemCount: _optionControllerPage.optionInfoModel.length,
+                  itemBuilder: (context, index) {
+                    return Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -58,16 +57,22 @@ class _LabelPageState extends State<LabelPage> {
                             Expanded(
                               flex: 2,
                               child: Container(
-                                decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(15.0),
-                                      bottomLeft: Radius.circular(15.0),
-                                    ),
-                                    color: Colors.orange),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(15.0),
+                                    bottomLeft: Radius.circular(15.0),
+                                  ),
+                                  color: kPrimaryFrmColor,
+                                ),
                                 height: _size.height * 0.06,
                                 child: Center(
-                                  child: Text(_optionControllerPage
-                                      .optionInfoModel[index].option),
+                                  child: Text(
+                                    _optionControllerPage
+                                        .optionInfoModel[index].option,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -83,7 +88,9 @@ class _LabelPageState extends State<LabelPage> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                      "${_optionControllerPage.optionInfoModel[index].score}"),
+                                    "${_optionControllerPage.optionInfoModel[index].score}",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ),
@@ -93,15 +100,12 @@ class _LabelPageState extends State<LabelPage> {
                           height: 15.0,
                         )
                       ],
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: SizedBox(
+              const Spacer(),
+              SizedBox(
                 height: _size.height * 0.07,
                 width: double.infinity,
                 child: ElevatedButton(
@@ -116,15 +120,15 @@ class _LabelPageState extends State<LabelPage> {
                       MaterialPageRoute(
                           builder: (context) => const AssessmentPage())),
                   child: const Text(
-                    'Got It!',
+                    'Continue',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, letterSpacing: 1.0),
                   ),
                 ),
               ),
-            ),
-            const Spacer(),
-          ],
+              const Spacer(),
+            ],
+          ),
         ),
       ),
     );

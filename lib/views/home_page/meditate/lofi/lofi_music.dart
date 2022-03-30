@@ -48,11 +48,12 @@ class LofiMusicPage extends StatelessWidget {
                     ),
                   ),
                   child: Card(
+                    color: Colors.orange,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     // TODO : Change this to Image
-                  
+
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
@@ -72,3 +73,25 @@ class LofiMusicPage extends StatelessWidget {
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+// import 'package:umatter/controllers/meditate_page_controller/lofi_page_controller.dart';
+
+// class LofiMusicPage extends StatefulWidget {
+//   const LofiMusicPage({Key? key}) : super(key: key);
+
+//   @override
+//   State<LofiMusicPage> createState() => _LofiMusicPageState();
+// }
+
+// class _LofiMusicPageState extends State<LofiMusicPage> {
+//   final _lofiPageController = LofiPageController();
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: ListView.builder(
+//         itemBuilder: (context, index) => Container(),
+//       ),
+//     );
+//   }
+// }

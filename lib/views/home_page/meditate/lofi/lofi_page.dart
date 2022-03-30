@@ -67,7 +67,7 @@ class _LofiPageState extends State<LofiPage> {
                 ),
                 Text(
                   widget.controller[widget.index].authorName,
-                  style: Theme.of(context).textTheme.headline5,
+                  style: const TextStyle(fontSize: 18.0),
                 ),
               ],
             ),
@@ -88,3 +88,28 @@ class _LofiPageState extends State<LofiPage> {
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+// import 'package:umatter/controllers/meditate_page_controller/lofi_page_controller.dart';
+
+// class LofiPage extends StatefulWidget {
+//   const LofiPage({Key? key}) : super(key: key);
+
+//   @override
+//   State<LofiPage> createState() => _LofiPageState();
+// }
+
+// class _LofiPageState extends State<LofiPage> {
+//   final _lofiPageController = LofiPageController();
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//       child: Scaffold(
+//         body: ListView.builder(
+//           itemCount: _lofiPageController.lofiPageInfo.length,
+//           itemBuilder: (context, index) => Container(),
+//         ),
+//       ),
+//     );
+//   }
+// }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:umatter/controllers/professionals_page_controller/external_directories_page_controller.dart';
 import 'package:umatter/models/contants/constants.dart';
 
@@ -18,10 +19,11 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'DOH Directories',
-          style: TextStyle(color: Colors.black),
+          style: Theme.of(context).textTheme.headline4,
         ),
+        centerTitle: true,
         leading: IconButton(
           onPressed: () => Get.back(),
           icon: const Icon(Icons.chevron_left, color: Colors.black),
@@ -33,20 +35,10 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: size.height * 0.25,
+            SizedBox(
+              height: size.height * 0.3,
               width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30.0),
-                  bottomRight: Radius.circular(30.0),
-                ),
-                color: Colors.blue,
-              ),
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: Image.asset('assets/img/download.jpg'),
-              ),
+              child: Lottie.asset('assets/img/professionals/conversation.json'),
             ),
             const SizedBox(
               height: 15.0,
@@ -101,7 +93,8 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Colors.green,
+              primary: Colors.white,
+              elevation: 1.0,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(15.0),
@@ -113,11 +106,15 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  interventionPage.landlineNum.toString(),
-                  style: kBtnFnt,
+                Text(interventionPage.landlineNum.toString(),
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.black,
+                    )),
+                const Icon(
+                  Icons.call,
+                  color: Colors.black,
                 ),
-                const Icon(Icons.call),
               ],
             ),
           ),

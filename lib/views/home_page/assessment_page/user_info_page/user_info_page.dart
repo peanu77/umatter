@@ -1027,3 +1027,62 @@ class _UserInfoPageState extends State<UserInfoPage> {
     );
   }
 }
+
+// TODO: FIX THIS SHIT, USE A MORE PRACTICAL WAY OF GETTING USER INFORMATION
+
+// import 'package:flutter/material.dart';
+
+// class UserInfoPage extends StatefulWidget {
+//   const UserInfoPage({Key? key}) : super(key: key);
+
+//   @override
+//   State<UserInfoPage> createState() => _UserInfoPageState();
+// }
+
+// class _UserInfoPageState extends State<UserInfoPage> {
+//   int currentStep = 0;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//       child: Scaffold(
+//           body: Stepper(
+//         steps: _buildSteps(),
+//         currentStep: currentStep,
+//         onStepContinue: () {
+//           final isLastStep = currentStep == _buildSteps().length - 1;
+//           if (isLastStep) {
+//           } else {
+//             setState(() => currentStep += 1);
+//           }
+//         },
+//         onStepCancel: () {
+//           currentStep == 0 ? null : setState(() => currentStep -= 1);
+//         },
+//       )),
+//     );
+//   }
+
+//   List<Step> _buildSteps() => [
+//         Step(
+//           isActive: currentStep >= 0,
+//           title: Text(''),
+//           content: Container(),
+//         ),
+//         Step(
+//           isActive: currentStep >= 1,
+//           title: Text(''),
+//           content: Container(),
+//         ),
+//         Step(
+//           isActive: currentStep >= 2,
+//           title: Text(''),
+//           content: Container(),
+//         ),
+//         Step(
+//           isActive: currentStep >= 3,
+//           title: Text(''),
+//           content: Container(),
+//         ),
+//       ];
+// }

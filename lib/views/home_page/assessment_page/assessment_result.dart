@@ -19,43 +19,51 @@ class _AssessmentResultState extends State<AssessmentResult> {
     final _size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            const Spacer(),
-            Text(
-              "Heads Up User!",
-              style: Theme.of(context).textTheme.headline3,
-            ),
-            const Spacer(),
-            Text(
-              'Based from your answer on the Pre-Assessment Test, You are manifesting',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            const SizedBox(
-              height: 15.0,
-            ),
-            Text(
-              widget.assessmentRes,
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            const SizedBox(
-              height: 15.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Text(
-                ' Symptoms of a seemingly mental health condition.',
-                textAlign: TextAlign.center,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Spacer(),
+              Center(
+                child: Text(
+                  "Assessment Result",
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+              ),
+              const Spacer(
+                flex: 2,
+              ),
+              Text(
+                'Based from your answer on the Pre-Assessment Test, You are manifesting.',
+                textAlign: TextAlign.justify,
                 style: Theme.of(context).textTheme.headline6,
               ),
-            ),
-            const Spacer(
-              flex: 2,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: SizedBox(
+              const SizedBox(
+                height: 30.0,
+              ),
+              Center(
+                child: Text(
+                  widget.assessmentRes,
+                  style: TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.red.shade400,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic),
+                ),
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              Text(
+                ' Symptoms of a seemingly mental health condition.',
+                textAlign: TextAlign.justify,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              const Spacer(
+                flex: 2,
+              ),
+              SizedBox(
                 height: _size.height * 0.08,
                 width: double.infinity,
                 child: ElevatedButton(
@@ -71,11 +79,15 @@ class _AssessmentResultState extends State<AssessmentResult> {
                           (route) => false);
                     }
                   },
-                  child: const Text('What now?'),
+                  child: const Text(
+                    'Continue',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
-            )
-          ],
+              const Spacer(),
+            ],
+          ),
         ),
       ),
     );
@@ -83,45 +95,43 @@ class _AssessmentResultState extends State<AssessmentResult> {
 
   _buildDialog() {
     return showDialog(
-      barrierColor: Colors.white,
       barrierDismissible: false,
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
-        title: const Text(
-          'Do you wish to look for a consultation with a list of licensed professionals right now or proceed with our recommendations?',
-          textAlign: TextAlign.center,
+        title: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
+          child: Text(
+            'Do you wish to look for a consultation with a list of licensed professionals right now or proceed with our recommendations?',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16.0),
+          ),
         ),
         actions: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () => Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              const ProfessionalDirectoriesPage()),
-                      (route) => false),
-                  child: const Text('Proceed'),
-                ),
-              ),
-              const SizedBox(
-                width: 15.0,
-              ),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () => Navigator.of(context).pushReplacement(
+              IconButton(
+                onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (context) => const NavBarPage(),
                     ),
-                  ),
-                  child: const Text('Not Now'),
-                ),
+                    (route) => false),
+                icon: const Icon(Icons.close),
               ),
+              IconButton(
+                onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const ProfessionalDirectoriesPage()),
+                    (route) => false),
+                icon: Icon(
+                  Icons.check,
+                  color: Colors.red.shade400,
+                ),
+              )
             ],
           ),
         ],

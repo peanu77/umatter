@@ -78,33 +78,33 @@ class _AudioFilePageState extends State<AudioFilePage> {
         });
   }
 
-// Button Repeat
-  Widget btnRepeat() {
-    return IconButton(
-      onPressed: () async {
-        if (isRepeat == false) {
-          // widget.advancePlayer.setReleaseMode(ReleaseMode.LOOP);
-          final file = await widget.audioCache.loadAsFile(widget.musicPath);
-          final bytes = await file.readAsBytes();
-          widget.audioCache.playBytes(bytes, loop: true);
-          setState(() {
-            isRepeat = true;
-            color = Colors.blue;
-          });
-        } else if (isRepeat == true) {
-          // widget.advancePlayer.setReleaseMode(ReleaseMode.RELEASE);
-          setState(() {
-            color = Colors.green;
-            isRepeat = false;
-          });
-        }
-      },
-      icon: const Icon(
-        Icons.repeat,
-        size: 30.0,
-      ),
-    );
-  }
+// // Button Repeat
+//   Widget btnRepeat() {
+//     return IconButton(
+//       onPressed: () async {
+//         if (isRepeat == false) {
+//           // widget.advancePlayer.setReleaseMode(ReleaseMode.LOOP);
+//           final file = await widget.audioCache.loadAsFile(widget.musicPath);
+//           final bytes = await file.readAsBytes();
+//           widget.audioCache.playBytes(bytes, loop: true);
+//           setState(() {
+//             isRepeat = true;
+//             color = Colors.blue;
+//           });
+//         } else if (isRepeat == true) {
+//           // widget.advancePlayer.setReleaseMode(ReleaseMode.RELEASE);
+//           setState(() {
+//             color = Colors.green;
+//             isRepeat = false;
+//           });
+//         }
+//       },
+//       icon: const Icon(
+//         Icons.repeat,
+//         size: 30.0,
+//       ),
+//     );
+//   }
 
 // Button Slow
   Widget slowForwardBtn() {
@@ -164,17 +164,6 @@ class _AudioFilePageState extends State<AudioFilePage> {
     );
   }
 
-// Button Loop
-  Widget btnLoop() {
-    return IconButton(
-      onPressed: () {},
-      icon: const Icon(
-        Icons.loop,
-        size: 30.0,
-      ),
-    );
-  }
-
 // Load Asset
   Widget loadAsset() {
     return Row(
@@ -211,11 +200,11 @@ class _AudioFilePageState extends State<AudioFilePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  btnRepeat(),
+                  // btnRepeat(),
                   slowForwardBtn(),
                   loadAsset(),
                   fastForwardBtn(),
-                  btnLoop(),
+                  // btnLoop(),
                 ],
               ),
             ],

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:umatter/views/home_page/discover/fact_check/fact_controller.dart';
+import 'package:umatter/controllers/discover_controller/fact_controller.dart';
 
-class FactCheckPage extends StatefulWidget {
-  const FactCheckPage({Key? key}) : super(key: key);
+class FactPage extends StatefulWidget {
+  const FactPage({Key? key}) : super(key: key);
 
   @override
-  State<FactCheckPage> createState() => _FactCheckPageState();
+  State<FactPage> createState() => _FactPagePageState();
 }
 
-class _FactCheckPageState extends State<FactCheckPage> {
+class _FactPagePageState extends State<FactPage> {
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
@@ -21,7 +21,7 @@ class _FactCheckPageState extends State<FactCheckPage> {
               onPressed: () => Navigator.pop(context),
               icon: const Icon(Icons.chevron_left, color: Colors.black)),
           title: Text(
-            'Fact Check',
+            'Facts',
             style: Theme.of(context).textTheme.headline4,
           ),
           centerTitle: true,
