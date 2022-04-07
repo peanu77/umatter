@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +9,6 @@ import 'package:umatter/controllers/shared_pref_controller/shared_pref_controlle
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:umatter/views/home_page/my_diary/page/select_emotion.dart';
 import 'package:umatter/views/home_page/my_diary/page/view_diary_page.dart';
-import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 
 class MyDiaryPage extends StatefulWidget {
   const MyDiaryPage({Key? key}) : super(key: key);
@@ -55,15 +52,15 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'My Diary',
-          style: TextStyle(color: Colors.black, fontSize: 30.0),
+          style: TextStyle(color: Colors.grey[600], fontSize: 20.0),
         ),
         leading: IconButton(
-          onPressed: () => Get.to(() => const NavBarPage()),
-          icon: const Icon(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(
             Icons.chevron_left,
-            color: Colors.black,
+            color: Colors.grey[700],
           ),
         ),
         centerTitle: true,
@@ -74,7 +71,6 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
         child: FutureBuilder<QuerySnapshot>(
           future: ref.get(),
           builder: (context, snapshot) {
-            //  Check if has data otherwise it will display a Exeption
             if (snapshot.hasData) {
               if (snapshot.data!.docs.isEmpty) {
                 return Align(
@@ -89,9 +85,9 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                       ),
                       const SizedBox(height: 30.0),
                       Text(
-                        "Can't Find Notes!",
+                        "Empty Diary",
                         style: TextStyle(
-                            fontSize: 30.0, color: Colors.grey.shade600),
+                            fontSize: 20.0, color: Colors.grey.shade600),
                       ),
                     ],
                   ),
@@ -100,13 +96,12 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
 
               return RefreshIndicator(
                 onRefresh: () async {
-                  /// We implement the use of set state simply to update the listview.builder once the user drag their finger to their screens.
+                  // This will automatically refresh the page once the use saved the diary.
                   setState(() {});
                 },
                 child: ListView.builder(
                   itemCount: snapshot.data?.docs.length,
                   itemBuilder: (context, index) {
-                    /// We are fetching our data using the snapshot from our FutureBuilder to get the data from firebase firestore
                     Map? data = snapshot.data!.docs[index].data() as Map?;
                     DateTime dateTime = data!['created'].toDate();
                     String formattedDatetime =
@@ -118,27 +113,22 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                         vertical: 2.0,
                       ),
                       child: Card(
-                        // color: Colors.orange,
-                        // color: int.parse(SharePrefConfig.getSelectedColor()),
+                        elevation: 2.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                         child: InkWell(
-                          /// Once the selected card is tap the this method will return the data, time and reference to the ViewDiaryPage
-                          onTap: (() => Get.to(
-                                () => ViewDiaryPage(
+                          onTap: () => Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                builder: (context) => ViewDiaryPage(
                                   data: data,
                                   time: formattedDatetime,
                                   ref: snapshot.data!.docs[index].reference,
                                   emotion:
                                       SharePrefConfig.getEmoji()?.toString(),
                                 ),
-                              )!
-                                  .then(
-                                (value) {
-                                  setState(() {});
-                                },
-                              )),
+                              ))
+                              .then((value) => setState(() {})),
                           child: Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Column(
@@ -150,10 +140,13 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                                   children: [
                                     Text(
                                       formattedDatetime,
-                                      style: kTimeFnt,
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: Colors.grey[500],
+                                        letterSpacing: 0.7,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
-
-                                    // TODO: Change this to a real emoji
                                     Container(
                                       child: selectedEmoji(data),
                                     ),
@@ -164,7 +157,10 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                                 ),
                                 Text(
                                   "${data['title']}",
-                                  style: kPrimary,
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      letterSpacing: 0.7,
+                                      color: Colors.grey[700]),
                                 ),
                                 const SizedBox(
                                   height: 15.0,
@@ -173,7 +169,10 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                                   height: 20.0,
                                   child: Text(
                                     "${data['description']}",
-                                    style: kSecondary,
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w400,
+                                        letterSpacing: 0.7),
                                   ),
                                 ),
                               ],
@@ -209,13 +208,12 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
               builder: (context) => const EmojiSelectorPage(),
             ),
           )
-
-              /// We are using the .then to automatically refresh the page once the user created a diary.
               .then((value) {
             setState(() {});
           }),
         ),
       ),
+      backgroundColor: Colors.grey[100],
     );
   }
 

@@ -19,14 +19,14 @@ class SettingsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(
+            Padding(
+              padding: const EdgeInsets.symmetric(
                 vertical: 30.0,
                 horizontal: 20.0,
               ),
               child: Text(
                 'Settings',
-                style: TextStyle(fontSize: 30.0),
+                style: TextStyle(fontSize: 30.0, color: Colors.grey[600]),
               ),
             ),
             Padding(

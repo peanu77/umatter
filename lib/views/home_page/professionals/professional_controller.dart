@@ -1,5 +1,5 @@
 import 'package:umatter/views/home_page/professionals/campus_professional/campus_professional_page.dart';
-import 'package:umatter/views/home_page/professionals/external_directories.dart';
+import 'package:umatter/views/home_page/professionals/external_directories/external_directories.dart';
 import 'package:umatter/views/home_page/professionals/mental_health_communities.dart';
 import 'package:umatter/views/home_page/professionals/professional_info.dart';
 

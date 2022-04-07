@@ -28,14 +28,14 @@ class _AcousticViewPageState extends State<AcousticViewPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(
+          icon: Icon(
             Icons.chevron_left,
-            color: Colors.black,
+            color: Colors.grey[600],
           ),
         ),
-        title: const Text(
-          'Acoustic Guitar Therapy',
-          style: TextStyle(color: Colors.black, fontSize: 25.0),
+        title: Text(
+          'Acoustic Guitar',
+          style: TextStyle(color: Colors.grey[600], fontSize: 20.0),
         ),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
@@ -60,13 +60,28 @@ class _AcousticViewPageState extends State<AcousticViewPage> {
           const Spacer(),
           Column(
             children: [
+              // Title
               Text(
                 widget.controller[widget.index].title,
-                style: Theme.of(context).textTheme.headline4,
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.grey[700],
+                  letterSpacing: 1.0,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              // Artist
               Text(
                 widget.controller[widget.index].authorName,
-                style: Theme.of(context).textTheme.headline5,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.grey[500],
+                  letterSpacing: 0.5,
+                  fontWeight: FontWeight.w200,
+                ),
               ),
             ],
           ),

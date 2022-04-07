@@ -78,34 +78,6 @@ class _AudioFilePageState extends State<AudioFilePage> {
         });
   }
 
-// // Button Repeat
-//   Widget btnRepeat() {
-//     return IconButton(
-//       onPressed: () async {
-//         if (isRepeat == false) {
-//           // widget.advancePlayer.setReleaseMode(ReleaseMode.LOOP);
-//           final file = await widget.audioCache.loadAsFile(widget.musicPath);
-//           final bytes = await file.readAsBytes();
-//           widget.audioCache.playBytes(bytes, loop: true);
-//           setState(() {
-//             isRepeat = true;
-//             color = Colors.blue;
-//           });
-//         } else if (isRepeat == true) {
-//           // widget.advancePlayer.setReleaseMode(ReleaseMode.RELEASE);
-//           setState(() {
-//             color = Colors.green;
-//             isRepeat = false;
-//           });
-//         }
-//       },
-//       icon: const Icon(
-//         Icons.repeat,
-//         size: 30.0,
-//       ),
-//     );
-//   }
-
 // Button Slow
   Widget slowForwardBtn() {
     return IconButton(

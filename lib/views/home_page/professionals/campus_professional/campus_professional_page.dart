@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/views/home_page/professionals/campus_professional/campus_controller.dart';
-import 'package:umatter/views/home_page/professionals/campus_professional/professional_page_widget.dart';
+import 'package:umatter/views/home_page/professionals/campus_professional/campus_profile_page/campus_professional_profile_page.dart';
 
 class CampusProfessionalPage extends StatefulWidget {
   const CampusProfessionalPage({Key? key}) : super(key: key);
@@ -10,21 +10,56 @@ class CampusProfessionalPage extends StatefulWidget {
 }
 
 class _CampusProfessionalPageState extends State<CampusProfessionalPage> {
-  final _campusProfessionalPage = CampusProfessionalPageController();
+  final _campusProfessionalController = CampusProfessionalPageController();
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        body: ListView.builder(
-          itemCount: _campusProfessionalPage.campusInfoPage.length,
-          itemBuilder: (context, index) => professionalPageWidget(
-            title: _campusProfessionalPage.campusInfoPage[index].title,
-            subtitle: _campusProfessionalPage.campusInfoPage[index].subtitle,
-            imgAsset: _campusProfessionalPage.campusInfoPage[index].imgAsset,
-            cardColor: _campusProfessionalPage.campusInfoPage[index].color,
-            size: _size,
-            context: context,
+        appBar: AppBar(
+          title: Text(
+            "Campus Professional",
+            style: TextStyle(
+              fontSize: 20.0,
+              color: Colors.grey[600],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: const Icon(
+              Icons.chevron_left,
+              color: Colors.black,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          centerTitle: true,
+        ),
+        body: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2),
+          itemCount: _campusProfessionalController.campusInfoPage.length,
+          itemBuilder: (context, index) => Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            child: InkWell(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const CampusProfessionalProfilePage())),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100.0)),
+                color:
+                    _campusProfessionalController.campusInfoPage[index].color,
+                child: Container(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Image.asset(
+                    _campusProfessionalController
+                        .campusInfoPage[index].imgAsset,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                elevation: 1.0,
+              ),
+            ),
           ),
         ),
       ),

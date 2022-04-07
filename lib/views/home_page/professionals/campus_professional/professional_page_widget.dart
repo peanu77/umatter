@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/constants/const.dart';
-import 'package:umatter/views/home_page/professionals/campus_professional/campus_profile_page.dart';
 
 Widget professionalPageWidget({
   required title,
@@ -9,6 +8,7 @@ Widget professionalPageWidget({
   required cardColor,
   required size,
   required context,
+  required route,
 }) {
   return Column(
     children: [
@@ -62,8 +62,8 @@ Widget professionalPageWidget({
                 width: double.infinity,
                 child: ElevatedButton(
                   style: kHomeButton,
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const CampusProfessionalPage())),
+                  onPressed: () => Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => route)),
                   child: const Text(
                     'Let\'s Dive In',
                     style: kHomeCardStyle,

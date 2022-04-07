@@ -58,7 +58,7 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
                 ScaffoldMessenger.of(context).showSnackBar(message);
                 // Calling the Database manager'
                 databaseManager.addForm(title, desc, _formKey, emoji);
-                // Transfer data to the my diary home page
+                // Transfer data to the my diary home page using SharedPreferences
                 SharePrefConfig.setSelectedColor(bgColor.toString());
                 Navigator.pushReplacement(
                   context,
@@ -89,12 +89,12 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
               SizedBox(
                 height: _size.height / 2,
               ),
-              _buildColorPicker(_size),
+              // _buildColorPicker(_size),
             ],
           ),
         ),
       ),
-      backgroundColor: bgColor,
+      backgroundColor: Colors.grey[200],
     );
   }
 
@@ -132,7 +132,7 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
       ),
       style: kfrmTitle,
       validator: (value) =>
-          value != null && value.isEmpty ? "Can't be Empty!" : null,
+          value != null && value.isEmpty ? "Title can't be empty!" : null,
       onChanged: (_val) {
         title = _val;
       },
@@ -155,7 +155,7 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
       keyboardType: TextInputType.multiline,
       decoration: const InputDecoration.collapsed(
         border: InputBorder.none,
-        hintText: "Hello how are you feeling today?",
+        hintText: "",
       ),
       validator: (value) => value != null && value.isEmpty
           ? "Description must not be Empty!"

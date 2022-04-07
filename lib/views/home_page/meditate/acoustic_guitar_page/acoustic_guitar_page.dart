@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umatter/controllers/meditate_page_controller/acoustic_controller_page.dart';
 import 'package:umatter/views/home_page/meditate/acoustic_guitar_page/acoustic_view_page.dart';
 
@@ -17,38 +18,79 @@ class _AcousticGuitarPageState extends State<AcousticGuitarPage> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(),
-        body: ListView.builder(
+          appBar: AppBar(
+            title: Text(
+              'Acoustic Music',
+              style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),
+            ),
+            leading: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: Icon(
+                Icons.chevron_left,
+                color: Colors.grey[600],
+              ),
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+          ),
+          body: ListView.builder(
             itemCount: controller.acousticPageController.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
-                child: SizedBox(
-                  height: _size.height * 0.15,
-                  width: double.infinity,
-                  child: InkWell(
-                    onTap: () => Navigator.push(
+                padding: const EdgeInsets.all(15.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 1.0,
+                  child: SizedBox(
+                    height: _size.height * 0.12,
+                    child: InkWell(
+                      onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => AcousticViewPage(
                             controller: controller.acousticPageController,
                             index: index,
                           ),
-                        )),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+                        ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            // Title
-                            Text(
-                              controller.acousticPageController[index].title,
-                              style: Theme.of(context).textTheme.headline4,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                // Title
+                                Text(
+                                  controller
+                                      .acousticPageController[index].title,
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    color: Colors.grey[800],
+                                    letterSpacing: 1.0,
+                                  ),
+                                ),
+                                Text(
+                                  controller
+                                      .acousticPageController[index].authorName,
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.grey[600],
+                                    letterSpacing: 1.0,
+                                  ),
+                                ),
+                              ],
                             ),
+                            SvgPicture.asset(
+                              'assets/img/music_therapy/music_track.svg',
+                              height: 50.0,
+                            )
                           ],
                         ),
                       ),
@@ -56,8 +98,9 @@ class _AcousticGuitarPageState extends State<AcousticGuitarPage> {
                   ),
                 ),
               );
-            }),
-      ),
+            },
+          ),
+          backgroundColor: Colors.grey[100]),
     );
   }
 }

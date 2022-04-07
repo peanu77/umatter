@@ -17,7 +17,7 @@ void main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-// Shared Preferences
+  // Shared Preferences
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   isViewed = sharedPreferences.getInt("onboarding");
   await SharePrefConfig.init();
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // textTheme: GoogleFonts.montserratTextTheme(),
-        textTheme: GoogleFonts.robotoTextTheme(),
+        textTheme: GoogleFonts.montserratTextTheme(),
         primaryColor: kPrimary,
       ),
       initialRoute: '/',

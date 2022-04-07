@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:lottie/lottie.dart';
 import 'package:umatter/views/home_page/meditate/audio_file.dart';
+import 'package:umatter/views/home_page/meditate/music_card_widget.dart';
 
 class LofiPage extends StatefulWidget {
   final index;
@@ -27,89 +28,31 @@ class _LofiPageState extends State<LofiPage> {
 
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.chevron_left),
-                ),
-                Text(
-                  "Lofi Music",
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Container(),
-              ],
+          appBar: AppBar(
+            title: Text(
+              'Lofi',
+              style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),
             ),
-            const Spacer(
-              flex: 2,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                height: _size.height * 0.45,
-                width: double.infinity,
-                child: Lottie.asset(widget.controller[widget.index].coverImg),
-              ),
-            ),
-            const Spacer(),
-            Column(
-              children: [
-                Text(
-                  widget.controller[widget.index].title,
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  widget.controller[widget.index].authorName,
-                  style: const TextStyle(fontSize: 18.0),
-                ),
-              ],
-            ),
-            const Spacer(
-              flex: 2,
-            ),
-            AudioFilePage(
-              musicPath: widget.controller[widget.index].music,
-              advancePlayer: advancedPlayer,
-              audioCache: audioCache,
-            ),
-            const Spacer(
-              flex: 3,
-            ),
-          ],
-        ),
-      ),
+            leading: IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: Icon(
+                  Icons.chevron_left,
+                  color: Colors.grey[600],
+                )),
+            backgroundColor: Colors.transparent,
+            centerTitle: true,
+            elevation: 0.0,
+          ),
+          body: musicCardWidget(
+            height: _size.height * 0.45,
+            width: double.infinity,
+            imgAsset: '',
+            title: widget.controller[widget.index].title,
+            author: widget.controller[widget.index].authorName,
+            advancedPlayer: advancedPlayer,
+            audioCache: audioCache,
+            musicPath: widget.controller[widget.index].music,
+          )),
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:umatter/controllers/meditate_page_controller/lofi_page_controller.dart';
-
-// class LofiPage extends StatefulWidget {
-//   const LofiPage({Key? key}) : super(key: key);
-
-//   @override
-//   State<LofiPage> createState() => _LofiPageState();
-// }
-
-// class _LofiPageState extends State<LofiPage> {
-//   final _lofiPageController = LofiPageController();
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: Scaffold(
-//         body: ListView.builder(
-//           itemCount: _lofiPageController.lofiPageInfo.length,
-//           itemBuilder: (context, index) => Container(),
-//         ),
-//       ),
-//     );
-//   }
-// }

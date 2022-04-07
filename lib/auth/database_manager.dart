@@ -3,13 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class DatabaseManager {
-  /// This function is for saving the user input into the firebase firestore database
-  /// by the use of Collection reference we we are getting the instance of firebase firestore /// and use the collection to create a user and assign it with a document type UID
-
-  /// In this function we are calling the FirebaseAuth instance
-  /// an CollectionReference of FirebaseFirestore
-  /// and it is creating a collections of users that is based on the user UID or Unique User ID and once it created it will create another collection of user_info to store the user username.
-
   createUserInfo(username, age, gender, civilStatus) {
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     CollectionReference ref = FirebaseFirestore.instance
@@ -54,6 +47,7 @@ class DatabaseManager {
       await FirebaseAuth.instance.currentUser!.delete();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
+        // TODO: Remove this shit in production
         print(
             'The user must reauthenticate before this operation can be executed');
       }
