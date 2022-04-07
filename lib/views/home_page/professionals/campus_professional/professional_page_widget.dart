@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/constants/const.dart';
+import 'package:umatter/utils/colors.dart';
+import 'package:umatter/utils/const.dart';
 
 Widget professionalPageWidget({
   required title,
@@ -13,7 +14,7 @@ Widget professionalPageWidget({
   return Column(
     children: [
       Padding(
-        padding: kHomeCardPadding,
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
         child: Card(
           color: kCardDiscover,
           shape: RoundedRectangleBorder(
@@ -61,7 +62,14 @@ Widget professionalPageWidget({
                 padding: const EdgeInsets.all(10.0),
                 width: double.infinity,
                 child: ElevatedButton(
-                  style: kHomeButton,
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    // primary: const Color(0xffFF9E44),
+                    primary: kPrimaryColor,
+                    onPrimary: Colors.black,
+                  ),
                   onPressed: () => Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) => route)),
                   child: const Text(

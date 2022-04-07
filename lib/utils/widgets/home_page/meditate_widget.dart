@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:umatter/constants/const.dart';
 import 'package:umatter/controllers/home_page_controller/home_page_controller.dart';
-import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
+import 'package:umatter/utils/const.dart';
+import 'package:umatter/views/home_page/meditate/meditate_page.dart';
 
-class JournalWidget extends StatelessWidget {
+class MeditateWidget extends StatelessWidget {
   final size;
-  const JournalWidget({Key? key, required this.size}) : super(key: key);
+  const MeditateWidget({Key? key, this.size}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,10 @@ class JournalWidget extends StatelessWidget {
         Padding(
           padding: kHomeCardPadding,
           child: Card(
-            color: kCardMyDiary,
+            color: kCardMeditate,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             child: Column(
               children: [
                 Padding(
@@ -36,7 +37,7 @@ class JournalWidget extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.only(top: 10.0),
                             child: const Text(
-                              "My Diary",
+                              "Meditate",
                               style: kHomeTitleStyle,
                             ),
                           ),
@@ -45,9 +46,8 @@ class JournalWidget extends StatelessWidget {
                           ),
                           SizedBox(
                             width: size.width * 0.5,
-                            height: size.height * 0.1,
                             child: const Text(
-                              discoverDescript,
+                              myMeditateDescript,
                               style: TextStyle(
                                 fontSize: 16.0,
                                 letterSpacing: 1.0,
@@ -60,7 +60,7 @@ class JournalWidget extends StatelessWidget {
                       SizedBox(
                         height: size.height * 0.19,
                         width: size.width * 0.3,
-                        child: SvgPicture.asset(kMyDiaryImg),
+                        child: SvgPicture.asset(kMeditateImg),
                       )
                     ],
                   ),
@@ -70,10 +70,9 @@ class JournalWidget extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: kHomeButton,
-                    onPressed: () =>
-                        Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const MyDiaryPage(),
-                    )),
+                    onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const MeditatePage())),
                     child: const Text(
                       'Let\'s Dive In',
                       style: kHomeCardStyle,

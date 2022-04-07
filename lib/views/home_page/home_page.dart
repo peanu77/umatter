@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:showcaseview/showcaseview.dart';
-import 'package:umatter/constants/const.dart';
-import 'package:umatter/constants/daytime_checker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
+import 'package:umatter/utils/const.dart';
+import 'package:umatter/utils/daytime_checker.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
-import 'package:umatter/views/home_page/widgets/home_page/assessment_widget.dart';
-import 'package:umatter/views/home_page/widgets/home_page/discover_widget.dart';
-import 'package:umatter/views/home_page/widgets/home_page/home_page_widget.dart';
-import 'package:umatter/views/home_page/widgets/home_page/journal_widget.dart';
-import 'package:umatter/views/home_page/widgets/home_page/major_intervention_widget.dart';
-import 'package:umatter/views/home_page/widgets/home_page/meditate_widget.dart';
 import 'package:umatter/preferences/run_preferences.dart';
+
+import '../../utils/widgets/home_page/assessment_widget.dart';
+import '../../utils/widgets/home_page/discover_widget.dart';
+import '../../utils/widgets/home_page/home_page_widget.dart';
+import '../../utils/widgets/home_page/journal_widget.dart';
+import '../../utils/widgets/home_page/major_intervention_widget.dart';
+import '../../utils/widgets/home_page/meditate_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

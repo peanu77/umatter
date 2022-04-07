@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/constants/const.dart';
 import 'package:umatter/controllers/professionals_page_controller/external_directories_page_controller.dart';
+import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
-import 'package:umatter/views/home_page/widgets/professional_page/professional_card_widget.dart';
 import 'package:umatter/views/home_page/professionals/professional_controller.dart';
+
+import '../../../utils/widgets/professional_page/professional_card_widget.dart';
 
 class ProfessionalDirectoriesPage extends StatefulWidget {
   const ProfessionalDirectoriesPage({

@@ -1,22 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:umatter/constants/const.dart';
-import 'package:umatter/controllers/home_page_controller/home_page_controller.dart';
-import 'package:umatter/views/home_page/discover/discover_page.dart';
+import 'package:showcaseview/showcaseview.dart';
+import 'package:umatter/utils/const.dart';
 
-class DiscoverWidget extends StatelessWidget {
+import '../../../../controllers/home_page_controller/home_page_controller.dart';
+import '../../../../preferences/consts.dart';
+import '../../../../preferences/run_preferences.dart';
+import '../../../views/home_page/assessment_page/user_info_page/first_page.dart';
+import '../../../views/welcome_page/welcome_page.dart';
+
+class AssessmentWidget extends StatefulWidget {
   final size;
-  const DiscoverWidget({Key? key, this.size}) : super(key: key);
+  const AssessmentWidget({Key? key, this.size}) : super(key: key);
+
+  @override
+  State<AssessmentWidget> createState() => _AssessmentWidgetState();
+}
+
+class _AssessmentWidgetState extends State<AssessmentWidget> {
+  final keyOne = GlobalKey();
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance?.addPostFrameCallback(
+        (timeStamp) => ShowCaseWidget.of(context)?.startShowCase([keyOne]));
+  }
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    final _runPreferences = RunPreferences();
     return Column(
       children: [
         Padding(
           padding: kHomeCardPadding,
           child: Card(
-            color: kCardDiscover,
+            color: kCardAssessment,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -38,7 +57,7 @@ class DiscoverWidget extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.only(top: 10.0),
                             child: const Text(
-                              "Discover",
+                              "Assessment",
                               style: kHomeTitleStyle,
                             ),
                           ),
@@ -46,22 +65,22 @@ class DiscoverWidget extends StatelessWidget {
                             height: 15.0,
                           ),
                           SizedBox(
-                            width: _size.width * 0.5,
+                            width: widget.size.width * 0.5,
                             child: const Text(
                               discoverDescript,
                               style: TextStyle(
                                 fontSize: 16.0,
                                 letterSpacing: 1.0,
-                                color: kCardContent,
+                                color: Color(0xffefedfa),
                               ),
                             ),
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: size.height * 0.19,
-                        width: size.width * 0.3,
-                        child: SvgPicture.asset(kDiscoverImg),
+                        height: widget.size.height * 0.19,
+                        width: widget.size.width * 0.3,
+                        child: SvgPicture.asset(kAssessmentCover),
                       )
                     ],
                   ),
@@ -71,11 +90,29 @@ class DiscoverWidget extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: kHomeButton,
-                    onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => const DiscoverPage())),
+                    onPressed: () async {
+                      bool firstAssessment =
+                          await _runPreferences.getFirstRun(assessmentRunKey);
+                      if (firstAssessment) {
+                        // runPreferences.disableFirstRun(assessmentRunKey);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const UserInfo(),
+                            // builder: (context) => const WelcomePage(),
+                          ),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const WelcomePage(),
+                          ),
+                        );
+                      }
+                    },
                     child: const Text(
-                      'Let\'s Dive In',
+                      'Take Assessment',
                       style: kHomeCardStyle,
                     ),
                   ),

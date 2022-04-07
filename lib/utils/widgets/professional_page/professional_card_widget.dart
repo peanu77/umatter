@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/constants/const.dart';
+import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 Widget professionalCardWidget({
   required context,
@@ -49,7 +49,7 @@ Widget professionalCardWidget({
             width: double.infinity,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: kPrimary,
+                  primary: kPrimaryFrmColor,
                   onPrimary: Colors.white,
                   elevation: 1.0,
                   shape: RoundedRectangleBorder(

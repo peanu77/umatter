@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:umatter/constants/const.dart';
-import 'package:umatter/controllers/home_page_controller/home_page_controller.dart';
-import 'package:umatter/views/home_page/meditate/meditate_page.dart';
+import 'package:umatter/utils/const.dart';
 
-class MeditateWidget extends StatelessWidget {
+import '../../../views/home_page/discover/fact_page/fact_page.dart';
+
+class FactWidget extends StatelessWidget {
+  final discoverControllerPage;
   final size;
-  const MeditateWidget({Key? key, this.size}) : super(key: key);
+  const FactWidget({Key? key, this.discoverControllerPage, this.size})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +38,8 @@ class MeditateWidget extends StatelessWidget {
                         children: [
                           Container(
                             padding: const EdgeInsets.only(top: 10.0),
-                            child: const Text(
-                              "Meditate",
+                            child: Text(
+                              discoverControllerPage.discoverPage[0].title,
                               style: kHomeTitleStyle,
                             ),
                           ),
@@ -46,9 +48,9 @@ class MeditateWidget extends StatelessWidget {
                           ),
                           SizedBox(
                             width: size.width * 0.5,
-                            child: const Text(
-                              myMeditateDescript,
-                              style: TextStyle(
+                            child: Text(
+                              discoverControllerPage.discoverPage[0].desc,
+                              style: const TextStyle(
                                 fontSize: 16.0,
                                 letterSpacing: 1.0,
                                 color: kCardContent,
@@ -60,7 +62,8 @@ class MeditateWidget extends StatelessWidget {
                       SizedBox(
                         height: size.height * 0.19,
                         width: size.width * 0.3,
-                        child: SvgPicture.asset(kMeditateImg),
+                        child: SvgPicture.asset(
+                            discoverControllerPage.discoverPage[0].img),
                       )
                     ],
                   ),
@@ -72,9 +75,9 @@ class MeditateWidget extends StatelessWidget {
                     style: kHomeButton,
                     onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                            builder: (context) => const MeditatePage())),
-                    child: const Text(
-                      'Let\'s Dive In',
+                            builder: (context) => const FactPage())),
+                    child: Text(
+                      discoverControllerPage.discoverPage[0].btnTxt,
                       style: kHomeCardStyle,
                     ),
                   ),

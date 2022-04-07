@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:umatter/constants/const.dart';
+import 'package:umatter/utils/const.dart';
 
-import '../../discover/fact_page/fact_page.dart';
+import '../../../../controllers/home_page_controller/home_page_controller.dart';
+import '../../../views/home_page/professionals/professionals_page.dart';
 
-class FactWidget extends StatelessWidget {
-  final discoverControllerPage;
+class MajorInterventionWidget extends StatelessWidget {
   final size;
-  const FactWidget({Key? key, this.discoverControllerPage, this.size})
-      : super(key: key);
+  const MajorInterventionWidget({Key? key, this.size}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +16,9 @@ class FactWidget extends StatelessWidget {
         Padding(
           padding: kHomeCardPadding,
           child: Card(
-            color: kCardMeditate,
+            color: kCardCounsellor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
+                borderRadius: BorderRadius.circular(10.0)),
             child: Column(
               children: [
                 Padding(
@@ -36,11 +34,18 @@ class FactWidget extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: Text(
-                              discoverControllerPage.discoverPage[0].title,
-                              style: kHomeTitleStyle,
+                          SizedBox(
+                            width: size.width * 0.5,
+                            child: Container(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: const Text(
+                                "Reach Out to a Licensed Professional",
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -48,11 +53,11 @@ class FactWidget extends StatelessWidget {
                           ),
                           SizedBox(
                             width: size.width * 0.5,
-                            child: Text(
-                              discoverControllerPage.discoverPage[0].desc,
-                              style: const TextStyle(
+                            child: const Text(
+                              counsellorDescript,
+                              style: TextStyle(
                                 fontSize: 16.0,
-                                letterSpacing: 1.0,
+                                letterSpacing: 0.5,
                                 color: kCardContent,
                               ),
                             ),
@@ -62,8 +67,7 @@ class FactWidget extends StatelessWidget {
                       SizedBox(
                         height: size.height * 0.19,
                         width: size.width * 0.3,
-                        child: SvgPicture.asset(
-                            discoverControllerPage.discoverPage[0].img),
+                        child: SvgPicture.asset(kCounsellorImg),
                       )
                     ],
                   ),
@@ -73,18 +77,25 @@ class FactWidget extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: kHomeButton,
-                    onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => const FactPage())),
-                    child: Text(
-                      discoverControllerPage.discoverPage[0].btnTxt,
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const ProfessionalDirectoriesPage(),
+                      ),
+                    ),
+                    child: const Text(
+                      'Let\'s Dive In',
                       style: kHomeCardStyle,
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),
+        ),
+        const SizedBox(
+          height: 20.0,
         ),
       ],
     );

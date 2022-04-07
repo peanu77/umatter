@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:umatter/utils/colors.dart';
 
 // Home Page Constants
 
@@ -19,7 +20,7 @@ final kHomeButton = ElevatedButton.styleFrom(
     borderRadius: BorderRadius.circular(10.0),
   ),
   // primary: const Color(0xffFF9E44),
-  primary: kPrimary,
+  primary: kPrimaryColor,
   onPrimary: Colors.black,
 );
 
@@ -30,6 +31,3 @@ const kCardMyMood = Color(0xffEBB6B6);
 const kCardMeditate = Color(0xff584887);
 const kCardMyDiary = Color(0xff75BEB1);
 const kCardCounsellor = Color(0xffae23cb);
-
-// Primary
-const kPrimary = Color(0xffFF9E44);

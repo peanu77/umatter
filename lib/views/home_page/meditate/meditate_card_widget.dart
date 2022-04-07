@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/constants/const.dart';
+import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 Widget meditateCardWidget({
   required title,
@@ -48,7 +48,7 @@ Widget meditateCardWidget({
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: kPrimary,
+                  primary: kPrimaryFrmColor,
                 ),
                 onPressed: () => Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) => route)),

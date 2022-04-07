@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umatter/auth/auth_pages/login_page.dart';
-import 'package:umatter/constants/const.dart';
 import 'package:umatter/controllers/dashboard_controller/dashboard_binding.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/onboarding_screen/onboarding_page.dart';
@@ -37,7 +36,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // textTheme: GoogleFonts.montserratTextTheme(),
         textTheme: GoogleFonts.montserratTextTheme(),
-        primaryColor: kPrimary,
+        // primaryColor: kPrimary,
       ),
       initialRoute: '/',
       getPages: [

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:umatter/constants/const.dart';
+import 'package:umatter/utils/const.dart';
+import 'package:umatter/views/home_page/discover/knowledge_test/note_page.dart';
 
-import '../../../../controllers/home_page_controller/home_page_controller.dart';
-import '../../professionals/professionals_page.dart';
-
-class MajorInterventionWidget extends StatelessWidget {
+class KnowledgeTestWidget extends StatelessWidget {
+  final discoverControllerPage;
   final size;
-  const MajorInterventionWidget({Key? key, this.size}) : super(key: key);
+  const KnowledgeTestWidget({Key? key, this.discoverControllerPage, this.size})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,10 @@ class MajorInterventionWidget extends StatelessWidget {
         Padding(
           padding: kHomeCardPadding,
           child: Card(
-            color: kCardCounsellor,
+            color: kCardMeditate,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             child: Column(
               children: [
                 Padding(
@@ -34,18 +35,11 @@ class MajorInterventionWidget extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            width: size.width * 0.5,
-                            child: Container(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: const Text(
-                                "Reach Out to a Licensed Professional",
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
+                          Container(
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: Text(
+                              discoverControllerPage.discoverPage[1].title,
+                              style: kHomeTitleStyle,
                             ),
                           ),
                           const SizedBox(
@@ -53,11 +47,11 @@ class MajorInterventionWidget extends StatelessWidget {
                           ),
                           SizedBox(
                             width: size.width * 0.5,
-                            child: const Text(
-                              counsellorDescript,
-                              style: TextStyle(
+                            child: Text(
+                              discoverControllerPage.discoverPage[1].desc,
+                              style: const TextStyle(
                                 fontSize: 16.0,
-                                letterSpacing: 0.5,
+                                letterSpacing: 1.0,
                                 color: kCardContent,
                               ),
                             ),
@@ -67,8 +61,10 @@ class MajorInterventionWidget extends StatelessWidget {
                       SizedBox(
                         height: size.height * 0.19,
                         width: size.width * 0.3,
-                        child: SvgPicture.asset(kCounsellorImg),
-                      )
+                        child: SvgPicture.asset(
+                          discoverControllerPage.discoverPage[1].img,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -77,25 +73,18 @@ class MajorInterventionWidget extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: kHomeButton,
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const ProfessionalDirectoriesPage(),
-                      ),
-                    ),
-                    child: const Text(
-                      'Let\'s Dive In',
+                    onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const NotePage())),
+                    child: Text(
+                      discoverControllerPage.discoverPage[1].btnTxt,
                       style: kHomeCardStyle,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
-        ),
-        const SizedBox(
-          height: 20.0,
         ),
       ],
     );

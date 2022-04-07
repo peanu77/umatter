@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/views/home_page/widgets/discover_page/fact_page_widget.dart';
 
 import '../../../../controllers/discover_controller/fact_controller.dart';
+import '../../../../utils/widgets/discover_page/fact_page_widget.dart';
 
 class FactPage extends StatelessWidget {
   const FactPage({Key? key}) : super(key: key);

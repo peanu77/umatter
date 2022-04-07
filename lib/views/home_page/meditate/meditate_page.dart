@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/constants/const.dart';
 import 'package:umatter/views/home_page/meditate/meditate_card_widget.dart';
 import 'package:umatter/views/home_page/meditate/meditate_controller.dart';
 

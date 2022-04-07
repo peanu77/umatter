@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/controllers/discover_controller/discover_controller_page.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
-import '../widgets/discover_page/fact_widget.dart';
-import '../widgets/discover_page/knowledge_test_widget.dart';
+
+import '../../../utils/widgets/discover_page/fact_widget.dart';
+import '../../../utils/widgets/discover_page/knowledge_test_widget.dart';
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({Key? key}) : super(key: key);
