@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:umatter/auth/auth_pages/login_page.dart';
+import 'package:umatter/auth/auth_pages/login_page_controller.dart';
 import 'package:umatter/controllers/onboarding_screen_controller/onboarding_controller.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/home_page/assessment_page/const.dart';

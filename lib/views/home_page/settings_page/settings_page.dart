@@ -1,64 +1,153 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/auth/auth_pages/login_page.dart';
 import 'package:umatter/auth/database_manager.dart';
-import 'package:umatter/models/contants/settings.dart';
-import 'package:umatter/views/home_page/settings_page/constant/settings_constant.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
+import 'package:umatter/views/home_page/settings_page/settings_card_widget.dart';
+import 'package:umatter/views/home_page/settings_page/settings_controller.dart';
+import 'package:umatter/views/home_page/settings_page/settings_label_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
-    final kBoxHeight = _size.height * 0.09;
-
+    final size = MediaQuery.of(context).size;
+    final kBoxHeight = size.height * 0.09;
+    final controller = SettingsControllerPage();
+    final databaseController = DatabaseManager();
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Settings Page',
+          style: TextStyle(color: Colors.grey[600], fontSize: 20.0),
+        ),
+        centerTitle: true,
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 30.0,
-                horizontal: 20.0,
-              ),
-              child: Text(
-                'Settings',
-                style: TextStyle(fontSize: 30.0, color: Colors.grey[600]),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Column(
-                children: [
-                  _buildNotification(kBoxHeight),
-                  const SizedBox(
-                    height: 15.0,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                settingsLabelWidget(
+                  title: 'Personal Information',
+                  width: 20.0,
+                  height: 20.0,
+                  fontSize: 18.0,
+                  fontColor: Colors.grey[800],
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 0.3,
+                ),
+                _buildUserInfo(size),
+                settingsLabelWidget(
+                  title: 'Permissions',
+                  width: 20.0,
+                  height: 20.0,
+                  fontSize: 18.0,
+                  fontColor: Colors.grey[800],
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 0.3,
+                ),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                  onPressed: () {},
+                  child: settingsCardWidget(
+                    title: controller.settingsController[0].title,
+                    icon: Icons.notifications_none_outlined,
+                    cardHeight: kBoxHeight,
+                    context: context,
                   ),
-                  _buildReportaProblem(kBoxHeight),
-                  const SizedBox(
-                    height: 15.0,
+                ),
+                settingsLabelWidget(
+                  title: 'Application Standards',
+                  width: 20.0,
+                  height: 20.0,
+                  fontSize: 18.0,
+                  fontColor: Colors.grey[800],
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 0.3,
+                ),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                  onPressed: () {},
+                  child: settingsCardWidget(
+                    title: controller.settingsController[1].title,
+                    icon: Icons.description_outlined,
+                    cardHeight: kBoxHeight,
+                    context: context,
                   ),
-                  _buildTermsandCondition(kBoxHeight),
-                  const SizedBox(
-                    height: 15.0,
+                ),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                  onPressed: () {},
+                  child: settingsCardWidget(
+                    title: controller.settingsController[2].title,
+                    icon: Icons.privacy_tip_outlined,
+                    cardHeight: kBoxHeight,
+                    context: context,
                   ),
-                  _buildPrivacyandPolicy(kBoxHeight),
-                  const SizedBox(
-                    height: 15.0,
+                ),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                  onPressed: () {},
+                  child: settingsCardWidget(
+                    title: controller.settingsController[3].title,
+                    icon: Icons.info_outline_rounded,
+                    cardHeight: kBoxHeight,
+                    context: context,
                   ),
-                  _buildDeleteAccount(kBoxHeight),
-                  const SizedBox(
-                    height: 15.0,
+                ),
+                settingsLabelWidget(
+                  title: 'Actions',
+                  width: 20.0,
+                  height: 20.0,
+                  fontSize: 18.0,
+                  fontColor: Colors.grey[800],
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 0.3,
+                ),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                  onPressed: () => databaseController.deleteUser(),
+                  child: settingsCardWidget(
+                    title: controller.settingsController[4].title,
+                    icon: Icons.delete_outline,
+                    cardHeight: kBoxHeight,
+                    context: context,
                   ),
-                  _buildLogOut(kBoxHeight),
-                  const SizedBox(
-                    height: 40.0,
+                ),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                  onPressed: () async {
+                    String toEmail = '4admiraks@gmail.com';
+                    final url = 'mailto:$toEmail';
+
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    }
+                  },
+                  child: settingsCardWidget(
+                    title: controller.settingsController[5].title,
+                    icon: Icons.report_gmailerrorred_outlined,
+                    cardHeight: kBoxHeight,
+                    context: context,
                   ),
-                ],
-              ),
+                ),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                  onPressed: () => databaseController.signOut(),
+                  child: settingsCardWidget(
+                    title: controller.settingsController[6].title,
+                    icon: Icons.logout_rounded,
+                    cardHeight: kBoxHeight,
+                    context: context,
+                  ),
+                ),
+                const SizedBox(
+                  height: 70.0,
+                )
+              ],
             ),
           ],
         ),
@@ -66,248 +155,92 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  _buildNotification(kBoxHeight) {
-    return SizedBox(
-      height: kBoxHeight,
-      child: ElevatedButton(
-        style: sNotifBtn,
-        onPressed: () {},
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Icon(
-                    Icons.notifications_none,
-                    size: 20.0,
-                  ),
-                  SizedBox(
-                    width: 30.0,
-                  ),
-                  Text(
-                    'Notification',
-                    style: kSettingsFnt,
-                  ),
-                ],
-              ),
-              const Icon(
-                Icons.chevron_right,
-                size: 30.0,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  _buildReportaProblem(kBoxHeight) {
-    return SizedBox(
-      height: kBoxHeight,
-      child: ElevatedButton(
-        style: sReportBtn,
-        onPressed: () async {
-          final toEmail = '4admiraks@gmail.com';
-          final url = 'mailto:$toEmail';
-
-          if (await canLaunch(url)) {
-            await launch(url);
-          }
-          print("tapped");
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Icon(
-                    Icons.report_gmailerrorred_outlined,
-                    size: 20.0,
-                  ),
-                  SizedBox(
-                    width: 30.0,
-                  ),
-                  Text(
-                    'Report a Problem',
-                    style: kSettingsFnt,
-                  ),
-                ],
-              ),
-              const Icon(
-                Icons.chevron_right,
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  _buildTermsandCondition(kBoxHeight) {
-    return SizedBox(
-      height: kBoxHeight,
-      child: ElevatedButton(
-        style: sTermsBtn,
-        onPressed: () {},
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Icon(
-                    Icons.description_outlined,
-                    size: 20.0,
-                  ),
-                  SizedBox(
-                    width: 30.0,
-                  ),
-                  Text(
-                    'Terms and Conditions',
-                    style: kSettingsFnt,
-                  ),
-                ],
-              ),
-              const Icon(
-                Icons.chevron_right,
-                size: 30.0,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  _buildPrivacyandPolicy(kBoxHeight) {
-    return SizedBox(
-      height: kBoxHeight,
-      child: ElevatedButton(
-        style: sPrivacyBtn,
-        onPressed: () {},
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Icon(
-                    Icons.privacy_tip_outlined,
-                    size: 20.0,
-                  ),
-                  SizedBox(
-                    width: 30.0,
-                  ),
-                  Text(
-                    'Privacy and Policy',
-                    style: kSettingsFnt,
-                  ),
-                ],
-              ),
-              const Icon(
-                Icons.chevron_right,
-                size: 30.0,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  _buildDeleteAccount(kBoxHeight) {
-    return SizedBox(
-      height: kBoxHeight,
-      child: ElevatedButton(
-        style: sDeleteBtn,
-        onPressed: () async => await DatabaseManager().deleteUser(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Icon(
-                    Icons.delete_outline,
-                    size: 20.0,
-                  ),
-                  SizedBox(
-                    width: 30.0,
-                  ),
-                  Text(
-                    'Delete Account',
-                    style: kSettingsFnt,
-                  ),
-                ],
-              ),
-              const Icon(
-                Icons.chevron_right,
-                size: 30.0,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Future<void> signOut() async {
-    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    await firebaseAuth.signOut();
-    return Get.to(() => const LogInPage());
-  }
-
-  Widget _buildLogOut(kBoxHeight) {
-    return SizedBox(
-      height: kBoxHeight,
-      child: ElevatedButton(
-        style: sLogoutBtn,
-        onPressed: () => signOut(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Icon(
-                    Icons.logout_outlined,
-                    size: 20.0,
-                  ),
-                  SizedBox(
-                    width: 30.0,
-                  ),
-                  Text(
-                    'Logout',
-                    style: kSettingsFnt,
-                  ),
-                ],
-              ),
-              const Icon(
-                Icons.chevron_right,
-                size: 30.0,
-              ),
-            ],
-          ),
+  _buildUserInfo(size) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+      child: SizedBox(
+        height: size.height * 0.2,
+        width: double.infinity,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Username",
+                      style: TextStyle(
+                          color: Colors.grey[500], letterSpacing: 0.3),
+                    ),
+                    const Divider(),
+                    Text(
+                      "Age",
+                      style: TextStyle(
+                          color: Colors.grey[500], letterSpacing: 0.3),
+                    ),
+                    const Divider(),
+                    Text(
+                      "Gender",
+                      style: TextStyle(
+                          color: Colors.grey[500], letterSpacing: 0.3),
+                    ),
+                    const Divider(),
+                    Text(
+                      "Civil Status",
+                      style: TextStyle(
+                          color: Colors.grey[500], letterSpacing: 0.3),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "peanuts",
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        letterSpacing: 0.3,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const Divider(),
+                    Text(
+                      "21",
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        letterSpacing: 0.3,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const Divider(),
+                    Text(
+                      "Male",
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        letterSpacing: 0.3,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const Divider(
+                      height: 10,
+                    ),
+                    const Divider(),
+                    Text(
+                      "Single",
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        letterSpacing: 0.3,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+                Container(),
+              ],
+            )
+          ],
         ),
       ),
     );

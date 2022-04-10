@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
-import 'package:umatter/auth/login.dart';
+import 'package:umatter/auth/auth_pages/login_page.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 import 'package:email_validator/email_validator.dart';
@@ -21,11 +21,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final passwordController = TextEditingController();
 
   bool connection = true;
+  bool isShow = true;
 
   @override
   void initState() {
     super.initState();
-// This will check if the user has a connection status
+    // This will check if the user has a connection status
     InternetConnectionChecker().onStatusChange.listen((status) {
       final connection = status == InternetConnectionStatus.connected;
       setState(() => this.connection = connection);
@@ -38,14 +39,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-            child: connection
-                ? Column(
+          child: connection
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Column(
                     children: [
+                      const SizedBox(height: 30.0),
                       _buildLottieIcon(),
                       _buildGreetings(),
-                      SizedBox(
-                        height: _size.height * 0.1,
-                      ),
                       _buildEmailField(),
                       const SizedBox(
                         height: 15.0,
@@ -63,83 +64,92 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       ),
                       _buildCreateAccountBtn(_size),
                     ],
-                  )
-                : Lottie.asset('assets/img/authentication/no-internet.json')),
+                  ),
+                )
+              : Lottie.asset('assets/img/authentication/no-internet.json'),
+        ),
       ),
     );
   }
 
   _buildLottieIcon() =>
-      Lottie.asset('assets/img/authentication/sign_up.json', width: 270.0);
+      Lottie.asset('assets/img/authentication/sign_up.json', width: 240.0);
 
   _buildGreetings() => const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15.0),
+        padding: EdgeInsets.symmetric(vertical: 50.0),
         child: Text(
           "Create your account",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 30.0),
+          style: TextStyle(fontSize: 20.0),
         ),
       );
 
-  _buildEmailField() => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: TextFormField(
-          keyboardType: TextInputType.emailAddress,
-          controller: emailController,
-          cursorColor: Colors.white,
-          textInputAction: TextInputAction.next,
-          decoration: const InputDecoration(labelText: "Email"),
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (email) => email != null && !EmailValidator.validate(email)
-              ? "Enter a valid email"
-              : null,
-        ),
+  _buildEmailField() => TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        controller: emailController,
+        cursorColor: Colors.white,
+        textInputAction: TextInputAction.next,
+        decoration: const InputDecoration(labelText: "Email"),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (email) => email != null && !EmailValidator.validate(email)
+            ? "Enter a valid email"
+            : null,
       );
-  _buildPasswordField() => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: TextFormField(
-          controller: passwordController,
-          cursorColor: Colors.white,
-          textInputAction: TextInputAction.next,
-          decoration: const InputDecoration(labelText: "Password"),
-          obscureText: true,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (value) => value != null && value.length < 6
-              ? "Enter min of 6 charters"
-              : null,
-        ),
-      );
-
-  _buildCreateAccountBtn(_size) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: SizedBox(
-          width: double.infinity,
-          height: _size.height * 0.07,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                elevation: 1.0,
-                primary: kPrimaryFrmColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                )),
-            onPressed: _createAccount,
-            child: const Text('Sign In'),
+  _buildPasswordField() => TextFormField(
+        controller: passwordController,
+        cursorColor: Colors.white,
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          labelText: "Password",
+          suffixIcon: IconButton(
+            onPressed: () => setState(() => isShow = !isShow),
+            icon: isShow
+                ? const Icon(Icons.visibility_off)
+                : const Icon(Icons.visibility_outlined),
           ),
         ),
+        obscureText: isShow,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        // validator: (value) => value != null && value.length < 6
+        //     ? "Enter min of 6 charters"
+        //     : null,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "Enter a password";
+          }
+          if (value.length < 6) {
+            return "Password must be atleast 6 characters";
+          }
+        },
       );
-  _buildAlreadyHaveAccount() => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(),
-            TextButton(
-              onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const LoginWidget())),
-              child: const Text('Already have an account'),
-            )
-          ],
+
+  _buildCreateAccountBtn(_size) => SizedBox(
+        width: double.infinity,
+        height: _size.height * 0.07,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              elevation: 1.0,
+              primary: kPrimaryFrmColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              )),
+          onPressed: _createAccount,
+          child: const Text('Sign In'),
         ),
+      );
+  _buildAlreadyHaveAccount() => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(),
+          TextButton(
+            onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const LoginWidget())),
+            child: const Text(
+              'Already have an account',
+              style: TextStyle(fontSize: 14.0),
+            ),
+          )
+        ],
       );
 
   Future _createAccount() async {
@@ -153,10 +163,21 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const NavBarPage()));
     } on FirebaseAuthException catch (e) {
-      final message = SnackBar(
-        content: Text(e.message.toString()),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(message);
+      if (e.code == "email-already-in-use") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Email already in use'),
+          ),
+        );
+      }
+
+      if (e.code == 'weak-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Enter a strong password'),
+          ),
+        );
+      }
     }
   }
 }

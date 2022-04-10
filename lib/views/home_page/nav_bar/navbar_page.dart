@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:showcaseview/showcaseview.dart';
 import 'package:umatter/views/analytics_page/analytics_page.dart';
 import 'package:umatter/views/home_page/home_page.dart';
 import 'package:umatter/views/home_page/settings_page/settings_page.dart';
