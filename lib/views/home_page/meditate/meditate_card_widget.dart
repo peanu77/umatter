@@ -9,9 +9,9 @@ Widget meditateCardWidget({
 }) =>
     Card(
       elevation: 1.0,
-      margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+      margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(20.0),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
@@ -43,12 +43,14 @@ Widget meditateCardWidget({
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(20.0),
               ),
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: kPrimaryFrmColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
                 ),
                 onPressed: () => Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) => route)),

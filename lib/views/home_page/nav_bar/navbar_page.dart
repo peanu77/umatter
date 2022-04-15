@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/views/analytics_page/analytics_page.dart';
+// import 'package:umatter/views/analytics_page/analytics_page.dart';
 import 'package:umatter/views/home_page/home_page.dart';
 import 'package:umatter/views/home_page/settings_page/settings_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,7 +15,7 @@ class NavBarPage extends StatefulWidget {
 class _NavBarPageState extends State<NavBarPage> {
   List pages = const [
     HomePage(),
-    AnalyticsPage(),
+    // AnalyticsPage(),
     QuotesPage(),
     SettingsPage(),
   ];
@@ -48,11 +48,11 @@ class _NavBarPageState extends State<NavBarPage> {
               tooltip: "Home Page",
               icon: Icon(Icons.home),
             ),
-            BottomNavigationBarItem(
-              label: "Analytics",
-              tooltip: "Analytics",
-              icon: FaIcon(FontAwesomeIcons.chartLine),
-            ),
+            // BottomNavigationBarItem(
+            //   label: "Analytics",
+            //   tooltip: "Analytics",
+            //   icon: FaIcon(FontAwesomeIcons.chartLine),
+            // ),
             BottomNavigationBarItem(
               label: "Quotes",
               tooltip: "Quotes",

@@ -1,22 +1,47 @@
-// Assessment
-const String assessmentDescript = "";
-const kAssessmentCover = "assets/img/home_page/assessment.svg";
+import 'package:flutter/material.dart';
+import 'package:umatter/views/home_page/assessment_page/user_info_page/get_user_data_page.dart';
+import 'package:umatter/views/home_page/discover/discover_page.dart';
+import 'package:umatter/models/home_page_model/home_page_info.dart';
+import 'package:umatter/views/home_page/meditate/meditate_page.dart';
+import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
+import 'package:umatter/views/home_page/professionals/professionals_page.dart';
 
-// Discover
-const String discoverDescript =
-    'They say, in order to effectively deal with such condition you must learn it first...';
-const kDiscoverImg = 'assets/img/home_page/discover.svg';
-// Meditate
-const String myMeditateDescript =
-    'How’s your day going? it deserves to be treasured...';
-const kMeditateImg = 'assets/img/home_page/meditate.svg';
-
-// My Diary
-const String myDiaryDescript =
-    'How’s your day going? it deserves to be treasured...';
-const kMyDiaryImg = 'assets/img/home_page/diary.svg';
-
-// Counsellor
-const String counsellorDescript =
-    'When nothing seems to work, always remember that there’s someone you can reach out to...';
-const kCounsellorImg = 'assets/img/home_page/professional.svg';
+class HomePageController {
+  List<HomePageInfo> homepageController = [
+    HomePageInfo(
+      "Assessment",
+      "assessment",
+      "assets/img/home_page/assessment.svg",
+      const UserInfoPage(),
+      const Color(0xff4c93a1),
+    ),
+    HomePageInfo(
+      "Discover",
+      "They say, in order to effectively deal with such condition you must learn it first...",
+      "assets/img/home_page/discover.svg",
+      const DiscoverPage(),
+      const Color(0xffa94a46),
+    ),
+    HomePageInfo(
+      "Meditate",
+      "How’s your day going? it deserves to be treasured...",
+      "assets/img/home_page/meditate.svg",
+      const MeditatePage(),
+      const Color(0xffEBB6B6),
+    ),
+    HomePageInfo(
+      "My Diary",
+      "How’s your day going? it deserves to be treasured...",
+      "assets/img/home_page/diary.svg",
+      const MyDiaryPage(),
+      const Color(0xff75BEB1),
+    ),
+    HomePageInfo(
+      "Reach Out",
+      "When nothing seems to work, always remember that there’s someone you can reach out to..",
+      "assets/img/home_page/professional.svg",
+      const ProfessionalDirectoriesPage(),
+      const Color(0xffae23cb),
+    ),
+  ];
+}

@@ -4,8 +4,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:umatter/auth/auth_pages/login_page_controller.dart';
 import 'package:umatter/controllers/onboarding_screen_controller/onboarding_controller.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
-import 'package:umatter/views/home_page/assessment_page/const.dart';
-import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -32,6 +30,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     final _size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.grey[50],
         body: Container(
           padding: const EdgeInsets.only(bottom: 120.0),
           child: PageView(
@@ -72,10 +71,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   child: SmoothPageIndicator(
                     controller: pageController,
                     count: _controller.onboardingPages.length,
-                    effect: const WormEffect(
+                    effect: WormEffect(
                       spacing: 16,
-                      dotColor: Colors.black26,
-                      activeDotColor: kprimayColor,
+                      dotColor: Colors.grey.shade300,
+                      activeDotColor: Colors.grey.shade700,
                     ),
                   ),
                 ),
@@ -114,7 +113,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           ),
                           child: const Icon(
                             Icons.chevron_right,
-                            color: Colors.black,
                           ),
                         ),
                       ],
@@ -133,23 +131,22 @@ class _OnboardingPageState extends State<OnboardingPage> {
       // Image
       Container(
         padding: const EdgeInsets.all(15.0),
-        height: MediaQuery.of(context).size.height * 0.45,
+        height: MediaQuery.of(context).size.height * 0.43,
         child: Lottie.asset(img),
       ),
-
       const Spacer(),
       // title
       Text(
         title,
-        style: Theme.of(context).textTheme.headline4,
+        style: const TextStyle(fontSize: 20.0),
       ),
       const Spacer(),
       // subtitle
       Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: Text(
           subtitle,
-          style: Theme.of(context).textTheme.headline5,
+          style: TextStyle(fontSize: 16.0, color: Colors.grey[600]),
           textAlign: TextAlign.center,
         ),
       ),

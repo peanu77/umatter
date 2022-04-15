@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/controllers/meditate_page_controller/piano_controller_page.dart';
+import 'package:umatter/views/home_page/meditate/music_card_list_widget.dart';
 import 'package:umatter/views/home_page/meditate/piano/piano_view_page.dart';
 
 class PianoPage extends StatefulWidget {
@@ -10,41 +11,51 @@ class PianoPage extends StatefulWidget {
 }
 
 class _PianoPageState extends State<PianoPage> {
-  final pianoController = PianoPageController();
+  final controller = PianoPageController();
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Piano",
+          style: TextStyle(
+            fontSize: 22.0,
+            fontWeight: FontWeight.w400,
+            color: Colors.grey[700],
+            letterSpacing: 1.0,
+          ),
+        ),
+        leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: Icon(
+              Icons.chevron_left,
+              color: Colors.grey[600],
+            )),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+      ),
       body: ListView.builder(
-        itemCount: pianoController.pianoPageInfo.length,
-        itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
-          child: SizedBox(
-            height: _size.height * 0.15,
-            width: double.infinity,
-            child: InkWell(
-              onTap: () => PianoViewPage(
-                pianoController: pianoController.pianoPageInfo,
+        itemCount: controller.pianoPageInfo.length,
+        itemBuilder: (context, index) => TextButton(
+          style: TextButton.styleFrom(splashFactory: NoSplash.splashFactory),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PianoViewPage(
+                controller: controller.pianoPageInfo,
                 index: index,
               ),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                // TODO : Change this to Image
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        pianoController.pianoPageInfo[index].title,
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ),
+          ),
+          child: musicCardListWidget(
+            title: controller.pianoPageInfo[index].title,
+            author: controller.pianoPageInfo[index].authorName,
+            size: _size,
+            context: context,
+            controller: controller,
+            index: index,
           ),
         ),
       ),

@@ -1,8 +1,6 @@
 import 'package:url_launcher/url_launcher.dart';
 
 class InterventionPageController {
-  /// This function is responsible for launching or opening a web browser and open the given link (url)
-
   InterventionPageController();
   Future<void> launchUrl(url) async {
     if (await canLaunch(url)) {

@@ -3,10 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:umatter/auth/auth_pages/create_account_page.dart';
 import 'package:umatter/auth/auth_pages/forgot_password_page.dart';
+import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -22,6 +21,7 @@ class _LoginWidgetState extends State<LoginWidget>
   final passwordController = TextEditingController();
   SharePrefConfig sharePrefConfig = SharePrefConfig();
   late TabController _tabController;
+  final databaseController = DatabaseManager();
 
   bool connection = true;
   bool isShow = true;
@@ -84,7 +84,10 @@ class _LoginWidgetState extends State<LoginWidget>
                     ],
                   ),
                 )
-              : Lottie.asset('assets/img/authentication/no-internet.json'),
+              : Align(
+                  alignment: Alignment.center,
+                  child: Lottie.asset(
+                      'assets/img/authentication/no-internet.json')),
         ),
       ),
     );
@@ -153,10 +156,14 @@ class _LoginWidgetState extends State<LoginWidget>
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               )),
-          onPressed: _signIn,
+          onPressed: () {
+            databaseController.signIn(
+                emailController, passwordController, context, sharePrefConfig);
+          },
           child: const Text('Sign In'),
         ),
       );
+
   _buildGoogleBtn(_size) => SizedBox(
         width: double.infinity,
         height: _size.height * 0.07,
@@ -166,7 +173,9 @@ class _LoginWidgetState extends State<LoginWidget>
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               )),
-          onPressed: () => _googleLogin(),
+          onPressed: () {
+            databaseController.googleLogin();
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -217,63 +226,5 @@ class _LoginWidgetState extends State<LoginWidget>
         ),
       ),
     );
-  }
-
-  Future _signIn() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
-      sharePrefConfig.onboardingPageInfoController();
-    } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case "invalid-email":
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Invalid email',
-              ),
-            ),
-          );
-          break;
-
-        case "user-not-found":
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('User not found'),
-            ),
-          );
-          break;
-
-        case "wrong-password":
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Invalid password'),
-            ),
-          );
-          break;
-
-        default:
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Check your credentials and try again'),
-            ),
-          );
-      }
-    }
-  }
-
-  Future _googleLogin() async {
-    final googleSignIn = GoogleSignIn();
-    final googleUser = await googleSignIn.signIn();
-    if (googleUser == null) return;
-
-    final googleAuth = await googleUser.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-
-    await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }

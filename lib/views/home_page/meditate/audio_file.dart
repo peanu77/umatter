@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AudioFilePage extends StatefulWidget {
   var audioCache;
   final advancePlayer;
   final musicPath;
+
   AudioFilePage({Key? key, this.advancePlayer, this.audioCache, this.musicPath})
       : super(key: key);
 
@@ -81,14 +83,10 @@ class _AudioFilePageState extends State<AudioFilePage> {
 // Button Slow
   Widget slowForwardBtn() {
     return IconButton(
-      onPressed: () {
-        widget.advancePlayer.setPlaybackRate(0.5);
-      },
-      icon: const Icon(
-        Icons.fast_rewind_outlined,
-        size: 30.0,
-      ),
-    );
+        onPressed: () {
+          widget.advancePlayer.setPlaybackRate(0.5);
+        },
+        icon: const FaIcon(FontAwesomeIcons.fastBackward));
   }
 
 // Start Button
@@ -99,7 +97,7 @@ class _AudioFilePageState extends State<AudioFilePage> {
           final file = await widget.audioCache.loadAsFile(widget.musicPath);
           final bytes = await file.readAsBytes();
           widget.audioCache.playBytes(bytes);
-          // widget.audioCache.play(path);
+          // widget.audioCache.play(file);
           // widget.advancePlayer.play(path);
           setState(() {
             isPlaying = true;
@@ -114,11 +112,11 @@ class _AudioFilePageState extends State<AudioFilePage> {
       icon: isPlaying == false
           ? Icon(
               _icons[0],
-              size: 40.0,
+              // size: 40.0,
             )
           : Icon(
               _icons[1],
-              size: 40.0,
+              size: 30.0,
             ),
     );
   }
@@ -126,14 +124,10 @@ class _AudioFilePageState extends State<AudioFilePage> {
 // Fast Forward
   Widget fastForwardBtn() {
     return IconButton(
-      onPressed: () {
-        widget.advancePlayer.setPlaybackRate(1.5);
-      },
-      icon: const Icon(
-        Icons.fast_forward_outlined,
-        size: 30.0,
-      ),
-    );
+        onPressed: () {
+          widget.advancePlayer.setPlaybackRate(1.5);
+        },
+        icon: const FaIcon(FontAwesomeIcons.fastForward));
   }
 
 // Load Asset
@@ -149,12 +143,13 @@ class _AudioFilePageState extends State<AudioFilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      child: Column(
+        children: [
+          Column(
+            // Space between the start timer and end timer
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               slider(),
               Row(
@@ -170,19 +165,17 @@ class _AudioFilePageState extends State<AudioFilePage> {
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  // btnRepeat(),
                   slowForwardBtn(),
                   loadAsset(),
                   fastForwardBtn(),
-                  // btnLoop(),
                 ],
               ),
             ],
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 

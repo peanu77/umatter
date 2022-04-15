@@ -19,6 +19,9 @@ class SharePrefConfig {
       SharedPreferences.getInstance() as SharedPreferences;
 
   static const _keyUsername = 'username';
+  static const _keyAge = 'age';
+  static const _keyGender = 'gender';
+  static const _keyCivilStatus = 'civilstatus';
   static const _keyReason = 'reasonList';
   static const _keyEmotions = 'emotions';
   static const _keySelectedColor = 'selectedColor';
@@ -32,6 +35,24 @@ class SharePrefConfig {
       await _preferences.setString(_keyUsername, username);
 
   static String? getUsername() => _preferences.getString(_keyUsername);
+
+  // Age
+  static Future setAge(String age) async =>
+      await _preferences.setString(_keyAge, age);
+
+  static String? getAge() => _preferences.getString(_keyAge);
+
+  // Gender
+  static Future setGender(String gender) async =>
+      await _preferences.setString(_keyGender, gender);
+
+  static String? getGender() => _preferences.getString(_keyGender);
+
+  // Civil Status
+  static Future setCivilStatus(String civilstatus) async =>
+      await _preferences.setString(_keyCivilStatus, civilstatus);
+
+  static String? getCivilStatus() => _preferences.getString(_keyCivilStatus);
 
 // Reasons
   static Future setReasons(List<String> reasonList) async =>

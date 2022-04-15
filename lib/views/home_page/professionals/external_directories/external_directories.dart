@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'package:umatter/controllers/professionals_page_controller/external_directories_page_controller.dart';
-import 'package:umatter/models/contants/constants.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:umatter/views/home_page/professionals/external_directories/external_directories_controller.dart';
+import 'package:umatter/views/home_page/professionals/external_directories/external_directories_widget.dart';
+import 'package:umatter/views/home_page/settings_page/settings_label_widget.dart';
 
 class ExternalDirectoriesPage extends StatefulWidget {
   const ExternalDirectoriesPage({Key? key}) : super(key: key);
@@ -11,7 +12,8 @@ class ExternalDirectoriesPage extends StatefulWidget {
 }
 
 class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
-  final interventionPage = InterventionPageController();
+  final externalDirController = ExternalDirectoriesController();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -29,275 +31,188 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
       ),
+      backgroundColor: Colors.grey[100],
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 50.0,
+              settingsLabelWidget(
+                title: "Landline",
+                width: 0.0,
+                height: 0.0,
+                fontSize: 20.0,
+                fontColor: Colors.grey[700],
+                fontWeight: FontWeight.w400,
+                letterSpacing: 1.0,
               ),
-              const Text(
-                'Landline',
-                style: kTitle,
+              const SizedBox(height: 20.0),
+              TextButton(
+                style: TextButton.styleFrom(
+                    splashFactory: NoSplash.splashFactory,
+                    padding: const EdgeInsets.all(0.0)),
+                onPressed: () => externalDirController.launchPhoneCall(
+                    'tel: ${externalDirController.externaldirectoriesController[0].title}'),
+                child: externaldirectoriesWidget(
+                  title: externalDirController
+                      .externaldirectoriesController[0].title,
+                  cardColor: Colors.grey[100],
+                  icon: FaIcon(
+                    FontAwesomeIcons.phone,
+                    color: Colors.grey[600],
+                  ),
+                  size: size,
+                  context: context,
+                ),
               ),
-              const SizedBox(
-                height: 20.0,
+              const SizedBox(height: 30.0),
+              settingsLabelWidget(
+                title: "Globe and TM",
+                width: 0.0,
+                height: 0.0,
+                fontSize: 20.0,
+                fontColor: Colors.grey[700],
+                fontWeight: FontWeight.w400,
+                letterSpacing: 1.0,
               ),
-              _buildLandLineCard(size),
-              const SizedBox(
-                height: 30.0,
+              const SizedBox(height: 20.0),
+              TextButton(
+                style: TextButton.styleFrom(
+                    splashFactory: NoSplash.splashFactory,
+                    padding: const EdgeInsets.all(0.0)),
+                onPressed: () => externalDirController.launchPhoneCall(
+                    'tel: ${externalDirController.externaldirectoriesController[1].title}'),
+                child: externaldirectoriesWidget(
+                  title: externalDirController
+                      .externaldirectoriesController[1].title,
+                  cardColor: Colors.grey[100],
+                  icon: FaIcon(
+                    FontAwesomeIcons.mobile,
+                    color: Colors.grey[600],
+                  ),
+                  size: size,
+                  context: context,
+                ),
               ),
-              const Text(
-                'Globe and TM',
-                style: kTitle,
+              const SizedBox(height: 10.0),
+              TextButton(
+                style: TextButton.styleFrom(
+                    splashFactory: NoSplash.splashFactory,
+                    padding: const EdgeInsets.all(0.0)),
+                onPressed: () => externalDirController.launchPhoneCall(
+                    'tel: ${externalDirController.externaldirectoriesController[2].title}'),
+                child: externaldirectoriesWidget(
+                  title: externalDirController
+                      .externaldirectoriesController[2].title,
+                  cardColor: Colors.grey[100],
+                  icon: FaIcon(
+                    FontAwesomeIcons.mobile,
+                    color: Colors.grey[600],
+                  ),
+                  size: size,
+                  context: context,
+                ),
               ),
-              const SizedBox(
-                height: 20.0,
+              const SizedBox(height: 30.0),
+              settingsLabelWidget(
+                title: "Smart, Sun and TNT",
+                width: 0.0,
+                height: 0.0,
+                fontSize: 20.0,
+                fontColor: Colors.grey[700],
+                fontWeight: FontWeight.w400,
+                letterSpacing: 1.0,
               ),
-              _buildPrePaid1(size),
-              const SizedBox(
-                height: 10.0,
+              const SizedBox(height: 10.0),
+              TextButton(
+                style: TextButton.styleFrom(
+                    splashFactory: NoSplash.splashFactory,
+                    padding: const EdgeInsets.all(0.0)),
+                onPressed: () => externalDirController.launchPhoneCall(
+                    'tel: ${externalDirController.externaldirectoriesController[3].title}'),
+                child: externaldirectoriesWidget(
+                  title: externalDirController
+                      .externaldirectoriesController[3].title,
+                  cardColor: Colors.grey[100],
+                  icon: FaIcon(
+                    FontAwesomeIcons.mobile,
+                    color: Colors.grey[600],
+                  ),
+                  size: size,
+                  context: context,
+                ),
               ),
-              _buildPrePaid2(size),
-              const SizedBox(
-                height: 30.0,
+              const SizedBox(height: 30.0),
+              settingsLabelWidget(
+                title: "Social Networks",
+                width: 0.0,
+                height: 0.0,
+                fontSize: 20.0,
+                fontColor: Colors.grey[700],
+                fontWeight: FontWeight.w400,
+                letterSpacing: 1.0,
               ),
-              const Text(
-                'Smart, Sun and TNT',
-                style: kTitle,
+              const SizedBox(height: 20.0),
+              TextButton(
+                style: TextButton.styleFrom(
+                    splashFactory: NoSplash.splashFactory,
+                    padding: const EdgeInsets.all(0.0)),
+                onPressed: () => externalDirController
+                    .launchUrl('https://www.facebook.com/ncmhcrisishotline/'),
+                child: externaldirectoriesWidget(
+                  title: externalDirController
+                      .externaldirectoriesController[4].title,
+                  cardColor: Colors.grey[100],
+                  icon: FaIcon(
+                    FontAwesomeIcons.facebook,
+                    color: Colors.grey[600],
+                  ),
+                  size: size,
+                  context: context,
+                ),
               ),
-              const SizedBox(
-                height: 20.0,
+              const SizedBox(height: 10.0),
+              TextButton(
+                style: TextButton.styleFrom(
+                    splashFactory: NoSplash.splashFactory,
+                    padding: const EdgeInsets.all(0.0)),
+                onPressed: () => externalDirController
+                    .launchUrl('https://twitter.com/ncmhhotline'),
+                child: externaldirectoriesWidget(
+                  title: externalDirController
+                      .externaldirectoriesController[5].title,
+                  cardColor: Colors.grey[100],
+                  icon: FaIcon(
+                    FontAwesomeIcons.twitter,
+                    color: Colors.grey[600],
+                  ),
+                  size: size,
+                  context: context,
+                ),
               ),
-              _buildSmart(size),
-              const SizedBox(
-                height: 30.0,
-              ),
-              const Text(
-                'Social Media',
-                style: kTitle,
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              _buildFacebook(size),
-              const SizedBox(
-                height: 10.0,
-              ),
-              _buildTwitter(size),
-              const SizedBox(
-                height: 100.0,
+              const SizedBox(height: 10.0),
+              TextButton(
+                style: TextButton.styleFrom(
+                    splashFactory: NoSplash.splashFactory,
+                    padding: const EdgeInsets.all(0.0)),
+                onPressed: () => externalDirController
+                    .launchUrl('https://doh.gov.ph/NCMH-Crisis-Hotline'),
+                child: externaldirectoriesWidget(
+                  title: "NCMH Crisis Hotline",
+                  cardColor: Colors.grey[100],
+                  icon: FaIcon(
+                    FontAwesomeIcons.link,
+                    color: Colors.grey[600],
+                  ),
+                  size: size,
+                  context: context,
+                ),
               ),
             ],
           ),
         ),
       ),
-      floatingActionButton: _buildCardInfo(),
     );
   }
-
-  _buildLandLineCard(Size size) => SizedBox(
-        height: size.height * 0.08,
-        child: GestureDetector(
-          onTap: () => interventionPage
-              .launchPhoneCall('tel:${interventionPage.landlineNum}'),
-          child: Card(
-            elevation: 1.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.90)),
-            color: Colors.grey[100],
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(interventionPage.landlineNum.toString(),
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.black,
-                        letterSpacing: 0.7,
-                      )),
-                  const Icon(
-                    Icons.call,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-  _buildPrePaid1(Size size) => SizedBox(
-        height: size.height * 0.08,
-        child: GestureDetector(
-          onTap: () => interventionPage
-              .launchPhoneCall('tel: ${interventionPage.prepaid1}'),
-          child: Card(
-            elevation: 1.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.90)),
-            color: Colors.grey[100],
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(interventionPage.prepaid1,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.black,
-                        letterSpacing: 0.7,
-                      )),
-                  const Icon(
-                    Icons.smartphone,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-  _buildPrePaid2(Size size) => SizedBox(
-        height: size.height * 0.08,
-        child: GestureDetector(
-          onTap: () => interventionPage
-              .launchPhoneCall('tel: ${interventionPage.prepaid2}'),
-          child: Card(
-            elevation: 1.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.90)),
-            color: Colors.grey[100],
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(interventionPage.prepaid2,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.black,
-                        letterSpacing: 0.7,
-                      )),
-                  const Icon(
-                    Icons.smartphone,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-  _buildSmart(Size size) => SizedBox(
-        height: size.height * 0.08,
-        child: GestureDetector(
-          onTap: () => interventionPage
-              .launchPhoneCall('tel: ${interventionPage.smartPrepaid}'),
-          child: Card(
-            elevation: 1.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.90)),
-            color: Colors.grey[100],
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(interventionPage.smartPrepaid,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.black,
-                        letterSpacing: 0.7,
-                      )),
-                  const Icon(
-                    Icons.smartphone,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-
-  /// List of Social Media
-
-  _buildFacebook(Size size) => SizedBox(
-        height: size.height * 0.08,
-        child: GestureDetector(
-          onTap: () => interventionPage
-              .launchPhoneCall('https://www.facebook.com/ncmhcrisishotline/'),
-          child: Card(
-            elevation: 1.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.90)),
-            color: Colors.grey[100],
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(interventionPage.fbPage,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.black,
-                        letterSpacing: 0.7,
-                      )),
-                  const Icon(
-                    Icons.smartphone,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-
-  _buildTwitter(Size size) => SizedBox(
-        height: size.height * 0.08,
-        child: GestureDetector(
-          onTap: () => interventionPage
-              .launchPhoneCall('https://twitter.com/ncmhhotline'),
-          child: Card(
-            elevation: 1.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.90)),
-            color: Colors.grey[100],
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(interventionPage.twitterPage,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.black,
-                        letterSpacing: 0.7,
-                      )),
-                  const Icon(
-                    Icons.smartphone,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-
-  _buildCardInfo() => Align(
-        alignment: Alignment.bottomCenter,
-        child: FloatingActionButton.extended(
-          backgroundColor: kBtnPrimary,
-          onPressed: () {
-            interventionPage
-                .launchUrl('https://doh.gov.ph/NCMH-Crisis-Hotline');
-          },
-          label: const Text('For More Info'),
-        ),
-      );
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
+import 'package:umatter/utils/colors.dart';
 
 Widget professionalCardWidget({
   required context,
@@ -17,7 +17,7 @@ Widget professionalCardWidget({
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
       width: width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(20.0),
         color: cardColor,
       ),
       child: Column(
@@ -26,7 +26,7 @@ Widget professionalCardWidget({
           Text(
             title,
             style: const TextStyle(
-              fontSize: 20.0,
+              fontSize: 18.0,
               fontWeight: FontWeight.w500,
               letterSpacing: 1.0,
               color: Colors.white,
@@ -38,28 +38,31 @@ Widget professionalCardWidget({
           Text(
             subtitle,
             style: const TextStyle(
-              fontSize: 16.0,
-              color: Colors.white,
+              fontSize: 14.0,
+              color: Colors.white70,
             ),
           ),
           const SizedBox(
-            height: 30.0,
+            height: 20.0,
           ),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: kPrimaryFrmColor,
-                  onPrimary: Colors.white,
-                  elevation: 1.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  )),
-              onPressed: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => route)),
+                primary: kbtnColor,
+                onPrimary: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => route),
+              ),
               child: Text(
                 btnText,
-                style: const TextStyle(fontWeight: FontWeight.w500),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           )

@@ -46,6 +46,12 @@ flutter:
   assets:
     - assets/
     - json/
+    - assets/audio/acoustic/
+    - assets/audio/instrumental/
+    - assets/audio/lofi/
+    - assets/audio/piano/
+    
+    - assets/img/assessment/
     - assets/img/home_page/
     - assets/img/onboarding/
     - assets/img/directories/

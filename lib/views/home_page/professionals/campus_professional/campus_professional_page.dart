@@ -17,7 +17,7 @@ class _CampusProfessionalPageState extends State<CampusProfessionalPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "Campus Professional",
+            "DMMMSU-MLUC Professional",
             style: TextStyle(
               fontSize: 20.0,
               color: Colors.grey[600],

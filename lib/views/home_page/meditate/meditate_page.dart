@@ -31,7 +31,7 @@ class _MeditatePageState extends State<MeditatePage> {
             backgroundColor: Colors.transparent,
             elevation: 0.0,
           ),
-          backgroundColor: Colors.orange.shade50,
+          backgroundColor: Colors.grey[100],
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -55,13 +55,23 @@ class _MeditatePageState extends State<MeditatePage> {
                       _meditatePageController.meditatePageController[1].route,
                 ),
                 meditateCardWidget(
-                    title:
-                        _meditatePageController.meditatePageController[2].title,
-                    subtitle: _meditatePageController
-                        .meditatePageController[2].subtitle,
-                    context: context,
-                    route: _meditatePageController
-                        .meditatePageController[2].route),
+                  title:
+                      _meditatePageController.meditatePageController[2].title,
+                  subtitle: _meditatePageController
+                      .meditatePageController[2].subtitle,
+                  context: context,
+                  route:
+                      _meditatePageController.meditatePageController[2].route,
+                ),
+                meditateCardWidget(
+                  title:
+                      _meditatePageController.meditatePageController[3].title,
+                  subtitle: _meditatePageController
+                      .meditatePageController[3].subtitle,
+                  context: context,
+                  route:
+                      _meditatePageController.meditatePageController[3].route,
+                ),
                 const SizedBox(height: 30.0),
               ],
             ),

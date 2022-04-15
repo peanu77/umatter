@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:lottie/lottie.dart';
-import 'package:umatter/views/home_page/meditate/audio_file.dart';
 import 'package:umatter/views/home_page/meditate/music_card_widget.dart';
 
 class LofiPage extends StatefulWidget {
@@ -52,7 +50,7 @@ class _LofiPageState extends State<LofiPage> {
             advancedPlayer: advancedPlayer,
             audioCache: audioCache,
             musicPath: widget.controller[widget.index].music,
-          )),
+          ),),
     );
   }
 }

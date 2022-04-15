@@ -33,10 +33,13 @@ class _QuotesPageState extends State<QuotesPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Align(
+                      Align(
                         widthFactor: 15.0,
                         alignment: Alignment.topLeft,
-                        child: FaIcon(FontAwesomeIcons.quoteLeft),
+                        child: FaIcon(
+                          FontAwesomeIcons.quoteLeft,
+                          color: Colors.grey[500],
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -45,22 +48,32 @@ class _QuotesPageState extends State<QuotesPage> {
                           jsonData[randomData(jsonData)]['text'],
                           textAlign: TextAlign.center,
                           // style: Theme.of(context).textTheme.headline4,
-                          style: const TextStyle(fontSize: 20.0),
+                          style: TextStyle(
+                              color: Colors.grey[800],
+                              fontSize: 20.0,
+                              letterSpacing: 1.0,
+                              fontWeight: FontWeight.w400),
                         ),
                       ),
-                      const Align(
+                      Align(
                         widthFactor: 15.0,
                         alignment: Alignment.bottomRight,
-                        child: FaIcon(FontAwesomeIcons.quoteRight),
+                        child: FaIcon(
+                          FontAwesomeIcons.quoteRight,
+                          color: Colors.grey[500],
+                        ),
                       ),
                       const SizedBox(
                         height: 40.0,
                       ),
                       Text(
                         // Author
-                        "- " + jsonData[randomData(jsonData)]['author'],
+                        "-- " +
+                            jsonData[randomData(jsonData)]['author'] +
+                            " --",
                         // style: Theme.of(context).textTheme.headline6,
-                        style: const TextStyle(fontSize: 14.0),
+                        style:
+                            TextStyle(color: Colors.grey[600], fontSize: 14.0),
                       ),
                     ],
                   ),

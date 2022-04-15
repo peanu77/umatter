@@ -5,21 +5,29 @@ import 'package:umatter/views/home_page/settings_page/settings_controller.dart';
 import 'package:umatter/views/home_page/settings_page/settings_label_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../controllers/shared_pref_controller/shared_pref_controller.dart';
+
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    String name = SharePrefConfig.getUsername() ?? "";
+    String age = SharePrefConfig.getAge() ?? "";
+    String gender = SharePrefConfig.getGender() ?? "";
+    String civilstatus = SharePrefConfig.getCivilStatus() ?? "";
+
     final size = MediaQuery.of(context).size;
     final kBoxHeight = size.height * 0.09;
     final controller = SettingsControllerPage();
     final databaseController = DatabaseManager();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Settings Page',
-          style: TextStyle(color: Colors.grey[600], fontSize: 20.0),
+          style: TextStyle(color: Colors.grey[600], fontSize: 22.0),
         ),
-        centerTitle: true,
         elevation: 0.0,
         backgroundColor: Colors.transparent,
       ),
@@ -39,7 +47,7 @@ class SettingsPage extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   letterSpacing: 0.3,
                 ),
-                _buildUserInfo(size),
+                userInfoWidget(size, name, age, gender, civilstatus),
                 settingsLabelWidget(
                   title: 'Permissions',
                   width: 20.0,
@@ -49,8 +57,10 @@ class SettingsPage extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   letterSpacing: 0.3,
                 ),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                TextButton(
+                  style: TextButton.styleFrom(
+                      primary: Colors.grey[600],
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0)),
                   onPressed: () {},
                   child: settingsCardWidget(
                     title: controller.settingsController[0].title,
@@ -68,9 +78,11 @@ class SettingsPage extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   letterSpacing: 0.3,
                 ),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                TextButton(
                   onPressed: () {},
+                  style: TextButton.styleFrom(
+                      primary: Colors.grey[600],
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0)),
                   child: settingsCardWidget(
                     title: controller.settingsController[1].title,
                     icon: Icons.description_outlined,
@@ -78,9 +90,11 @@ class SettingsPage extends StatelessWidget {
                     context: context,
                   ),
                 ),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                TextButton(
                   onPressed: () {},
+                  style: TextButton.styleFrom(
+                      primary: Colors.grey[600],
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0)),
                   child: settingsCardWidget(
                     title: controller.settingsController[2].title,
                     icon: Icons.privacy_tip_outlined,
@@ -88,9 +102,11 @@ class SettingsPage extends StatelessWidget {
                     context: context,
                   ),
                 ),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                TextButton(
                   onPressed: () {},
+                  style: TextButton.styleFrom(
+                      primary: Colors.grey[600],
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0)),
                   child: settingsCardWidget(
                     title: controller.settingsController[3].title,
                     icon: Icons.info_outline_rounded,
@@ -107,8 +123,10 @@ class SettingsPage extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   letterSpacing: 0.3,
                 ),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                TextButton(
+                  style: TextButton.styleFrom(
+                      primary: Colors.grey[600],
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0)),
                   onPressed: () => databaseController.deleteUser(),
                   child: settingsCardWidget(
                     title: controller.settingsController[4].title,
@@ -117,8 +135,10 @@ class SettingsPage extends StatelessWidget {
                     context: context,
                   ),
                 ),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                TextButton(
+                  style: TextButton.styleFrom(
+                      primary: Colors.grey[600],
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0)),
                   onPressed: () async {
                     String toEmail = '4admiraks@gmail.com';
                     final url = 'mailto:$toEmail';
@@ -134,8 +154,10 @@ class SettingsPage extends StatelessWidget {
                     context: context,
                   ),
                 ),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(primary: Colors.grey[600]),
+                TextButton(
+                  style: TextButton.styleFrom(
+                      primary: Colors.grey[600],
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0)),
                   onPressed: () => databaseController.signOut(),
                   child: settingsCardWidget(
                     title: controller.settingsController[6].title,
@@ -155,9 +177,9 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  _buildUserInfo(size) {
+  Widget userInfoWidget(size, name, age, gender, civilstatus) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: SizedBox(
         height: size.height * 0.2,
         width: double.infinity,
@@ -170,7 +192,7 @@ class SettingsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Username",
+                      "Name",
                       style: TextStyle(
                           color: Colors.grey[500], letterSpacing: 0.3),
                     ),
@@ -198,7 +220,7 @@ class SettingsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "peanuts",
+                      name,
                       style: TextStyle(
                         color: Colors.grey[700],
                         letterSpacing: 0.3,
@@ -207,7 +229,7 @@ class SettingsPage extends StatelessWidget {
                     ),
                     const Divider(),
                     Text(
-                      "21",
+                      age,
                       style: TextStyle(
                         color: Colors.grey[700],
                         letterSpacing: 0.3,
@@ -216,7 +238,7 @@ class SettingsPage extends StatelessWidget {
                     ),
                     const Divider(),
                     Text(
-                      "Male",
+                      gender,
                       style: TextStyle(
                         color: Colors.grey[700],
                         letterSpacing: 0.3,
@@ -228,7 +250,7 @@ class SettingsPage extends StatelessWidget {
                     ),
                     const Divider(),
                     Text(
-                      "Single",
+                      civilstatus,
                       style: TextStyle(
                         color: Colors.grey[700],
                         letterSpacing: 0.3,
@@ -237,6 +259,7 @@ class SettingsPage extends StatelessWidget {
                     ),
                   ],
                 ),
+                Container(),
                 Container(),
               ],
             )

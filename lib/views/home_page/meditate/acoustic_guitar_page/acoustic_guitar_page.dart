@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umatter/controllers/meditate_page_controller/acoustic_controller_page.dart';
 import 'package:umatter/views/home_page/meditate/acoustic_guitar_page/acoustic_view_page.dart';
+import 'package:umatter/views/home_page/meditate/music_card_list_widget.dart';
 
 class AcousticGuitarPage extends StatefulWidget {
   const AcousticGuitarPage({Key? key}) : super(key: key);
@@ -37,65 +37,25 @@ class _AcousticGuitarPageState extends State<AcousticGuitarPage> {
           body: ListView.builder(
             itemCount: controller.acousticPageController.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  elevation: 1.0,
-                  child: SizedBox(
-                    height: _size.height * 0.12,
-                    child: InkWell(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AcousticViewPage(
-                            controller: controller.acousticPageController,
-                            index: index,
-                          ),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                // Title
-                                Text(
-                                  controller
-                                      .acousticPageController[index].title,
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.grey[800],
-                                    letterSpacing: 1.0,
-                                  ),
-                                ),
-                                Text(
-                                  controller
-                                      .acousticPageController[index].authorName,
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colors.grey[600],
-                                    letterSpacing: 1.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SvgPicture.asset(
-                              'assets/img/music_therapy/music_track.svg',
-                              height: 50.0,
-                            )
-                          ],
-                        ),
-                      ),
+              return TextButton(
+                style:
+                    TextButton.styleFrom(splashFactory: NoSplash.splashFactory),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AcousticViewPage(
+                      controller: controller.acousticPageController,
+                      index: index,
                     ),
                   ),
+                ),
+                child: musicCardListWidget(
+                  title: controller.acousticPageController[index].title,
+                  author: controller.acousticPageController[index].authorName,
+                  size: _size,
+                  context: context,
+                  controller: controller,
+                  index: index,
                 ),
               );
             },

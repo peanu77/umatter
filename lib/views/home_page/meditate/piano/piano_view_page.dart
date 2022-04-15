@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:umatter/views/home_page/meditate/audio_file.dart';
+
+import '../music_card_widget.dart';
 
 class PianoViewPage extends StatefulWidget {
-  final pianoController;
+  final controller;
   final index;
-  const PianoViewPage({Key? key, this.pianoController, this.index})
+  const PianoViewPage({Key? key, this.controller, this.index})
       : super(key: key);
 
   @override
@@ -24,48 +25,29 @@ class _PianoViewPageState extends State<PianoViewPage> {
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Column(
-        children: [
-          const Spacer(
-            flex: 2,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              height: _size.height * 0.45,
-              width: double.infinity,
-              // child: Lottie.asset(widget.controller[widget.index].coverImg),
-            ),
-          ),
-          const Spacer(),
-          Column(
-            children: [
-              Text(
-                widget.pianoController[widget.index].title,
-                style: Theme.of(context).textTheme.headline4,
-              ),
-              Text(
-                widget.pianoController[widget.index].authorName,
-                style: Theme.of(context).textTheme.headline5,
-              ),
-            ],
-          ),
-          const Spacer(
-            flex: 2,
-          ),
-          AudioFilePage(
-            musicPath: widget.pianoController[widget.index].music,
-            advancePlayer: advancedPlayer,
-            audioCache: audioCache,
-          ),
-          const Spacer(
-            flex: 3,
-          ),
-        ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: Icon(
+                Icons.chevron_left,
+                color: Colors.grey[600],
+              )),
+          backgroundColor: Colors.transparent,
+          centerTitle: true,
+          elevation: 0.0,
+        ),
+        body: musicCardWidget(
+          height: _size.height * 0.45,
+          width: double.infinity,
+          imgAsset: '',
+          title: widget.controller[widget.index].title,
+          author: widget.controller[widget.index].authorName,
+          advancedPlayer: advancedPlayer,
+          audioCache: audioCache,
+          musicPath: widget.controller[widget.index].music,
+        ),
       ),
     );
   }

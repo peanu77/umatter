@@ -7,7 +7,7 @@ class ProfessionalControllerPage {
   List<ProfessionalInfoPage> professionalInfoController = [
     ProfessionalInfoPage(
       route: const CampusProfessionalPage(),
-      title: "Campus Professionals",
+      title: "DMMMSU-MLUC Professionals",
       subtitle:
           "Visit the list of available campus professionals that may help you!",
       color: 0xffA977AF,

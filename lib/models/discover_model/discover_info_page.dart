@@ -1,8 +1,13 @@
 class DiscoverInfoPage {
   final String title;
-  final String desc;
-  final String btnTxt;
+  final String subtitle;
   final String img;
+  final route;
 
-  DiscoverInfoPage(this.title, this.desc, this.btnTxt, this.img);
+  DiscoverInfoPage(
+    this.title,
+    this.subtitle,
+    this.img,
+    this.route,
+  );
 }
