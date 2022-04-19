@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-// import 'package:umatter/views/analytics_page/analytics_page.dart';
 import 'package:umatter/views/home_page/home_page.dart';
 import 'package:umatter/views/home_page/settings_page/settings_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:umatter/views/quotes_page/quotes_page.dart';
+
+import '../analytics/analytics_page.dart';
 
 class NavBarPage extends StatefulWidget {
   const NavBarPage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class NavBarPage extends StatefulWidget {
 class _NavBarPageState extends State<NavBarPage> {
   List pages = const [
     HomePage(),
-    // AnalyticsPage(),
+    // AssessmentAnalytics(),
     QuotesPage(),
     SettingsPage(),
   ];

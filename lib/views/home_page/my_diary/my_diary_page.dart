@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
+import 'package:umatter/views/home_page/my_diary/analytics/my_diary_analytics.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:umatter/views/home_page/my_diary/page/select_emotion.dart';
 import 'package:umatter/views/home_page/my_diary/page/view_diary_page.dart';
@@ -23,19 +24,28 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
       .doc(FirebaseAuth.instance.currentUser?.uid)
       .collection('notes');
 
+  final myEmotions = ["😀 Happy", "😞 Sad", "Lonely"];
+
   selectEmoji() {
     if (SharePrefConfig.getEmoji.toString() == "Happy") {
-      return const Text(
-        '😀',
-        style: TextStyle(fontSize: 30.0),
+      return Text(
+        myEmotions[0],
+        style: ktextStyle,
       );
-    } else if (SharePrefConfig.getEmoji.toString() == "Sad") {
-      return const Text(
-        '😞',
-        style: TextStyle(fontSize: 30.0),
+    }
+    if (SharePrefConfig.getEmoji.toString() == "Sad") {
+      return Text(
+        myEmotions[1],
+        style: ktextStyle,
       );
     }
   }
+
+  final ktextStyle = const TextStyle(
+    fontSize: 20.0,
+    color: Colors.white,
+    letterSpacing: 1.0,
+  );
 
   final keyOne = GlobalKey();
   @override
@@ -47,6 +57,13 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
               keyOne,
             ]));
   }
+
+  final textStyle = const TextStyle(fontSize: 25.0);
+
+  final emotions = [
+    "😀",
+    "😞",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +84,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
       ),
+      backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: FutureBuilder<QuerySnapshot>(
           future: ref.get(),
@@ -87,7 +105,9 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                       Text(
                         "Empty Diary",
                         style: TextStyle(
-                            fontSize: 20.0, color: Colors.grey.shade600),
+                          fontSize: 18.0,
+                          color: Colors.grey[600],
+                        ),
                       ),
                     ],
                   ),
@@ -109,15 +129,13 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                     selectedEmoji(data);
                     return Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                        vertical: 2.0,
-                      ),
+                          horizontal: 20.0, vertical: 5.0),
                       child: Card(
-                        elevation: 2.0,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: InkWell(
+                          splashFactory: NoSplash.splashFactory,
                           onTap: () => Navigator.of(context)
                               .push(MaterialPageRoute(
                                 builder: (context) => ViewDiaryPage(
@@ -130,7 +148,8 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                               ))
                               .then((value) => setState(() {})),
                           child: Padding(
-                            padding: const EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 30.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -138,41 +157,56 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
+                                    // Create at (time)
                                     Text(
-                                      formattedDatetime,
+                                      formattedDatetime.toUpperCase(),
                                       style: TextStyle(
                                         fontSize: 14.0,
-                                        color: Colors.grey[500],
+                                        color: Colors.grey[400],
                                         letterSpacing: 0.7,
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
+
+                                    // Emoji
                                     Container(
+                                      padding: const EdgeInsets.all(5.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                        color: Colors.grey[200],
+                                      ),
                                       child: selectedEmoji(data),
                                     ),
                                   ],
                                 ),
                                 const SizedBox(
-                                  height: 15.0,
+                                  height: 10.0,
                                 ),
                                 Text(
                                   "${data['title']}",
                                   style: TextStyle(
-                                      fontSize: 20.0,
-                                      letterSpacing: 0.7,
-                                      color: Colors.grey[700]),
+                                    fontSize: 20.0,
+                                    color: Colors.grey[400],
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1.0,
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 15.0,
                                 ),
+
+                                // Note description
                                 SizedBox(
                                   height: 20.0,
                                   child: Text(
                                     "${data['description']}",
-                                    style: const TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w400,
-                                        letterSpacing: 0.7),
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.0,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -213,21 +247,14 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
           }),
         ),
       ),
-      backgroundColor: Colors.grey[100],
     );
   }
 
   selectedEmoji(data) {
     if (data['emojis'] == "Happy") {
-      return const Text(
-        '😀',
-        style: TextStyle(fontSize: 30.0),
-      );
+      return Text(emotions[0], style: textStyle);
     } else if (data['emojis'] == "Sad") {
-      return const Text(
-        '😞',
-        style: TextStyle(fontSize: 30.0),
-      );
+      return Text(emotions[1], style: textStyle);
     }
   }
 }

@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:umatter/controllers/assessment_controller/assessment_controller.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/home_page/assessment_page/assessment_result.dart';
-import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 class AssessmentPage extends StatefulWidget {
   const AssessmentPage({Key? key}) : super(key: key);
@@ -20,6 +19,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
 
   List<int> scores = [];
   List<String> assessmentList = [];
+  List<String> assessmentScores = [];
   var selectedItem = '';
   String depressionLevel = '';
   var selectedPageIndex = 0.obs;
@@ -32,6 +32,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: PageView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -51,20 +52,19 @@ class _AssessmentPageState extends State<AssessmentPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Center(
-                        child: Text(
-                          "Question ${index + 1} / ${controller.questionsController.length}",
-                          // style: Theme.of(context).textTheme.headline4,
-                          style: TextStyle(fontSize: 18.0),
-                        ),
+                      Text(
+                        "Question ${index + 1} / ${controller.questionsController.length}",
+                        style: const TextStyle(fontSize: 14.0),
                       ),
-                      const SizedBox(height: 25.0),
-                      Center(
-                        child: Text(
-                          controller.questionsController[index].question,
-                          // textAlign: TextAlign.center,
-                          // style: Theme.of(context).textTheme.headline5,
-                          style: TextStyle(fontSize: 30.0),
+                      const SizedBox(height: 30.0),
+                      Text(
+                        controller.questionsController[index].question,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey[800],
+                          letterSpacing: 1.0,
                         ),
                       ),
                     ],
@@ -98,12 +98,12 @@ class _AssessmentPageState extends State<AssessmentPage> {
   _buildFirstBtn(_size) {
     return SizedBox(
       width: double.infinity,
-      height: _size.height * 0.09,
+      height: _size.height * 0.08,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-          primary: kPrimaryFrmColor,
+          primary: Colors.grey[300],
           elevation: 2.0,
         ),
         onPressed: () {
@@ -111,13 +111,18 @@ class _AssessmentPageState extends State<AssessmentPage> {
           int score = 0;
           scores.add(score);
           assessmentList.add(selectedItem);
+          assessmentScores.add(score.toString());
           nextPageController();
-
+          print(score);
           print(selectedItem);
+          // print(selectedItem);
         },
-        child: Text(
+        child: const Text(
           'Not at all',
-          style: Theme.of(context).textTheme.headline6,
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.black,
+          ),
         ),
       ),
     );
@@ -126,12 +131,12 @@ class _AssessmentPageState extends State<AssessmentPage> {
   _buildSecondBtn(_size) {
     return SizedBox(
       width: double.infinity,
-      height: _size.height * 0.09,
+      height: _size.height * 0.08,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-          primary: kPrimaryFrmColor,
+          primary: Colors.grey[300],
           elevation: 2.0,
         ),
         onPressed: () {
@@ -139,14 +144,18 @@ class _AssessmentPageState extends State<AssessmentPage> {
           int score = 1;
           scores.add(score);
           assessmentList.add(selectedItem);
+          assessmentScores.add(score.toString());
 
           nextPageController();
-
-          print(selectedItem);
+          print(score);
+          // print(selectedItem);
         },
-        child: Text(
+        child: const Text(
           'Several days',
-          style: Theme.of(context).textTheme.headline6,
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.black,
+          ),
         ),
       ),
     );
@@ -155,12 +164,12 @@ class _AssessmentPageState extends State<AssessmentPage> {
   _buildThirdBtn(_size) {
     return SizedBox(
       width: double.infinity,
-      height: _size.height * 0.09,
+      height: _size.height * 0.08,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-          primary: kPrimaryFrmColor,
+          primary: Colors.grey[300],
           elevation: 2.0,
         ),
         onPressed: () {
@@ -168,13 +177,18 @@ class _AssessmentPageState extends State<AssessmentPage> {
           int score = 2;
           scores.add(score);
           assessmentList.add(selectedItem);
+          assessmentScores.add(score.toString());
           nextPageController();
 
-          print(selectedItem);
+          print(score);
+          // print(selectedItem);
         },
-        child: Text(
+        child: const Text(
           'More than half the days',
-          style: Theme.of(context).textTheme.headline6,
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.black,
+          ),
         ),
       ),
     );
@@ -183,31 +197,37 @@ class _AssessmentPageState extends State<AssessmentPage> {
   _buildFourthBtn(_size) {
     return SizedBox(
       width: double.infinity,
-      height: _size.height * 0.09,
+      height: _size.height * 0.08,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           elevation: 2.0,
-          primary: kPrimaryFrmColor,
+          primary: Colors.grey[300],
         ),
         onPressed: () {
           selectedItem = "Nearly Everyday";
           int score = 3;
           scores.add(score);
           assessmentList.add(selectedItem);
+          assessmentScores.add(score.toString());
           nextPageController();
-          print(selectedItem);
+
+          print(score);
+          // print(selectedItem);
         },
-        child: Text(
+        child: const Text(
           'Nearly Everyday',
-          style: Theme.of(context).textTheme.headline6,
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.black,
+          ),
         ),
       ),
     );
   }
 
-  addForm() async {
+  addAssessmentForm() async {
     CollectionReference ref = FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -221,28 +241,27 @@ class _AssessmentPageState extends State<AssessmentPage> {
     ref.add(data);
   }
 
-  /// This function is responsible for the logic of getting the assessment of the user
-  /// First we need to get the input of the user
-  /// After getting the input from the user we loop the selected list of options from the user and then we evaluate them by their type of serverity.
   sumScores() {
-    num sum = 0;
+    num score = 0;
     for (var e in scores) {
-      sum += e;
+      score += e;
+      SharePrefConfig.setAssessmentScore(score.toString());
     }
-    if (sum >= 0 && sum <= 5) {
+    if (score >= 0 && score <= 5) {
       depressionLevel = "Mild";
       return depressionLevel;
-    } else if (sum >= 6 && sum <= 10) {
+    } else if (score >= 6 && score <= 10) {
       depressionLevel = "Moderate";
       return depressionLevel;
-    } else if (sum >= 11 && sum <= 15) {
+    } else if (score >= 11 && score <= 15) {
       depressionLevel = "Moderately Severe";
       return depressionLevel;
-    } else if (sum >= 16) {
+    } else if (score >= 16) {
       depressionLevel = "Severe Depression";
       return depressionLevel;
     }
-    // return sum;
+    // SharePrefConfig.setAssessmentScore(score.toString());
+    return score;
   }
 
   nextPageController() {
@@ -255,9 +274,10 @@ class _AssessmentPageState extends State<AssessmentPage> {
           ),
         ),
       );
-
+      print(sumScores());
       SharePrefConfig.setAssessment(assessmentList);
-      addForm();
+      SharePrefConfig.setAssessment(assessmentScores);
+      addAssessmentForm();
     } else {
       pageController.nextPage(
           duration: const Duration(milliseconds: 300), curve: Curves.ease);

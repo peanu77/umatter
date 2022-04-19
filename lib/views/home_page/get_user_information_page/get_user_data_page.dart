@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
-import 'package:umatter/views/home_page/assessment_page/welcome_page.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:umatter/preferences/run_preferences.dart';
 
-import '../../../../preferences/consts.dart';
+import '../../../preferences/consts.dart';
 
 class UserInfoPage extends StatefulWidget {
   const UserInfoPage({Key? key}) : super(key: key);
@@ -39,19 +38,32 @@ class _UserInfoPageState extends State<UserInfoPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 30.0),
+              child: InkWell(
+                splashFactory: NoSplash.splashFactory,
+                onTap: () => Navigator.of(context).pop(),
+                child: Icon(
+                  Icons.close,
+                  color: Colors.grey[300],
+                ),
+              ),
+            )
+          ],
           backgroundColor: Colors.transparent,
           elevation: 0.0,
         ),
         body: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Form(
                 key: _formKey,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 30.0, vertical: 30.0),
+                      horizontal: 30.0, vertical: 20.0),
                   child: Column(
                     children: [
                       SvgPicture.asset(
@@ -134,7 +146,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                           children: [
                             const Text("Gender"),
                             SizedBox(
-                              width: 200.0,
+                              width: 140.0,
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
                                   iconSize: 40,
@@ -172,7 +184,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                           children: [
                             const Text("Civil Status"),
                             SizedBox(
-                              width: 200.0,
+                              width: 140.0,
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
                                   iconSize: 40,
@@ -224,14 +236,9 @@ class _UserInfoPageState extends State<UserInfoPage> {
                             SharePrefConfig.setGender(genderValue!);
                             SharePrefConfig.setCivilStatus(civilStatusValue!);
 
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => const LabelPage()),
-                            );
+                            Navigator.of(context).pop();
                           },
-                          
                           child: const Text('Continue'),
-                          
                         ),
                       )
                     ],

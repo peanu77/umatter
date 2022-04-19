@@ -62,12 +62,12 @@ class _LoginWidgetState extends State<LoginWidget>
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Column(
                     children: [
-                      const SizedBox(height: 20.0),
+                      // const SizedBox(height: 20.0),
                       _buildIcon(),
                       _buildWelcome(),
                       _buildEmailForm(),
                       const SizedBox(
-                        height: 15.0,
+                        height: 10.0,
                       ),
                       _buildPasswordForm(),
                       _buildCreateandForget(),
@@ -78,8 +78,9 @@ class _LoginWidgetState extends State<LoginWidget>
                       const SizedBox(
                         height: 10.0,
                       ),
+
                       _buildGoogleBtn(_size),
-                      const SizedBox(height: 15.0),
+                      const SizedBox(height: 20.0),
                       _buildTermsandConditions(),
                     ],
                   ),
@@ -188,19 +189,37 @@ class _LoginWidgetState extends State<LoginWidget>
       );
 
   _buildTermsandConditions() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TextButton(
-          onPressed: () => _buildDialog(),
-          child: const Text('Terms and Conditions'),
+    return InkWell(
+      splashFactory: NoSplash.splashFactory,
+      onTap: () {},
+      child: RichText(
+        text: const TextSpan(
+          children: [
+            TextSpan(
+                text: 'Terms and Condition',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 12.0,
+                  letterSpacing: 0.5,
+                )),
+            TextSpan(
+                text: ' and ',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.black,
+                  letterSpacing: 0.5,
+                )),
+            TextSpan(
+                text: 'Privacy and Policy',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 12.0,
+                  letterSpacing: 0.5,
+                )),
+          ],
         ),
-        const Text('and'),
-        TextButton(
-          onPressed: () => _buildDialog(),
-          child: const Text('Privacy and Policy'),
-        )
-      ],
+        // text: TextSpan(text: "asd"),
+      ),
     );
   }
 

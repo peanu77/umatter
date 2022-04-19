@@ -26,6 +26,7 @@ class SharePrefConfig {
   static const _keyEmotions = 'emotions';
   static const _keySelectedColor = 'selectedColor';
   static const _keyAssessment = 'assessment';
+  static const _keyAssessmentScore = 'assessmentScore';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -80,4 +81,12 @@ class SharePrefConfig {
 
   static List<String>? getAssessment() =>
       _preferences.getStringList(_keyAssessment);
+  // _preferences.getIntList(_keyAssessment);
+
+  // Assessment Score
+  static Future setAssessmentScore(String assessmentScore) async =>
+      await _preferences.setString(_keyAssessmentScore, assessmentScore);
+
+  static String? getAssessmentScore() =>
+      _preferences.getString(_keyAssessmentScore);
 }

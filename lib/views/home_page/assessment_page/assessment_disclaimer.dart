@@ -1,33 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/views/home_page/assessment_page/welcome_page.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
-import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+class AssessmentDisclaimerPage extends StatelessWidget {
+  const AssessmentDisclaimerPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 15.0,
-            vertical: 15.0,
-          ),
-          child: Column(
-            children: [
-              const Spacer(
-                flex: 2,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            IconButton(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 30, vertical: 30.0),
+              onPressed: () => Navigator.of(context).pop(),
+              icon: Icon(
+                Icons.close_rounded,
+                color: Colors.grey[300],
               ),
-              const Text(
-                'Before you proceed, let us assess your condition first',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 30.0),
+            ),
+            const Spacer(
+              flex: 2,
+            ),
+            Text(
+              'Before you proceed, let us assess your condition first',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20.0,
+                color: Colors.grey[700],
+                fontWeight: FontWeight.bold,
               ),
-              const Spacer(),
-              ElevatedButton(
+            ),
+            const Spacer(),
+            Center(
+              child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(25.0),
                   shape: RoundedRectangleBorder(
@@ -55,7 +64,7 @@ class WelcomePage extends StatelessWidget {
                       ),
                       content: const Text(
                         'The following Assessment is from the Primary Care Evaluation of Mental Disorders Patient Health Questionnaire (PRIME-MD PHQ). The PHQ was developed by Drs. Robert L. Spitzer, Janet B.W. Williams, Kurt Kroenke and colleagues. For research information, contact Dr. Spitzer at rls8@columbia.edu. PRIME-MD® is a trademark of Pfizer Inc. Copyright© 1999 Pfizer Inc. All rights reserved. Reproduced with permission',
-                        textAlign: TextAlign.justify,
+                        // textAlign: TextAlign.justify,
                         style: TextStyle(
                           fontSize: 16.0,
                           letterSpacing: 1.0,
@@ -91,37 +100,31 @@ class WelcomePage extends StatelessWidget {
                   );
                 },
                 child: const Text(
-                  'Take me to Assessment',
+                  'Get Started',
                   style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w400,
                     letterSpacing: 1.0,
                   ),
                 ),
               ),
-              TextButton(
-                onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                      builder: (context) => const NavBarPage(),
-                    ),
-                    (route) => false),
-                child: const Text(
-                  'Not Now',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
+            ),
+            const Spacer(),
+            Text(
+              "This Application is not intended to replace any clinical diagnosis or treatment.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.red[500],
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.0,
+                fontStyle: FontStyle.italic,
               ),
-              const Spacer(
-                flex: 2,
-              ),
-              Text(
-                "This Application is not intended to replace any clinical diagnosis or treatment.",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            ],
-          ),
+            ),
+            const Spacer(
+              flex: 2,
+            ),
+          ],
         ),
       ),
     );

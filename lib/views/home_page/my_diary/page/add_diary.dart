@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
-import 'package:umatter/models/diary_page_controller/my_diary_page_controller.dart';
+import 'package:umatter/utils/colors.dart';
 import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
-import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 class AddDiaryPage extends StatefulWidget {
   const AddDiaryPage({
@@ -29,198 +28,269 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
     content: Text('Save'),
   );
 
-// Emoji Logic
-  selectEmoji() {
-    if (emoji.toString() == "Happy") {
-      return const InkWell(
-        child: Text(
-          '😀',
-          style: TextStyle(fontSize: 30.0),
-        ),
-      );
-    } else if (emoji.toString() == "Sad") {
-      return const Text(
-        '😞',
-        style: TextStyle(fontSize: 30.0),
-      );
-    }
-  }
+  final myEmotions = ["😀 Happy", "😞 Sad", "Lonely"];
+
+  final ktextStyle = const TextStyle(
+    fontSize: 20.0,
+    color: Colors.white,
+    letterSpacing: 1.0,
+  );
 
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                ScaffoldMessenger.of(context).showSnackBar(message);
-                // Calling the Database manager'
-                databaseManager.addForm(title, desc, _formKey, emoji);
-                // Transfer data to the my diary home page using SharedPreferences
-                SharePrefConfig.setSelectedColor(bgColor.toString());
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MyDiaryPage(),
-                  ),
-                );
-              } else {
-                return;
-              }
-            },
-            icon: const Icon(Icons.save),
-          )
-        ],
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const MyDiaryPage())),
-          icon: const Icon(Icons.chevron_left),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: Icon(
+              Icons.chevron_left,
+              color: Colors.grey[600],
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
         ),
-        elevation: 0.0,
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _buildForm(_size),
-              // _buildColorPicker(_size),
-              SizedBox(
-                height: _size.height / 2,
-              ),
-              // _buildColorPicker(_size),
-            ],
+        backgroundColor: Colors.grey[100],
+        body: SingleChildScrollView(
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
+            child: Column(
+              children: [
+                _buildForm(_size),
+                SizedBox(
+                  height: _size.height * 0.1,
+                ),
+                _buildButtonSubmit(),
+              ],
+            ),
           ),
         ),
       ),
-      backgroundColor: Colors.grey[200],
     );
   }
 
-  /// This Widget is responsible for the form (Title, description)
+// Title and Notes description
   _buildForm(Size size) {
     return Form(
       key: _formKey,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 15.0,
-            ),
-            _buildTitleForm(),
-            const SizedBox(
-              height: 20.0,
-            ),
-            _buildEmotion(),
-            const SizedBox(
-              height: 20.0,
-            ),
-            _buildDescForm(),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildEmotion(),
+          const SizedBox(
+            height: 50.0,
+          ),
+          _buildTitleForm(),
+          const SizedBox(
+            height: 50.0,
+          ),
+          _buildDescForm(),
+        ],
       ),
-    );
-  }
-
-  _buildTitleForm() {
-    return TextFormField(
-      decoration: const InputDecoration(
-        hintText: "Title",
-        // filled: true,
-      ),
-      style: kfrmTitle,
-      validator: (value) =>
-          value != null && value.isEmpty ? "Title can't be empty!" : null,
-      onChanged: (_val) {
-        title = _val;
-      },
     );
   }
 
   _buildEmotion() {
     return Row(
       children: [
-        selectEmoji(),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            color: Colors.orange[300],
+          ),
+          child: selectedEmoji(),
+        ),
         const Spacer(),
       ],
     );
   }
 
-// Description
+  _buildTitleForm() {
+    return TextFormField(
+      decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              ),
+              borderRadius: BorderRadius.circular(20.0)),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.circular(5.5),
+          ),
+          filled: true,
+          fillColor: Colors.grey[300],
+          hintText: "Title...",
+          hintStyle: TextStyle(
+            color: Colors.grey[700],
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.0,
+          )
+
+          // filled: true,
+          ),
+      style: TextStyle(
+        color: Colors.grey[700],
+        fontSize: 20.0,
+        fontWeight: FontWeight.bold,
+        letterSpacing: 0.5,
+      ),
+      validator: (value) =>
+          value != null && value.isEmpty ? "Please enter a title" : null,
+      onChanged: (_val) {
+        title = _val;
+      },
+    );
+  }
+
+  // Description
   _buildDescForm() {
     return TextFormField(
       maxLines: null,
       keyboardType: TextInputType.multiline,
-      decoration: const InputDecoration.collapsed(
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.transparent,
+            ),
+            borderRadius: BorderRadius.circular(20.0)),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.transparent),
+          borderRadius: BorderRadius.circular(5.5),
+        ),
+        fillColor: Colors.grey[300],
+        filled: true,
         border: InputBorder.none,
-        hintText: "",
+        hintText: "Add some notes...",
+        hintStyle: TextStyle(
+          color: Colors.grey[700],
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1.0,
+        ),
       ),
-      validator: (value) => value != null && value.isEmpty
-          ? "Description must not be Empty!"
-          : null,
-      style: kfrmDesc,
+      validator: (value) =>
+          value != null && value.isEmpty ? "Please enter a note" : null,
+      style: TextStyle(
+        color: Colors.grey[700],
+        fontSize: 18.0,
+        fontWeight: FontWeight.w400,
+        letterSpacing: 0.5,
+      ),
       onChanged: (_val) {
         desc = _val;
       },
     );
   }
 
-// Background Color Setter
-  setBackgroundColor(Color newColor) {
-    if (newColor != bgColor) {
-      setState(() {
-        bgColor = newColor;
-      });
-    }
-  }
-
-// Color Picker
-  _buildColorPicker(Size size) {
+  _buildButtonSubmit() {
     return SizedBox(
-      height: 120.0,
-      // height: size.height * 0.060,
-      child: ListView.builder(
-        itemCount: MyDiaryController().myDiaryController.length,
-        itemBuilder: (context, index) {
-          return Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: _buildBackgroundColorPicker(
-                  color: Color(MyDiaryController().myDiaryController[index]),
-                ),
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            // Calling the Database manager' ScaffoldMessenger.of(context).showSnackBar(message);
+            databaseManager.addForm(title, desc, _formKey, emoji);
+            // Transfer data to the my diary home page using SharedPreferences
+            SharePrefConfig.setSelectedColor(bgColor.toString());
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MyDiaryPage(),
               ),
-            ],
-          );
+            );
+          } else {
+            return;
+          }
         },
-        scrollDirection: Axis.horizontal,
-      ),
-    );
-  }
-
-  // / This widget is responsible for the size and styling of the color picker
-  Widget _buildBackgroundColorPicker({required Color color}) {
-    return GestureDetector(
-      onTap: () {
-        setBackgroundColor(color);
-      },
-      child: Container(
-        width: 50,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: color,
-          border: Border.all(color: Colors.white, width: 4),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.4),
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            ),
-          ],
+        style: ElevatedButton.styleFrom(
+          primary: kbtnColor,
+          padding: const EdgeInsets.all(25.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
+        child: const Text(
+          'Save',
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.0),
         ),
       ),
     );
   }
+
+  // Emoji Logic
+  selectedEmoji() {
+    if (emoji.toString() == "Happy") {
+      return Text(myEmotions[0], style: ktextStyle);
+    }
+    if (emoji.toString() == "Sad") {
+      return Text(myEmotions[1], style: ktextStyle);
+    }
+  }
 }
+
+
+
+
+// Color Picker
+//   _buildColorPicker(Size size) {
+//     return SizedBox(
+//       height: 120.0,
+      // height: size.height * 0.060,
+//       child: ListView.builder(
+//         itemCount: MyDiaryController().myDiaryController.length,
+//         itemBuilder: (context, index) {
+//           return Row(
+//             children: [
+//               Padding(
+//                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
+//                 child: _buildBackgroundColorPicker(
+//                   color: Color(MyDiaryController().myDiaryController[index]),
+//                 ),
+//               ),
+//             ],
+//           );
+//         },
+//         scrollDirection: Axis.horizontal,
+//       ),
+//     );
+//   }
+
+  // / This widget is responsible for the size and styling of the color picker
+  // Widget _buildBackgroundColorPicker({required Color color}) {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       setBackgroundColor(color);
+  //     },
+  //     child: Container(
+  //       width: 50,
+  //       decoration: BoxDecoration(
+  //         shape: BoxShape.circle,
+  //         color: color,
+  //         border: Border.all(color: Colors.white, width: 4),
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: Colors.black.withOpacity(0.4),
+  //             blurRadius: 5,
+  //             offset: const Offset(0, 3),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Background Color Setter
+  // setBackgroundColor(Color newColor) {
+  //   if (newColor != bgColor) {
+  //     setState(() {
+  //       bgColor = newColor;
+  //     });
+  //   }
+  // }

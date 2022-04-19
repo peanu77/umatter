@@ -23,18 +23,22 @@ class SettingsPage extends StatelessWidget {
     final databaseController = DatabaseManager();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Settings Page',
-          style: TextStyle(color: Colors.grey[600], fontSize: 22.0),
-        ),
-        elevation: 0.0,
-        backgroundColor: Colors.transparent,
-      ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+              child: Text(
+                'Settings',
+                style: TextStyle(
+                    color: Colors.grey[600],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22.0,
+                    letterSpacing: 1.0),
+              ),
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -43,8 +47,8 @@ class SettingsPage extends StatelessWidget {
                   width: 20.0,
                   height: 20.0,
                   fontSize: 18.0,
-                  fontColor: Colors.grey[800],
-                  fontWeight: FontWeight.w400,
+                  fontColor: Colors.grey[600],
+                  fontWeight: FontWeight.bold,
                   letterSpacing: 0.3,
                 ),
                 userInfoWidget(size, name, age, gender, civilstatus),
@@ -53,8 +57,8 @@ class SettingsPage extends StatelessWidget {
                   width: 20.0,
                   height: 20.0,
                   fontSize: 18.0,
-                  fontColor: Colors.grey[800],
-                  fontWeight: FontWeight.w400,
+                  fontColor: Colors.grey[600],
+                  fontWeight: FontWeight.bold,
                   letterSpacing: 0.3,
                 ),
                 TextButton(
@@ -74,8 +78,8 @@ class SettingsPage extends StatelessWidget {
                   width: 20.0,
                   height: 20.0,
                   fontSize: 18.0,
-                  fontColor: Colors.grey[800],
-                  fontWeight: FontWeight.w400,
+                  fontColor: Colors.grey[600],
+                  fontWeight: FontWeight.bold,
                   letterSpacing: 0.3,
                 ),
                 TextButton(
@@ -119,8 +123,8 @@ class SettingsPage extends StatelessWidget {
                   width: 20.0,
                   height: 20.0,
                   fontSize: 18.0,
-                  fontColor: Colors.grey[800],
-                  fontWeight: FontWeight.w400,
+                  fontColor: Colors.grey[600],
+                  fontWeight: FontWeight.bold,
                   letterSpacing: 0.3,
                 ),
                 TextButton(
@@ -140,7 +144,7 @@ class SettingsPage extends StatelessWidget {
                       primary: Colors.grey[600],
                       padding: const EdgeInsets.symmetric(horizontal: 20.0)),
                   onPressed: () async {
-                    String toEmail = '4admiraks@gmail.com';
+                    String toEmail = 'umatter.reboot@gmail.com';
                     final url = 'mailto:$toEmail';
 
                     if (await canLaunch(url)) {

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:umatter/models/contants/constants.dart';
 import 'package:umatter/views/home_page/discover/discover_page.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 import 'package:umatter/views/home_page/professionals/professionals_page.dart';
+
+import '../../../controllers/shared_pref_controller/shared_pref_controller.dart';
 
 class AssessmentResult extends StatefulWidget {
   final String assessmentRes;
@@ -14,6 +17,7 @@ class AssessmentResult extends StatefulWidget {
 }
 
 class _AssessmentResultState extends State<AssessmentResult> {
+  String assessmentScore = (SharePrefConfig.getAssessmentScore() ?? "0");
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
@@ -22,47 +26,67 @@ class _AssessmentResultState extends State<AssessmentResult> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Spacer(),
               Center(
                 child: Text(
-                  "Assessment Result",
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ),
-              const Spacer(
-                flex: 2,
-              ),
-              Text(
-                'Based from your answer on the Pre-Assessment Test, You are manifesting.',
-                textAlign: TextAlign.justify,
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              const SizedBox(
-                height: 30.0,
-              ),
-              Center(
-                child: Text(
-                  widget.assessmentRes,
+                  "Assessment Result".toUpperCase(),
                   style: TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.red.shade400,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic),
+                    fontSize: 22.0,
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.0,
+                  ),
                 ),
               ),
-              const SizedBox(
-                height: 30.0,
+              const Spacer(),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text:
+                          'Based from your answer on the Assessment Test, You are manifesting  ',
+                      style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.grey[600],
+                          letterSpacing: 1.0),
+                    ),
+                    TextSpan(
+                      text: widget.assessmentRes,
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red[300],
+                        fontStyle: FontStyle.italic,
+                        decoration: TextDecoration.underline,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                    TextSpan(
+                      text:
+                          " a symptoms of a seemingly mental health condition.",
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.grey[600],
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Text(
-                ' Symptoms of a seemingly mental health condition.',
-                textAlign: TextAlign.justify,
-                style: Theme.of(context).textTheme.headline6,
+              const Spacer(),
+              Align(
+                alignment: Alignment.center,
+                child: CircularPercentIndicator(
+                  radius: 60,
+                  percent: double.parse(assessmentScore) / 27.0,
+                  center: Text(assessmentScore),
+                  animation: true,
+                  animationDuration: 1000,
+                ),
               ),
-              const Spacer(
-                flex: 2,
-              ),
+              const Spacer(),
               SizedBox(
                 height: _size.height * 0.08,
                 width: double.infinity,

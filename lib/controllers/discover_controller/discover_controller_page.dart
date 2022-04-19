@@ -1,6 +1,7 @@
 import 'package:umatter/models/discover_model/discover_info_page.dart';
 import 'package:umatter/views/home_page/discover/fact_page/fact_page.dart';
 import 'package:umatter/views/home_page/discover/knowledge_test/knowledge_page.dart';
+import 'package:umatter/views/home_page/discover/myths/myths_page.dart';
 
 class DiscoverControllerPage {
   List<DiscoverInfoPage> discoverPage = [
@@ -13,8 +14,8 @@ class DiscoverControllerPage {
     DiscoverInfoPage(
       "Myths",
       "Discover the myths abouts depression.",
-      "assets/img/discover/knowledge.svg",
-      const KnowledgeCheckPage(),
+      "assets/img/discover/myths.svg",
+      const MythsPage(),
     ),
     DiscoverInfoPage(
       "Knowledge Test",

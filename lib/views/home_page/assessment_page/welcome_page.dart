@@ -21,25 +21,41 @@ class _LabelPageState extends State<LabelPage> {
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Column(
             children: [
-              const Spacer(),
-              const Text(
-                'Over the last 2 weeks, how often have you been bothered by any of the following problems?',
-                textAlign: TextAlign.justify,
-                style: TextStyle(fontSize: 30.0),
+              const Spacer(
+                flex: 2,
               ),
-              const Spacer(),
+              Text(
+                'Over the last 2 weeks, how often have you been bothered by any of the following problems?',
+                // textAlign: TextAlign.justify,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.0,
+                ),
+              ),
+              const Spacer(
+                flex: 2,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
+                children: [
                   Text(
                     'Selections',
                     // style: Theme.of(context).textTheme.headline5,
-                    style: TextStyle(fontSize: 20.0),
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.grey[600],
+                        letterSpacing: 0.5),
                   ),
                   Text(
                     'Scores',
                     // style: Theme.of(context).textTheme.headline5,
-                    style: TextStyle(fontSize: 20.0),
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.grey[600],
+                        letterSpacing: 0.5),
                   ),
                 ],
               ),
@@ -58,19 +74,19 @@ class _LabelPageState extends State<LabelPage> {
                               flex: 2,
                               child: Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(15.0),
-                                    bottomLeft: Radius.circular(15.0),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(20.0),
+                                    bottomLeft: Radius.circular(20.0),
                                   ),
-                                  color: kPrimaryFrmColor,
+                                  color: Colors.grey[300],
                                 ),
                                 height: _size.height * 0.06,
                                 child: Center(
                                   child: Text(
                                     _optionControllerPage
                                         .optionInfoModel[index].option,
-                                    style: TextStyle(
-                                      color: Colors.white,
+                                    style: const TextStyle(
+                                      color: Colors.black87,
                                     ),
                                   ),
                                 ),
@@ -79,17 +95,19 @@ class _LabelPageState extends State<LabelPage> {
                             Expanded(
                               child: Container(
                                 height: _size.height * 0.06,
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(15.0),
-                                    bottomRight: Radius.circular(15.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(20.0),
+                                    bottomRight: Radius.circular(20.0),
                                   ),
-                                  color: Colors.blue,
+                                  color: Colors.grey[350],
                                 ),
                                 child: Center(
                                   child: Text(
                                     "${_optionControllerPage.optionInfoModel[index].score}",
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(
+                                      color: Colors.black54,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -126,7 +144,9 @@ class _LabelPageState extends State<LabelPage> {
                   ),
                 ),
               ),
-              const Spacer(),
+              const Spacer(
+                flex: 2,
+              ),
             ],
           ),
         ),

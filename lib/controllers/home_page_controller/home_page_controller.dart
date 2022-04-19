@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/views/home_page/assessment_page/user_info_page/get_user_data_page.dart';
+import 'package:umatter/views/home_page/assessment_page/assessment_disclaimer.dart';
 import 'package:umatter/views/home_page/discover/discover_page.dart';
 import 'package:umatter/models/home_page_model/home_page_info.dart';
 import 'package:umatter/views/home_page/meditate/meditate_page.dart';
@@ -10,9 +10,9 @@ class HomePageController {
   List<HomePageInfo> homepageController = [
     HomePageInfo(
       "Assessment",
-      "assessment",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       "assets/img/home_page/assessment.svg",
-      const UserInfoPage(),
+      const AssessmentDisclaimerPage(),
       const Color(0xff4c93a1),
     ),
     HomePageInfo(
@@ -27,10 +27,10 @@ class HomePageController {
       "How’s your day going? it deserves to be treasured...",
       "assets/img/home_page/meditate.svg",
       const MeditatePage(),
-      const Color(0xffEBB6B6),
+      const Color(0xff6082b6),
     ),
     HomePageInfo(
-      "My Diary",
+      "Mood Journal",
       "How’s your day going? it deserves to be treasured...",
       "assets/img/home_page/diary.svg",
       const MyDiaryPage(),

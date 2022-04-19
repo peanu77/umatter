@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
-import 'package:umatter/preferences/consts.dart';
 import 'package:umatter/utils/colors.dart';
 import 'package:umatter/utils/daytime_checker.dart';
-import 'package:umatter/utils/widgets/assessment_page_widget.dart';
 import 'package:umatter/utils/widgets/home_page_card_widget.dart';
+import 'package:umatter/views/home_page/assessment_page/assessment_disclaimer.dart';
 
 import '../../controllers/home_page_controller/home_page_controller.dart';
 import '../../preferences/run_preferences.dart';
-import 'assessment_page/user_info_page/get_user_data_page.dart';
+
+import 'get_user_information_page/get_user_data_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,8 +21,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final keyOne = GlobalKey();
   final _dayTimeChecker = DayTimeChecker();
+
   String name = SharePrefConfig.getUsername() ?? "";
   final homeController = HomePageController();
+
+  String assessmentScore = (SharePrefConfig.getAssessmentScore() ?? "0");
 
   @override
   Widget build(BuildContext context) {
@@ -43,18 +46,38 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Greeting
-                    Text(
-                      _dayTimeChecker.dayTimeCheker(),
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.0,
-                        color: Colors.grey[800],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          _dayTimeChecker.dayTimeCheker(),
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.0,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50.0),
+                            color: Colors.grey[200],
+                          ),
+                          child: IconButton(
+                            onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const UserInfoPage(),
+                              ),
+                            ),
+                            icon: Icon(
+                              Icons.person,
+                              color: Colors.grey[800],
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                    const SizedBox(
-                      height: 15.0,
-                    ),
+
                     Text(
                       name,
                       style: TextStyle(
@@ -68,19 +91,8 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   height: 30.0,
                 ),
-                // Assessment Page
-                // homePageCardWidget(
-                //   title: homeController.homepageController[0].title,
-                //   subtitle: homeController.homepageController[0].subtitle,
-                //   btnColor: kbtnColor,
-                //   logo: homeController.homepageController[0].img,
-                //   bgLogo: Colors.grey[300],
-                //   cardColor: homeController.homepageController[0].color,
-                //   context: context,
-                //   size: size,
-                //   route: homeController.homepageController[0].route,
-                // ),
-                _buildAssessmentPage(size, _runPreferences),
+
+                _buildAssessmentPage(size, _runPreferences, assessmentScore),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
                   // color: Colors.orange,
@@ -94,6 +106,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
+
                 // Discover Page
                 homePageCardWidget(
                   title: homeController.homepageController[1].title,
@@ -109,6 +122,7 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   height: 20.0,
                 ),
+
                 // Meditate Page
                 homePageCardWidget(
                   title: homeController.homepageController[2].title,
@@ -124,6 +138,7 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   height: 20.0,
                 ),
+
                 // Diary Page
                 homePageCardWidget(
                   title: homeController.homepageController[3].title,
@@ -169,7 +184,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _buildAssessmentPage(size, _runPreferences) {
+  _buildAssessmentPage(size, _runPreferences, assessmentScore) {
     return Container(
       decoration: BoxDecoration(
         color: homeController.homepageController[0].color,
@@ -194,8 +209,17 @@ class _HomePageState extends State<HomePage> {
                   ),
                   height: size.height * 0.19,
                   width: size.width * 0.24,
-                  child: SvgPicture.asset(
-                      homeController.homepageController[0].img),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: CircularPercentIndicator(
+                      radius: 40,
+                      percent: double.parse(assessmentScore) / 27.0,
+                      center: Text(assessmentScore),
+                      animation: true,
+                      animationDuration: 1000,
+                      
+                    ),
+                  ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,25 +263,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onPressed: () async {
-                  bool firstAssessment =
-                      await _runPreferences.getFirstRun(assessmentRunKey);
-                  if (firstAssessment) {
-                    // runPreferences.disableFirstRun(assessmentRunKey);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const UserInfoPage(),
-                        // builder: (context) => const WelcomePage(),
-                      ),
-                    );
-                  } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) =>
-                              homeController.homepageController[0].route),
-                    );
-                  }
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const AssessmentDisclaimerPage()));
                 },
                 child: const Text(
                   'Continue',

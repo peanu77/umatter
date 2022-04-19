@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ViewDiaryPage extends StatefulWidget {
@@ -27,6 +26,8 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
   String? desc;
   String? emotion;
 
+  final myEmotions = ["😀 Happy", "😞 Sad"];
+
   final message = const SnackBar(
     content: Text('Save'),
   );
@@ -34,6 +35,13 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
   final delete = const SnackBar(
     content: Text('Deleted'),
   );
+
+  final ktextStyle = const TextStyle(
+    fontSize: 20.0,
+    color: Colors.white,
+    letterSpacing: 1.0,
+  );
+
   @override
   Widget build(BuildContext context) {
     title = widget.data['title'];
@@ -58,8 +66,8 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
                     ),
                   ),
                   content: const Text(
-                    'By sharing your personal diary to other people we do\'nt have any fault if anything happened.',
-                    textAlign: TextAlign.center,
+                    'By sharing the information to other user you take responsibility of your own action.',
+                    // textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                     ),
@@ -68,23 +76,23 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text("No"),
+                        IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: Icon(
+                            Icons.close,
+                            color: Colors.red[600],
                           ),
                         ),
                         const SizedBox(
                           width: 20.0,
                         ),
-                        Expanded(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.redAccent),
-                            onPressed: () {
-                              shareDiary(context);
-                            },
-                            child: const Text("Yes"),
+                        IconButton(
+                          onPressed: () {
+                            shareDiary(context);
+                          },
+                          icon: const Icon(
+                            Icons.check,
+                            color: Colors.blue,
                           ),
                         ),
                       ],
@@ -93,7 +101,10 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
                 ),
               );
             },
-            icon: const Icon(Icons.share),
+            icon: Icon(
+              Icons.share,
+              color: Colors.grey[800],
+            ),
           ),
           IconButton(
             onPressed: () {
@@ -104,88 +115,141 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
             icon: isEdit
                 ? IconButton(
                     onPressed: updateForm,
-                    icon: const FaIcon(
+                    icon: FaIcon(
                       FontAwesomeIcons.save,
+                      color: Colors.grey[800],
                     ))
-                : const Icon(
+                : Icon(
                     Icons.edit,
+                    color: Colors.grey[800],
                   ),
           ),
           IconButton(
             onPressed: deleteForm,
-            icon: const Icon(Icons.delete),
+            icon: Icon(
+              Icons.delete,
+              color: Colors.grey[800],
+            ),
           )
         ],
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.chevron_left),
+          icon: Icon(
+            Icons.chevron_left,
+            color: Colors.grey[600],
+          ),
         ),
         elevation: 0.0,
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.transparent,
       ),
+      backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextFormField(
-                      maxLines: 1,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                      ),
-                      style: kfrmTitle,
-                      initialValue: widget.data['title'],
-                      enabled: isEdit,
-                      validator: (value) =>
-                          value!.isEmpty ? "Please add a Title" : null,
-                      onChanged: (_val) {
-                        title = _val;
-                      },
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // create at
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "${widget.time} ".toUpperCase(),
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.0,
                     ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "${widget.time} ",
-                          style: kfrmTime,
-                        ),
-                        Container(
-                          child: selectedEmoji(),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: TextFormField(
-                        maxLines: 20,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                        ),
-                        style: kfrmDesc,
-                        initialValue: widget.data['description'],
-                        enabled: isEdit,
-                        validator: (value) => value != null && value.isEmpty
-                            ? "Please add a Description"
-                            : null,
-                        onChanged: (_val) {
-                          desc = _val;
-                        },
-                      ),
-                    )
-                  ],
+                  ),
                 ),
-              )
-            ],
+                const SizedBox(
+                  height: 30.0,
+                ),
+                // Emotions
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 20.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: Colors.orange[300],
+                  ),
+                  child: selectedEmoji(),
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+
+                // Title Field
+                TextFormField(
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                        ),
+                        borderRadius: BorderRadius.circular(20.0)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(5.5),
+                    ),
+                    border: InputBorder.none,
+                    filled: true,
+                    // fillColor: Colors.grey[300],
+                  ),
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.5,
+                  ),
+                  initialValue: widget.data['title'],
+                  enabled: isEdit,
+                  validator: (value) =>
+                      value!.isEmpty ? "Please add a Title" : null,
+                  onChanged: (_val) {
+                    title = _val;
+                  },
+                ),
+
+                const SizedBox(
+                  height: 30.0,
+                ),
+                // Description
+                TextFormField(
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                        ),
+                        borderRadius: BorderRadius.circular(20.0)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(5.5),
+                    ),
+                    // fillColor: Colors.grey[300],
+                    filled: true,
+                    border: InputBorder.none,
+                  ),
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 0.5,
+                  ),
+                  initialValue: widget.data['description'],
+                  enabled: isEdit,
+                  validator: (value) => value != null && value.isEmpty
+                      ? "Please add a Description"
+                      : null,
+                  onChanged: (_val) {
+                    desc = _val;
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -215,15 +279,9 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
 
   selectedEmoji() {
     if (widget.data['emojis'] == "Happy") {
-      return const Text(
-        '😀',
-        style: TextStyle(fontSize: 30.0),
-      );
+      return Text(myEmotions[0], style: ktextStyle);
     } else if (widget.data['emojis'] == "Sad") {
-      return const Text(
-        '😞',
-        style: TextStyle(fontSize: 30.0),
-      );
+      return Text(myEmotions[1], style: ktextStyle);
     }
   }
 }

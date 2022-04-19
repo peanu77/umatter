@@ -24,13 +24,20 @@ class _ProfessionalDirectoriesPage extends State<ProfessionalDirectoriesPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('List of Directories',
-              style: Theme.of(context).textTheme.headline5),
+          title: Text(
+            'List of Directories',
+            style: TextStyle(
+              fontSize: 22.0,
+              color: Colors.grey[600],
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.0,
+            ),
+          ),
           centerTitle: true,
           leading: IconButton(
             onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const NavBarPage())),
-            icon: const Icon(Icons.chevron_left, color: Colors.black),
+            icon: Icon(Icons.chevron_left, color: Colors.grey[600]),
           ),
           backgroundColor: Colors.transparent,
           elevation: 0.0,

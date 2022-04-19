@@ -49,7 +49,7 @@ class _KnowledgeCheckPageState extends State<KnowledgeCheckPage> {
           // Button
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Container(
+            child: SizedBox(
               height: _size,
               width: double.infinity,
               child: ElevatedButton(
@@ -67,7 +67,7 @@ class _KnowledgeCheckPageState extends State<KnowledgeCheckPage> {
           const SizedBox(height: 20.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Container(
+            child: SizedBox(
               height: _size,
               width: double.infinity,
               child: ElevatedButton(
