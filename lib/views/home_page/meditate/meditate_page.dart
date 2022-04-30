@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:umatter/components/app_bar_component.dart';
 import 'package:umatter/views/home_page/meditate/meditate_card_widget.dart';
 import 'package:umatter/views/home_page/meditate/meditate_controller.dart';
 
@@ -13,7 +14,6 @@ class _MeditatePageState extends State<MeditatePage> {
   final _meditatePageController = MeditatePageController();
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -23,9 +23,7 @@ class _MeditatePageState extends State<MeditatePage> {
             ),
             title: Text(
               'Music Therapy',
-              style: TextStyle(
-                color: Colors.grey[600],
-              ),
+              style: kAppBarTitle,
             ),
             centerTitle: true,
             backgroundColor: Colors.transparent,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:umatter/components/app_bar_component.dart';
 import 'package:umatter/controllers/meditate_page_controller/piano_controller_page.dart';
 import 'package:umatter/views/home_page/meditate/music_card_list_widget.dart';
 import 'package:umatter/views/home_page/meditate/piano/piano_view_page.dart';
@@ -19,12 +20,7 @@ class _PianoPageState extends State<PianoPage> {
       appBar: AppBar(
         title: Text(
           "Piano",
-          style: TextStyle(
-            fontSize: 22.0,
-            fontWeight: FontWeight.w400,
-            color: Colors.grey[700],
-            letterSpacing: 1.0,
-          ),
+          style: kAppBarTitle,
         ),
         leading: IconButton(
             onPressed: () => Navigator.of(context).pop(),

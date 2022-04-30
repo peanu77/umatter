@@ -27,6 +27,8 @@ class SharePrefConfig {
   static const _keySelectedColor = 'selectedColor';
   static const _keyAssessment = 'assessment';
   static const _keyAssessmentScore = 'assessmentScore';
+  static const _keyTrueorFalseScore = 'trueorfalseScore';
+  static const _keyTrueorMultipleChoiceScore = 'multiplechoiceScore';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -89,4 +91,19 @@ class SharePrefConfig {
 
   static String? getAssessmentScore() =>
       _preferences.getString(_keyAssessmentScore);
+
+  // True or false Score
+  static Future setTrueorFalse(String trueorfalseScore) async =>
+      await _preferences.setString(_keyTrueorFalseScore, trueorfalseScore);
+
+  static String? getTrueofFalse() =>
+      _preferences.getString(_keyAssessmentScore);
+
+  // Multiple Choice Score
+  static Future setMultipleChoice(String multiplechoiceScore) async =>
+      await _preferences.setString(
+          _keyTrueorMultipleChoiceScore, multiplechoiceScore);
+
+  static String? getMultipleChoice() =>
+      _preferences.getString(_keyTrueorMultipleChoiceScore);
 }

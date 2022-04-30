@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:umatter/utils/colors.dart';
 import 'package:umatter/views/home_page/assessment_page/assessment_disclaimer.dart';
 import 'package:umatter/views/home_page/discover/discover_page.dart';
 import 'package:umatter/models/home_page_model/home_page_info.dart';
 import 'package:umatter/views/home_page/meditate/meditate_page.dart';
 import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
-import 'package:umatter/views/home_page/professionals/professionals_page.dart';
+
+import '../../views/home_page/reach_out/directories_page.dart';
 
 class HomePageController {
   List<HomePageInfo> homepageController = [
@@ -13,35 +15,36 @@ class HomePageController {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       "assets/img/home_page/assessment.svg",
       const AssessmentDisclaimerPage(),
-      const Color(0xff4c93a1),
+      kCardAssessment,
     ),
     HomePageInfo(
       "Discover",
-      "They say, in order to effectively deal with such condition you must learn it first...",
+      "Discover the stuff you need to know around Depression.",
       "assets/img/home_page/discover.svg",
       const DiscoverPage(),
-      const Color(0xffa94a46),
+      kCardDiscover,
     ),
     HomePageInfo(
       "Meditate",
-      "How’s your day going? it deserves to be treasured...",
+      "Play & Listen. Music ’ve got your back!",
       "assets/img/home_page/meditate.svg",
       const MeditatePage(),
-      const Color(0xff6082b6),
+      // const Color(0xf6082b6),
+      kCardMeditate,
     ),
     HomePageInfo(
       "Mood Journal",
-      "How’s your day going? it deserves to be treasured...",
+      "Check anything new with you. Feel free to write it down.",
       "assets/img/home_page/diary.svg",
       const MyDiaryPage(),
-      const Color(0xff75BEB1),
+      kCardMoodJournal,
     ),
     HomePageInfo(
       "Reach Out",
-      "When nothing seems to work, always remember that there’s someone you can reach out to..",
+      "Talk to someone with our Directory of Professionals.",
       "assets/img/home_page/professional.svg",
       const ProfessionalDirectoriesPage(),
-      const Color(0xffae23cb),
+      kCardReachOut,
     ),
   ];
 }

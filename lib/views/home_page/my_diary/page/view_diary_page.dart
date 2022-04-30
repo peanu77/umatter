@@ -26,7 +26,21 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
   String? desc;
   String? emotion;
 
-  final myEmotions = ["😀 Happy", "😞 Sad"];
+  final myEmotions = [
+    "😄 Happy",
+    "😭 Crying",
+    "😎 Cool",
+    "😍 Love",
+    "😱 Shock",
+    "😴 Sleepy",
+    "🤔 Thinking",
+    "😔 Tired",
+    "🙁 Lonely",
+    "😡 Angry",
+    "😇 Blessed",
+    "😥 Exhausted",
+    "🤤 Drooling"
+  ];
 
   final message = const SnackBar(
     content: Text('Save'),
@@ -280,8 +294,42 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
   selectedEmoji() {
     if (widget.data['emojis'] == "Happy") {
       return Text(myEmotions[0], style: ktextStyle);
-    } else if (widget.data['emojis'] == "Sad") {
+    }
+    if (widget.data['emojis'] == "Crying") {
       return Text(myEmotions[1], style: ktextStyle);
+    }
+    if (widget.data['emojis'] == "Cool") {
+      return Text(myEmotions[2], style: ktextStyle);
+    }
+    if (widget.data['emojis'] == "Love") {
+      return Text(myEmotions[3], style: ktextStyle);
+    }
+    if (widget.data['emojis'] == "Shock") {
+      return Text(myEmotions[4], style: ktextStyle);
+    }
+    if (widget.data['emojis'] == "Sleepy") {
+      return Text(myEmotions[5], style: ktextStyle);
+    }
+    if (widget.data['emojis'] == "Thinking") {
+      return Text(myEmotions[6], style: ktextStyle);
+    }
+    if (widget.data['emojis'] == "Tired") {
+      return Text(myEmotions[7], style: ktextStyle);
+    }
+    if (widget.data['emojis'] == "Lonely") {
+      return Text(myEmotions[8], style: ktextStyle);
+    }
+    if (widget.data['emojis'] == "Blessed") {
+      return Text(myEmotions[9], style: ktextStyle);
+    }
+    if (widget.data['emojis'] == "Love") {
+      return Text(myEmotions[10], style: ktextStyle);
+    }
+    if (widget.data['emojis'] == "Exhausted") {
+      return Text(myEmotions[11], style: ktextStyle);
+    }
+    if (widget.data['emojis'] == "Drooling") {
+      return Text(myEmotions[12], style: ktextStyle);
     }
   }
 }

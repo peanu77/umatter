@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umatter/views/home_page/home_page.dart';
 import 'package:umatter/views/home_page/settings_page/settings_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:umatter/views/quotes_page/quotes_page.dart';
-
-import '../analytics/analytics_page.dart';
 
 class NavBarPage extends StatefulWidget {
   const NavBarPage({Key? key}) : super(key: key);
@@ -16,7 +15,6 @@ class NavBarPage extends StatefulWidget {
 class _NavBarPageState extends State<NavBarPage> {
   List pages = const [
     HomePage(),
-    // AssessmentAnalytics(),
     QuotesPage(),
     SettingsPage(),
   ];
@@ -43,18 +41,20 @@ class _NavBarPageState extends State<NavBarPage> {
           unselectedItemColor: Colors.grey,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          items: const [
+          items: [
             BottomNavigationBarItem(
               label: "HomePage",
               tooltip: "Home Page",
-              icon: Icon(Icons.home),
+              activeIcon: SvgPicture.asset(
+                "assets/icons/home.svg",
+                color: Colors.grey[1000],
+              ),
+              icon: SvgPicture.asset(
+                "assets/icons/home.svg",
+                color: Colors.grey[600],
+              ),
             ),
-            // BottomNavigationBarItem(
-            //   label: "Analytics",
-            //   tooltip: "Analytics",
-            //   icon: FaIcon(FontAwesomeIcons.chartLine),
-            // ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               label: "Quotes",
               tooltip: "Quotes",
               icon: FaIcon(
@@ -62,7 +62,7 @@ class _NavBarPageState extends State<NavBarPage> {
                 semanticLabel: "Quotes",
               ),
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               label: "Settings",
               tooltip: "Settings",
               icon: Icon(Icons.settings),

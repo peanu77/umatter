@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
-import 'package:umatter/views/home_page/my_diary/analytics/my_diary_analytics.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:umatter/views/home_page/my_diary/page/select_emotion.dart';
 import 'package:umatter/views/home_page/my_diary/page/view_diary_page.dart';
@@ -24,22 +23,22 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
       .doc(FirebaseAuth.instance.currentUser?.uid)
       .collection('notes');
 
-  final myEmotions = ["😀 Happy", "😞 Sad", "Lonely"];
+  // final myEmotions = ["😀 Happy", "😞 Sad", "Lonely"];
 
-  selectEmoji() {
-    if (SharePrefConfig.getEmoji.toString() == "Happy") {
-      return Text(
-        myEmotions[0],
-        style: ktextStyle,
-      );
-    }
-    if (SharePrefConfig.getEmoji.toString() == "Sad") {
-      return Text(
-        myEmotions[1],
-        style: ktextStyle,
-      );
-    }
-  }
+  // selectEmoji() {
+  //   if (SharePrefConfig.getEmoji.toString() == "Happy") {
+  //     return Text(
+  //       myEmotions[0],
+  //       style: ktextStyle,
+  //     );
+  //   }
+  //   if (SharePrefConfig.getEmoji.toString() == "Sad") {
+  //     return Text(
+  //       myEmotions[1],
+  //       style: ktextStyle,
+  //     );
+  //   }
+  // }
 
   final ktextStyle = const TextStyle(
     fontSize: 20.0,
@@ -61,8 +60,19 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
   final textStyle = const TextStyle(fontSize: 25.0);
 
   final emotions = [
-    "😀",
-    "😞",
+    "😄",
+    "😭",
+    "😎",
+    "😍",
+    "😱",
+    "😴",
+    "🤔",
+    "😔",
+    "🙁",
+    "😡",
+    "😇",
+    "😥",
+    "🤤"
   ];
 
   @override
@@ -253,8 +263,30 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
   selectedEmoji(data) {
     if (data['emojis'] == "Happy") {
       return Text(emotions[0], style: textStyle);
-    } else if (data['emojis'] == "Sad") {
+    } else if (data['emojis'] == "Crying") {
       return Text(emotions[1], style: textStyle);
+    } else if (data['emojis'] == "Cool") {
+      return Text(emotions[2], style: textStyle);
+    } else if (data['emojis'] == "Love") {
+      return Text(emotions[3], style: textStyle);
+    } else if (data['emojis'] == "Shock") {
+      return Text(emotions[4], style: textStyle);
+    } else if (data['emojis'] == "Sleepy") {
+      return Text(emotions[5], style: textStyle);
+    } else if (data['emojis'] == "Thinking") {
+      return Text(emotions[6], style: textStyle);
+    } else if (data['emojis'] == "Tired") {
+      return Text(emotions[7], style: textStyle);
+    } else if (data['emojis'] == "Lonely") {
+      return Text(emotions[8], style: textStyle);
+    } else if (data['emojis'] == "Blessed") {
+      return Text(emotions[9], style: textStyle);
+    } else if (data['emojis'] == "Love") {
+      return Text(emotions[10], style: textStyle);
+    } else if (data['emojis'] == "Exhausted") {
+      return Text(emotions[11], style: textStyle);
+    } else if (data['emojis'] == "Drooling") {
+      return Text(emotions[12], style: textStyle);
     }
   }
 }

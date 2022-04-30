@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:umatter/components/back_button.dart';
+import 'package:umatter/components/app_bar_component.dart';
 import 'package:umatter/controllers/discover_controller/discover_controller_page.dart';
 import 'package:umatter/utils/colors.dart';
-import 'package:umatter/utils/widgets/home_page_card_widget.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
+
+import '../../../components/widgets/home_page_card_widget.dart';
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({Key? key}) : super(key: key);
@@ -22,20 +25,11 @@ class _DiscoverPageState extends State<DiscoverPage> {
         appBar: AppBar(
           title: Text(
             'Discover Page',
-            style: TextStyle(
-              fontSize: 22.0,
-              color: Colors.grey[600],
-              fontWeight: FontWeight.w400,
-              letterSpacing: 1.0,
-            ),
+            style: kAppBarTitle,
           ),
           leading: IconButton(
-            icon: Icon(Icons.chevron_left, color: Colors.grey[800]),
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const NavBarPage(),
-              ),
-            ),
+            onPressed: () => Navigator.of(context).pop(),
+            icon: kbackButton,
           ),
           centerTitle: true,
           backgroundColor: Colors.transparent,

@@ -3,9 +3,9 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:umatter/models/contants/constants.dart';
 import 'package:umatter/views/home_page/discover/discover_page.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
-import 'package:umatter/views/home_page/professionals/professionals_page.dart';
 
 import '../../../controllers/shared_pref_controller/shared_pref_controller.dart';
+import '../reach_out/directories_page.dart';
 
 class AssessmentResult extends StatefulWidget {
   final String assessmentRes;

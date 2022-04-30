@@ -3,9 +3,10 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/utils/colors.dart';
 import 'package:umatter/utils/daytime_checker.dart';
-import 'package:umatter/utils/widgets/home_page_card_widget.dart';
 import 'package:umatter/views/home_page/assessment_page/assessment_disclaimer.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../components/widgets/home_page_card_widget.dart';
 import '../../controllers/home_page_controller/home_page_controller.dart';
 import '../../preferences/run_preferences.dart';
 
@@ -27,158 +28,194 @@ class _HomePageState extends State<HomePage> {
 
   String assessmentScore = (SharePrefConfig.getAssessmentScore() ?? "0");
 
+  // final CollectionRef<QuerySnapshot> username =
+  //     FirebaseFirestore.instance.collection('users').snapshots();
+
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+  // Stream users = FirebaseFirestore.instance.collection('users').snapshots();
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final _runPreferences = RunPreferences();
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.grey[100],
-        body: SingleChildScrollView(
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Greet / Username
-                Column(
+    return RefreshIndicator(
+      onRefresh: () async {
+        setState(() {
+          name;
+        });
+      },
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.grey[100],
+          body: FutureBuilder<Object>(
+              // future: users.doc(documentId).get(),
+              builder: (context, snapshot) {
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 40.0),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Greeting
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // Greet / Username
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          _dayTimeChecker.dayTimeCheker(),
-                          style: TextStyle(
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.0,
-                            color: Colors.grey[800],
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50.0),
-                            color: Colors.grey[200],
-                          ),
-                          child: IconButton(
-                            onPressed: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const UserInfoPage(),
+                        // Greeting
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              _dayTimeChecker.dayTimeCheker(),
+                              style: TextStyle(
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.0,
+                                color: Colors.grey[800],
                               ),
                             ),
-                            icon: Icon(
-                              Icons.person,
-                              color: Colors.grey[800],
-                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50.0),
+                                color: Colors.grey[200],
+                              ),
+                              child: IconButton(
+                                onPressed: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const UserInfoPage(),
+                                  ),
+                                ),
+                                icon: Icon(
+                                  Icons.person,
+                                  color: Colors.grey[800],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        // Container(
+                        //   child: StreamBuilder(
+                        //       stream: users,
+                        //       builder: (context, snapshot) {
+                        //         if (snapshot.hasError) {
+                        //           return Text('Something went wrong');
+                        //         }
+                        //         if (snapshot.data == null) {
+                        //           return Text('');
+                        //         }
+                        //         if (snapshot.connectionState ==
+                        //             ConnectionState.waiting) {
+                        //           return Text('Loading data...');
+                        //         }
+                        //       }),
+                        // ),
+
+                        Text(
+                          name,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            letterSpacing: 1.0,
+                            color: Colors.grey[600],
                           ),
                         )
                       ],
                     ),
+                    const SizedBox(
+                      height: 30.0,
+                    ),
 
-                    Text(
-                      name,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        letterSpacing: 1.0,
-                        color: Colors.grey[600],
+                    _buildAssessmentPage(
+                        size, _runPreferences, assessmentScore),
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      // color: Colors.orange,
+                      child: Text(
+                        'Minor Intervention',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                        ),
                       ),
-                    )
+                    ),
+
+                    // Discover Page
+                    homePageCardWidget(
+                      title: homeController.homepageController[1].title,
+                      subtitle: homeController.homepageController[1].subtitle,
+                      btnColor: kbtnColor,
+                      logo: homeController.homepageController[1].img,
+                      bgLogo: Colors.grey[300],
+                      cardColor: homeController.homepageController[1].color,
+                      context: context,
+                      size: size,
+                      route: homeController.homepageController[1].route,
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+
+                    // Meditate Page
+                    homePageCardWidget(
+                      title: homeController.homepageController[2].title,
+                      subtitle: homeController.homepageController[2].subtitle,
+                      btnColor: kbtnColor,
+                      logo: homeController.homepageController[2].img,
+                      bgLogo: Colors.grey[300],
+                      cardColor: homeController.homepageController[2].color,
+                      context: context,
+                      size: size,
+                      route: homeController.homepageController[2].route,
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+
+                    // Diary Page
+                    homePageCardWidget(
+                      title: homeController.homepageController[3].title,
+                      subtitle: homeController.homepageController[3].subtitle,
+                      btnColor: kbtnColor,
+                      logo: homeController.homepageController[3].img,
+                      bgLogo: Colors.grey[300],
+                      cardColor: homeController.homepageController[3].color,
+                      context: context,
+                      size: size,
+                      route: homeController.homepageController[3].route,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      // color: Colors.orange,
+                      child: Text(
+                        'Major Intervention',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ),
+
+                    // Professional Page
+                    homePageCardWidget(
+                      title: homeController.homepageController[4].title,
+                      subtitle: homeController.homepageController[4].subtitle,
+                      btnColor: kbtnColor,
+                      logo: homeController.homepageController[4].img,
+                      bgLogo: Colors.grey[300],
+                      cardColor: homeController.homepageController[4].color,
+                      context: context,
+                      size: size,
+                      route: homeController.homepageController[4].route,
+                    ),
                   ],
                 ),
-                const SizedBox(
-                  height: 30.0,
-                ),
-
-                _buildAssessmentPage(size, _runPreferences, assessmentScore),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  // color: Colors.orange,
-                  child: Text(
-                    'Minor Intervention',
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 22.0,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                ),
-
-                // Discover Page
-                homePageCardWidget(
-                  title: homeController.homepageController[1].title,
-                  subtitle: homeController.homepageController[1].subtitle,
-                  btnColor: kbtnColor,
-                  logo: homeController.homepageController[1].img,
-                  bgLogo: Colors.grey[300],
-                  cardColor: homeController.homepageController[1].color,
-                  context: context,
-                  size: size,
-                  route: homeController.homepageController[1].route,
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-
-                // Meditate Page
-                homePageCardWidget(
-                  title: homeController.homepageController[2].title,
-                  subtitle: homeController.homepageController[2].subtitle,
-                  btnColor: kbtnColor,
-                  logo: homeController.homepageController[2].img,
-                  bgLogo: Colors.grey[300],
-                  cardColor: homeController.homepageController[2].color,
-                  context: context,
-                  size: size,
-                  route: homeController.homepageController[2].route,
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-
-                // Diary Page
-                homePageCardWidget(
-                  title: homeController.homepageController[3].title,
-                  subtitle: homeController.homepageController[3].subtitle,
-                  btnColor: kbtnColor,
-                  logo: homeController.homepageController[3].img,
-                  bgLogo: Colors.grey[300],
-                  cardColor: homeController.homepageController[3].color,
-                  context: context,
-                  size: size,
-                  route: homeController.homepageController[3].route,
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  // color: Colors.orange,
-                  child: Text(
-                    'Major Intervention',
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 22.0,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                ),
-                // Professional Page
-                homePageCardWidget(
-                  title: homeController.homepageController[4].title,
-                  subtitle: homeController.homepageController[4].subtitle,
-                  btnColor: kbtnColor,
-                  logo: homeController.homepageController[4].img,
-                  bgLogo: Colors.grey[300],
-                  cardColor: homeController.homepageController[4].color,
-                  context: context,
-                  size: size,
-                  route: homeController.homepageController[4].route,
-                ),
-              ],
-            ),
-          ),
+              ),
+            );
+          }),
         ),
       ),
     );
@@ -217,7 +254,6 @@ class _HomePageState extends State<HomePage> {
                       center: Text(assessmentScore),
                       animation: true,
                       animationDuration: 1000,
-                      
                     ),
                   ),
                 ),

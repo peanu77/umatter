@@ -76,12 +76,18 @@ class DatabaseManager {
     return Get.to(() => const LogInPage());
   }
 
-  // This will delete the user account BUT the user information stored in firebase firestore did not remove.
-  Future deleteUser() async {
+  Future deleteUser(context) async {
     try {
       await FirebaseAuth.instance.currentUser!.delete();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Invalid email',
+            ),
+          ),
+        );
         print(
             'The user must reauthenticate before this operation can be executed');
       }
@@ -126,6 +132,4 @@ class DatabaseManager {
     };
     ref.add(userData);
   }
-
-  
 }

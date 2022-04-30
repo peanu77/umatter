@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:umatter/components/app_bar_component.dart';
 import 'package:umatter/views/home_page/meditate/instrumental/instrumental_controller.dart';
 import 'package:umatter/views/home_page/meditate/instrumental/instrumental_view_page.dart';
 
@@ -20,12 +21,7 @@ class _InstrumentalPageState extends State<InstrumentalPage> {
       appBar: AppBar(
         title: Text(
           'Instrumental ',
-          style: TextStyle(
-            color: Colors.grey[600],
-            fontSize: 22.0,
-            fontWeight: FontWeight.w400,
-            letterSpacing: 1.0,
-          ),
+          style: kAppBarTitle,
         ),
         leading: IconButton(
             onPressed: () => Navigator.of(context).pop(),

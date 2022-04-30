@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:umatter/components/app_bar_component.dart';
 import 'package:umatter/controllers/meditate_page_controller/acoustic_controller_page.dart';
 import 'package:umatter/views/home_page/meditate/acoustic_guitar_page/acoustic_view_page.dart';
 import 'package:umatter/views/home_page/meditate/music_card_list_widget.dart';
@@ -21,7 +22,7 @@ class _AcousticGuitarPageState extends State<AcousticGuitarPage> {
           appBar: AppBar(
             title: Text(
               'Acoustic Music',
-              style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),
+              style: kAppBarTitle,
             ),
             leading: IconButton(
               onPressed: () => Navigator.of(context).pop(),

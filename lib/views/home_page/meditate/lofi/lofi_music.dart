@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:umatter/components/app_bar_component.dart';
 import 'package:umatter/controllers/meditate_page_controller/lofi_page_controller.dart';
 import 'package:umatter/views/home_page/meditate/lofi/lofi_page.dart';
 import 'package:umatter/views/home_page/meditate/music_card_list_widget.dart';
@@ -19,11 +20,7 @@ class LofiMusicPage extends StatelessWidget {
         ),
         title: Text(
           'Lofi',
-          style: TextStyle(
-            color: Colors.grey[600],
-            fontSize: 20.0,
-            letterSpacing: 1.0,
-          ),
+          style: kAppBarTitle,
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,

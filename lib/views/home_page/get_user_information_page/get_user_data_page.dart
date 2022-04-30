@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umatter/auth/database_manager.dart';
+import 'package:umatter/components/close_button.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:umatter/preferences/run_preferences.dart';
@@ -39,17 +40,19 @@ class _UserInfoPageState extends State<UserInfoPage> {
       child: Scaffold(
         appBar: AppBar(
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 30.0),
-              child: InkWell(
-                splashFactory: NoSplash.splashFactory,
-                onTap: () => Navigator.of(context).pop(),
-                child: Icon(
-                  Icons.close,
-                  color: Colors.grey[300],
-                ),
-              ),
-            )
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 30.0),
+            //   child: InkWell(
+            //     splashFactory: NoSplash.splashFactory,
+            //     onTap: () => Navigator.of(context).pop(),
+            //     child: Icon(
+            //       Icons.close,
+            //       color: Colors.grey[300],
+            //     ),
+            //   ),
+            // )
+
+            closeButtonWidget(context: context)
           ],
           backgroundColor: Colors.transparent,
           elevation: 0.0,
@@ -117,12 +120,21 @@ class _UserInfoPageState extends State<UserInfoPage> {
                         ),
                         onChanged: (value) => age = value,
                         validator: (value) {
+                          int parseAge = int.parse(age);
                           if (value!.isEmpty) {
                             return "Age field required";
                           }
                           if (value.length > 10) {
                             return "Username too long!";
-                          } else {
+                          }
+                          if (parseAge >= 12 || parseAge <= 60) {
+                            return "Invalid age type";
+                          }
+                          // if (int.parse(value) >= 16 &&
+                          //     int.parse(value) <= 60) {
+                          //   return "Invalid age type";
+                          // } else {
+                          else {
                             setState(() {});
                             return null;
                           }

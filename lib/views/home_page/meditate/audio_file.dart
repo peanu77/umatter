@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AudioFilePage extends StatefulWidget {
   var audioCache;
@@ -83,10 +83,18 @@ class _AudioFilePageState extends State<AudioFilePage> {
 // Button Slow
   Widget slowForwardBtn() {
     return IconButton(
-        onPressed: () {
-          widget.advancePlayer.setPlaybackRate(0.5);
-        },
-        icon: const FaIcon(FontAwesomeIcons.fastBackward));
+      onPressed: () {
+        widget.advancePlayer.setPlaybackRate(0.5);
+      },
+      icon: SizedBox(
+        height: 25.0,
+        width: 25.0,
+        child: SvgPicture.asset(
+          'assets/img/music_therapy/fast-backward.svg',
+          color: Colors.grey[800],
+        ),
+      ),
+    );
   }
 
 // Start Button
@@ -112,7 +120,7 @@ class _AudioFilePageState extends State<AudioFilePage> {
       icon: isPlaying == false
           ? Icon(
               _icons[0],
-              // size: 40.0,
+              size: 30.0,
             )
           : Icon(
               _icons[1],
@@ -124,10 +132,18 @@ class _AudioFilePageState extends State<AudioFilePage> {
 // Fast Forward
   Widget fastForwardBtn() {
     return IconButton(
-        onPressed: () {
-          widget.advancePlayer.setPlaybackRate(1.5);
-        },
-        icon: const FaIcon(FontAwesomeIcons.fastForward));
+      onPressed: () {
+        widget.advancePlayer.setPlaybackRate(1.5);
+      },
+      icon: SizedBox(
+        height: 25.0,
+        width: 25.0,
+        child: SvgPicture.asset(
+          'assets/img/music_therapy/fast-forward.svg',
+          color: Colors.grey[800],
+        ),
+      ),
+    );
   }
 
 // Load Asset
@@ -155,13 +171,13 @@ class _AudioFilePageState extends State<AudioFilePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  // This will split the string and only get the first split of the string
+                  // This will split the string and get the first split of the string
                   Text(_position.toString().split(".")[0]),
                   Text(_duration.toString().split(".")[0]),
                 ],
               ),
               const SizedBox(
-                height: 10.0,
+                height: 30.0,
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,

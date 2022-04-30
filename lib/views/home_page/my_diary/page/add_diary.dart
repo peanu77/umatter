@@ -28,7 +28,21 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
     content: Text('Save'),
   );
 
-  final myEmotions = ["😀 Happy", "😞 Sad", "Lonely"];
+  final myEmotions = [
+    "😄 Happy",
+    "😭 Crying",
+    "😎 Cool",
+    "😍 Love",
+    "😱 Shock",
+    "😴 Sleepy",
+    "🤔 Thinking",
+    "😔 Tired",
+    "🙁 Lonely",
+    "😡 Angry",
+    "😇 Blessed",
+    "😥 Exhausted",
+    "🤤 Drooling"
+  ];
 
   final ktextStyle = const TextStyle(
     fontSize: 20.0,
@@ -229,8 +243,41 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
     if (emoji.toString() == "Happy") {
       return Text(myEmotions[0], style: ktextStyle);
     }
-    if (emoji.toString() == "Sad") {
+    if (emoji.toString() == "Crying") {
       return Text(myEmotions[1], style: ktextStyle);
+    }
+    if (emoji.toString() == "Cool") {
+      return Text(myEmotions[2], style: ktextStyle);
+    }
+    if (emoji.toString() == "Love") {
+      return Text(myEmotions[3], style: ktextStyle);
+    }
+    if (emoji.toString() == "Shock") {
+      return Text(myEmotions[4], style: ktextStyle);
+    }
+    if (emoji.toString() == "Sleepy") {
+      return Text(myEmotions[5], style: ktextStyle);
+    }
+    if (emoji.toString() == "Thinking") {
+      return Text(myEmotions[6], style: ktextStyle);
+    }
+    if (emoji.toString() == "Tired") {
+      return Text(myEmotions[7], style: ktextStyle);
+    }
+    if (emoji.toString() == "Lonely") {
+      return Text(myEmotions[8], style: ktextStyle);
+    }
+    if (emoji.toString() == "Blessed") {
+      return Text(myEmotions[9], style: ktextStyle);
+    }
+    if (emoji.toString() == "Love") {
+      return Text(myEmotions[10], style: ktextStyle);
+    }
+    if (emoji.toString() == "Exhausted") {
+      return Text(myEmotions[11], style: ktextStyle);
+    }
+    if (emoji.toString() == "Drooling") {
+      return Text(myEmotions[12], style: ktextStyle);
     }
   }
 }

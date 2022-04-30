@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:umatter/components/close_button.dart';
+import 'package:umatter/utils/colors.dart';
 import 'package:umatter/views/home_page/assessment_page/welcome_page.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
@@ -13,15 +15,7 @@ class AssessmentDisclaimerPage extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            IconButton(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30, vertical: 30.0),
-              onPressed: () => Navigator.of(context).pop(),
-              icon: Icon(
-                Icons.close_rounded,
-                color: Colors.grey[300],
-              ),
-            ),
+            closeButtonWidget(context: context),
             const Spacer(
               flex: 2,
             ),
@@ -49,31 +43,45 @@ class AssessmentDisclaimerPage extends StatelessWidget {
                     barrierDismissible: false,
                     context: context,
                     builder: (context) => AlertDialog(
+                      insetPadding: const EdgeInsets.all(40.0),
+                      titleTextStyle: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.0,
+                      ),
+                      backgroundColor: Colors.grey[50],
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 30.0, vertical: 30.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       titlePadding: const EdgeInsets.all(15.0),
-                      title: const Center(
+                      title: const Padding(
+                        padding: EdgeInsets.only(top: 30.0),
                         child: Text(
                           'Disclaimer',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                      content: const Text(
+                      content: Text(
                         'The following Assessment is from the Primary Care Evaluation of Mental Disorders Patient Health Questionnaire (PRIME-MD PHQ). The PHQ was developed by Drs. Robert L. Spitzer, Janet B.W. Williams, Kurt Kroenke and colleagues. For research information, contact Dr. Spitzer at rls8@columbia.edu. PRIME-MD® is a trademark of Pfizer Inc. Copyright© 1999 Pfizer Inc. All rights reserved. Reproduced with permission',
-                        // textAlign: TextAlign.justify,
+                        textAlign: TextAlign.justify,
                         style: TextStyle(
-                          fontSize: 16.0,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[600],
                           letterSpacing: 1.0,
+                          wordSpacing: 1.0,
                         ),
                       ),
                       actions: [
                         Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: SizedBox(
+                          padding: const EdgeInsets.symmetric(vertical: 30.0),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0,
+                            ),
                             height: _size.height * 0.08,
                             width: double.infinity,
                             child: ElevatedButton(
@@ -87,9 +95,9 @@ class AssessmentDisclaimerPage extends StatelessWidget {
 
                               child: const Text('Continue'),
                               style: ElevatedButton.styleFrom(
-                                primary: kPrimaryFrmColor,
+                                primary: kbtnColor,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderRadius: BorderRadius.circular(20.0),
                                 ),
                               ),
                             ),

@@ -106,18 +106,18 @@ class SettingsPage extends StatelessWidget {
                     context: context,
                   ),
                 ),
-                TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                      primary: Colors.grey[600],
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0)),
-                  child: settingsCardWidget(
-                    title: controller.settingsController[3].title,
-                    icon: Icons.info_outline_rounded,
-                    cardHeight: kBoxHeight,
-                    context: context,
-                  ),
-                ),
+                // TextButton(
+                //   onPressed: () {},
+                //   style: TextButton.styleFrom(
+                //       primary: Colors.grey[600],
+                //       padding: const EdgeInsets.symmetric(horizontal: 20.0)),
+                //   child: settingsCardWidget(
+                //     title: controller.settingsController[3].title,
+                //     icon: Icons.info_outline_rounded,
+                //     cardHeight: kBoxHeight,
+                //     context: context,
+                //   ),
+                // ),
                 settingsLabelWidget(
                   title: 'Actions',
                   width: 20.0,
@@ -131,7 +131,7 @@ class SettingsPage extends StatelessWidget {
                   style: TextButton.styleFrom(
                       primary: Colors.grey[600],
                       padding: const EdgeInsets.symmetric(horizontal: 20.0)),
-                  onPressed: () => databaseController.deleteUser(),
+                  onPressed: () => databaseController.deleteUser(context),
                   child: settingsCardWidget(
                     title: controller.settingsController[4].title,
                     icon: Icons.delete_outline,

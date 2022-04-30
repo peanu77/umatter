@@ -3,4 +3,6 @@ class KnowledgeInfoPage {
   KnowledgeInfoPage({
     required this.question,
   });
+
+  get answer => null;
 }

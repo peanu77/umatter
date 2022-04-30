@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:umatter/views/home_page/meditate/audio_file.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:umatter/components/app_bar_component.dart';
+
+import '../music_card_widget.dart';
 
 class AcousticViewPage extends StatefulWidget {
   final controller;
@@ -35,68 +37,21 @@ class _AcousticViewPageState extends State<AcousticViewPage> {
         ),
         title: Text(
           'Acoustic Guitar',
-          style: TextStyle(color: Colors.grey[600], fontSize: 20.0),
+          style: kAppBarTitle,
         ),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          const Spacer(
-            flex: 2,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              height: _size.height * 0.45,
-              width: double.infinity,
-              // child: Lottie.asset(widget.controller[widget.index].coverImg),
-            ),
-          ),
-          const Spacer(),
-          Column(
-            children: [
-              // Title
-              Text(
-                widget.controller[widget.index].title,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.grey[700],
-                  letterSpacing: 1.0,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              // Artist
-              Text(
-                widget.controller[widget.index].authorName,
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.grey[500],
-                  letterSpacing: 0.5,
-                  fontWeight: FontWeight.w200,
-                ),
-              ),
-            ],
-          ),
-          const Spacer(
-            flex: 2,
-          ),
-          AudioFilePage(
-            musicPath: widget.controller[widget.index].music,
-            advancePlayer: advancedPlayer,
-            audioCache: audioCache,
-          ),
-          const Spacer(
-            flex: 3,
-          ),
-        ],
+      body: musicCardWidget(
+        height: _size.height * 0.30,
+        width: double.infinity,
+        imgAsset: 'assets/img/music_therapy/music_bg.svg',
+        title: widget.controller[widget.index].title,
+        author: widget.controller[widget.index].authorName,
+        advancedPlayer: advancedPlayer,
+        audioCache: audioCache,
+        musicPath: widget.controller[widget.index].music,
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,6 +11,8 @@ import 'package:umatter/views/onboarding_screen/onboarding_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 int? isViewed;
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Prevent the screen to rotate
@@ -23,6 +26,19 @@ void main() async {
   // userScreen = await sharedPreferences.getInt("userScreen");
 
   await Firebase.initializeApp();
+
+  var initAndroidSettings =
+      const AndroidInitializationSettings("launcher_logo");
+
+  var initializationSettings =
+      InitializationSettings(android: initAndroidSettings);
+
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onSelectNotification: (payload) async {
+    if (payload != null) {
+      debugPrint("Notification payload : $payload");
+    }
+  });
   runApp(const MyApp());
 }
 

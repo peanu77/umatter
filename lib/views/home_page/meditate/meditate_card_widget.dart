@@ -20,10 +20,10 @@ Widget meditateCardWidget({
             Text(
               title,
               style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.grey[800],
-                letterSpacing: 0.5,
-                fontWeight: FontWeight.w400,
+                fontSize: 18.0,
+                color: Colors.grey[700],
+                letterSpacing: 1.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(
@@ -31,7 +31,8 @@ Widget meditateCardWidget({
             ),
             Text(
               subtitle,
-              textAlign: TextAlign.justify,
+              textAlign: TextAlign.left,
+              // textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 14.0,
                 color: Colors.grey[600],

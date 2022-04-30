@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umatter/views/home_page/meditate/audio_file.dart';
 
 Widget musicCardWidget({
@@ -24,10 +25,14 @@ Widget musicCardWidget({
           ),
           height: height,
           width: width,
-          // child: Lottie.asset(widget.controller[widget.index].coverImg),
+          child: SvgPicture.asset(
+            imgAsset,
+          ),
         ),
       ),
-      const Spacer(),
+      const Spacer(
+        flex: 4,
+      ),
       Column(
         children: [
           Text(
