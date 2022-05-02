@@ -84,7 +84,7 @@ class _TrueorFalsePageState extends State<TrueorFalsePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Text(
-                  knowledgeController[randomData()].question,
+                  knowledgeController[index].question,
                   style: TextStyle(
                     fontSize: 16.0,
                     color: Colors.grey[700],
