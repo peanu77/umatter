@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:umatter/components/close_button.dart';
 import 'package:umatter/controllers/assessment_controller/assessment_controller.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/home_page/assessment_page/assessment_result.dart';
@@ -24,6 +25,8 @@ class _AssessmentPageState extends State<AssessmentPage> {
   String depressionLevel = '';
   var selectedPageIndex = 0.obs;
 
+  Color btnColor = const Color(0xffffcb77);
+
   /// This will check if the user reached the last page
   bool get isLastPage =>
       selectedPageIndex.value == controller.questionsController.length - 1;
@@ -32,6 +35,12 @@ class _AssessmentPageState extends State<AssessmentPage> {
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: [closeButtonWidget(context: context)],
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+      ),
       backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: PageView.builder(
@@ -45,18 +54,29 @@ class _AssessmentPageState extends State<AssessmentPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Spacer(
-                    flex: 2,
-                  ),
+                  const Spacer(),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         "Question ${index + 1} / ${controller.questionsController.length}",
-                        style: const TextStyle(fontSize: 14.0),
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.grey[500],
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.0,
+                        ),
                       ),
-                      const SizedBox(height: 30.0),
+                      const Divider(
+                        indent: 50.0,
+                        endIndent: 50.0,
+                        height: 20.0,
+                        thickness: 2.0,
+                      ),
+                      const SizedBox(
+                        height: 50.0,
+                      ),
                       Text(
                         controller.questionsController[index].question,
                         textAlign: TextAlign.center,
@@ -70,7 +90,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
                     ],
                   ),
                   const Spacer(
-                    flex: 3,
+                    flex: 2,
                   ),
                   Column(
                     children: [
@@ -84,7 +104,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
                     ],
                   ),
                   const Spacer(
-                    flex: 2,
+                    flex: 3,
                   ),
                 ],
               ),
@@ -103,7 +123,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
         style: ElevatedButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-          primary: Colors.grey[300],
+          primary: btnColor,
           elevation: 2.0,
         ),
         onPressed: () {
@@ -136,7 +156,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
         style: ElevatedButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-          primary: Colors.grey[300],
+          primary: btnColor,
           elevation: 2.0,
         ),
         onPressed: () {
@@ -169,7 +189,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
         style: ElevatedButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-          primary: Colors.grey[300],
+          primary: btnColor,
           elevation: 2.0,
         ),
         onPressed: () {
@@ -203,7 +223,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           elevation: 2.0,
-          primary: Colors.grey[300],
+          primary: btnColor,
         ),
         onPressed: () {
           selectedItem = "Nearly Everyday";

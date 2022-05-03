@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/auth/database_manager.dart';
+import 'package:umatter/components/app_bar_component.dart';
 import 'package:umatter/views/home_page/settings_page/settings_card_widget.dart';
 import 'package:umatter/views/home_page/settings_page/settings_controller.dart';
 import 'package:umatter/views/home_page/settings_page/settings_label_widget.dart';
@@ -30,14 +31,7 @@ class SettingsPage extends StatelessWidget {
             Container(
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
-              child: Text(
-                'Settings',
-                style: TextStyle(
-                    color: Colors.grey[600],
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22.0,
-                    letterSpacing: 1.0),
-              ),
+              child: Text('Settings', style: kAppBarTitle),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,27 +46,27 @@ class SettingsPage extends StatelessWidget {
                   letterSpacing: 0.3,
                 ),
                 userInfoWidget(size, name, age, gender, civilstatus),
-                settingsLabelWidget(
-                  title: 'Permissions',
-                  width: 20.0,
-                  height: 20.0,
-                  fontSize: 18.0,
-                  fontColor: Colors.grey[600],
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 0.3,
-                ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                      primary: Colors.grey[600],
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0)),
-                  onPressed: () {},
-                  child: settingsCardWidget(
-                    title: controller.settingsController[0].title,
-                    icon: Icons.notifications_none_outlined,
-                    cardHeight: kBoxHeight,
-                    context: context,
-                  ),
-                ),
+                // settingsLabelWidget(
+                //   title: 'Permissions',
+                //   width: 20.0,
+                //   height: 20.0,
+                //   fontSize: 18.0,
+                //   fontColor: Colors.grey[600],
+                //   fontWeight: FontWeight.bold,
+                //   letterSpacing: 0.3,
+                // ),
+                // TextButton(
+                //   style: TextButton.styleFrom(
+                //       primary: Colors.grey[600],
+                //       padding: const EdgeInsets.symmetric(horizontal: 20.0)),
+                //   onPressed: () {},
+                //   child: settingsCardWidget(
+                //     title: controller.settingsController[0].title,
+                //     icon: Icons.notifications_none_outlined,
+                //     cardHeight: kBoxHeight,
+                //     context: context,
+                //   ),
+                // ),
                 settingsLabelWidget(
                   title: 'Application Standards',
                   width: 20.0,

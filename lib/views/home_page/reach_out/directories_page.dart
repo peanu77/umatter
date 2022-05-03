@@ -5,8 +5,8 @@ import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.da
 
 import '../../../components/widgets/professional_page/professional_card_widget.dart';
 
+import '../../../controllers/reach_out_controller/directories_controller.dart';
 import '../nav_bar/navbar_page.dart';
-import 'directories_controller.dart';
 
 class ProfessionalDirectoriesPage extends StatefulWidget {
   const ProfessionalDirectoriesPage({

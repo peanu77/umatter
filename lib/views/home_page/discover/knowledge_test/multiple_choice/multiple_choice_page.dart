@@ -5,7 +5,7 @@ import 'package:umatter/components/close_button.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/utils/colors.dart';
 import 'package:umatter/views/home_page/discover/knowledge_test/multiple_choice/multiple_choice_controller.dart';
-import 'package:umatter/views/home_page/discover/knowledge_test/true_false/knowledge_result.dart';
+import 'package:umatter/views/home_page/discover/knowledge_test/true_false/trueorfalse_result.dart';
 
 class MultipleChoicePage extends StatefulWidget {
   const MultipleChoicePage({Key? key}) : super(key: key);
@@ -79,7 +79,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Text(
-                multiplechoiceController[randomData()].question,
+                multiplechoiceController[index].question,
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.grey[700],
@@ -90,7 +90,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
             ),
             const Spacer(),
             for (var i = 0;
-                i < multiplechoiceController[randomData()].answer!.length;
+                i < multiplechoiceController[index].answer!.length;
                 i++)
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -118,7 +118,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                       setState(() {
                         isSelected = true;
                       });
-                      if (multiplechoiceController[randomData()]
+                      if (multiplechoiceController[index]
                           .answer!
                           .entries
                           .toList()[i]
@@ -127,7 +127,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                       }
                     },
                     child: Text(
-                      multiplechoiceController[randomData()]
+                      multiplechoiceController[index]
                           .answer!
                           .keys
                           .toList()[i]

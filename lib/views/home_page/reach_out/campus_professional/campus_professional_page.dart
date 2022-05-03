@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:umatter/components/app_bar_component.dart';
 import 'package:umatter/utils/colors.dart';
 
-import 'campus_controller.dart';
-import 'campus_profile_controller.dart';
+import '../../../../controllers/reach_out_controller/campus_controller.dart';
+import '../../../../controllers/reach_out_controller/campus_profile_controller.dart';
 import 'campus_profile_page/campus_professional_profile_page.dart';
 
 class CampusProfessionalPage extends StatefulWidget {
@@ -14,7 +14,6 @@ class CampusProfessionalPage extends StatefulWidget {
 }
 
 class _CampusProfessionalPageState extends State<CampusProfessionalPage> {
-  final controller = CampusProfessionalPageController();
   final professionalController = CampusProfileControllerPage();
 
   @override
@@ -25,16 +24,25 @@ class _CampusProfessionalPageState extends State<CampusProfessionalPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Dmmmsu Counsellor',
+            'Counselor',
             style: kAppBarTitle,
           ),
           leading: IconButton(
             onPressed: () => Navigator.of(context).pop(),
             icon: Icon(
               Icons.chevron_left,
-              color: Colors.grey[600],
+              color: Colors.grey[400],
             ),
           ),
+          actions: [
+            IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: Icon(
+                Icons.close,
+                color: Colors.grey[400],
+              ),
+            )
+          ],
           backgroundColor: Colors.transparent,
           centerTitle: true,
           elevation: 0.0,
@@ -62,14 +70,14 @@ class _CampusProfessionalPageState extends State<CampusProfessionalPage> {
               // ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: controller.campusInfoPage.length,
+                  itemCount: campusInfoPage.length,
                   itemBuilder: (context, index) => homeDiscoverCardWidget(
-                    title: controller.campusInfoPage[index].title,
-                    subtitle: controller.campusInfoPage[index].subtitle,
+                    title: campusInfoPage[index].title,
+                    subtitle: campusInfoPage[index].subtitle,
                     btnColor: kbtnColor,
-                    logo: controller.campusInfoPage[index].imgAsset,
+                    logo: campusInfoPage[index].imgAsset,
                     bgLogo: Colors.grey[100],
-                    cardColor: controller.campusInfoPage[index].color,
+                    cardColor: campusInfoPage[index].color,
                     context: context,
                     size: size,
                     controller: professionalController.campusProfileController,

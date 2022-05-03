@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:umatter/components/close_button.dart';
 import 'package:umatter/views/home_page/assessment_page/assessment_page.dart';
 import 'package:umatter/views/home_page/assessment_page/option_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
@@ -17,6 +18,14 @@ class _LabelPageState extends State<LabelPage> {
     final _size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          actions: [
+            closeButtonWidget(context: context),
+          ],
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Column(
@@ -133,10 +142,67 @@ class _LabelPageState extends State<LabelPage> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                   ),
-                  onPressed: () => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AssessmentPage())),
+                  onPressed: () {
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const AssessmentPage(),
+                    //   ),
+                    // );
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) => AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        title: const Center(
+                          child: Text(
+                            'Are you sure you want to proceed?',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        content: const Text(
+                          'By proceeding you agreed to the terms and conditions.',
+                          // textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              IconButton(
+                                onPressed: () => Navigator.pop(context),
+                                icon: Icon(
+                                  Icons.close,
+                                  color: Colors.red[600],
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 20.0,
+                              ),
+                              IconButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const AssessmentPage(),
+                                        ),
+                                        (route) => false),
+                                icon: const Icon(
+                                  Icons.check,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    );
+                  },
                   child: const Text(
                     'Continue',
                     style: TextStyle(

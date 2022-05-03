@@ -60,7 +60,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           ),
         ),
         bottomSheet: SizedBox(
-          height: _size.height * 0.18,
+          height: _size.height * 0.24,
           child: Column(
             children: [
               // Slider
@@ -150,7 +150,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           textAlign: TextAlign.center,
         ),
       ),
-      const Spacer(),
+      const Spacer(flex: 2),
     ]);
   }
 }

@@ -1,6 +1,6 @@
 import 'trueorfalse_model.dart';
 
-List<KnowledgeModelPage> knowledgeController = [
+List<KnowledgeModelPage> trueorfalseController = [
   KnowledgeModelPage(
     "If you think someone is depressed, the best way to help is to try to cheer them up.",
     {

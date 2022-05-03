@@ -1,8 +1,8 @@
-import 'package:umatter/views/home_page/reach_out/directories_model.dart';
+import 'package:umatter/views/home_page/reach_out/reach_out_model/directories_model.dart';
 
-import 'campus_professional/campus_professional_page.dart';
-import 'external_directories/external_directories.dart';
-import 'mental_health_communities.dart';
+import '../../views/home_page/reach_out/campus_professional/campus_professional_page.dart';
+import '../../views/home_page/reach_out/external_directories/external_directories.dart';
+import '../../views/home_page/reach_out/mental_health_communities/mental_health_communities.dart';
 
 class ProfessionalControllerPage {
   List<ProfessionalInfoPage> professionalInfoController = [

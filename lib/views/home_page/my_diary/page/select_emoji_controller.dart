@@ -6,7 +6,7 @@ class SelectEmojiController {
       'assets/img/diary/happy.png',
     ),
     SelectEmojiModel(
-      'assets/img/diary/crying.jpg',
+      'assets/img/diary/crying.png',
     ),
     SelectEmojiModel(
       'assets/img/diary/cool.png',

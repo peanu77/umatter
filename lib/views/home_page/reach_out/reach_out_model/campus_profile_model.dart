@@ -7,8 +7,8 @@ class CampusProfileInfoPage {
   final String roomNo;
   final String officeStart;
   final String officeEnd;
-  final String bio;
-  final String messengerLink;
+  final String formLink;
+  final String email;
   CampusProfileInfoPage({
     required this.imgAsset,
     required this.name,
@@ -18,7 +18,7 @@ class CampusProfileInfoPage {
     required this.roomNo,
     required this.officeStart,
     required this.officeEnd,
-    required this.bio,
-    required this.messengerLink,
+    required this.formLink,
+    required this.email,
   });
 }

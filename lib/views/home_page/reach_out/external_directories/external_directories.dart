@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:umatter/components/app_bar_component.dart';
 import 'package:umatter/views/home_page/settings_page/settings_label_widget.dart';
 
-import 'external_directories_controller.dart';
+import '../../../../controllers/reach_out_controller/external_directories_controller.dart';
 import 'external_directories_widget.dart';
 
 class ExternalDirectoriesPage extends StatefulWidget {
@@ -13,17 +14,12 @@ class ExternalDirectoriesPage extends StatefulWidget {
 }
 
 class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
-  final externalDirController = ExternalDirectoriesController();
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'DOH Directories',
-          style: TextStyle(fontSize: 20.0, color: Colors.grey[700]),
-        ),
+        title: Text('DOH Directories', style: kAppBarTitle),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
@@ -53,11 +49,10 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
                 style: TextButton.styleFrom(
                     splashFactory: NoSplash.splashFactory,
                     padding: const EdgeInsets.all(0.0)),
-                onPressed: () => externalDirController.launchPhoneCall(
-                    'tel: ${externalDirController.externaldirectoriesController[0].title}'),
+                onPressed: () => launchPhoneCall(
+                    'tel: ${externaldirectoriesController[0].title}'),
                 child: externaldirectoriesWidget(
-                  title: externalDirController
-                      .externaldirectoriesController[0].title,
+                  title: externaldirectoriesController[0].title,
                   cardColor: Colors.grey[100],
                   icon: FaIcon(
                     FontAwesomeIcons.phone,
@@ -82,11 +77,10 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
                 style: TextButton.styleFrom(
                     splashFactory: NoSplash.splashFactory,
                     padding: const EdgeInsets.all(0.0)),
-                onPressed: () => externalDirController.launchPhoneCall(
-                    'tel: ${externalDirController.externaldirectoriesController[1].title}'),
+                onPressed: () => launchPhoneCall(
+                    'tel: ${externaldirectoriesController[1].title}'),
                 child: externaldirectoriesWidget(
-                  title: externalDirController
-                      .externaldirectoriesController[1].title,
+                  title: externaldirectoriesController[1].title,
                   cardColor: Colors.grey[100],
                   icon: FaIcon(
                     FontAwesomeIcons.mobile,
@@ -101,11 +95,10 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
                 style: TextButton.styleFrom(
                     splashFactory: NoSplash.splashFactory,
                     padding: const EdgeInsets.all(0.0)),
-                onPressed: () => externalDirController.launchPhoneCall(
-                    'tel: ${externalDirController.externaldirectoriesController[2].title}'),
+                onPressed: () => launchPhoneCall(
+                    'tel: ${externaldirectoriesController[2].title}'),
                 child: externaldirectoriesWidget(
-                  title: externalDirController
-                      .externaldirectoriesController[2].title,
+                  title: externaldirectoriesController[2].title,
                   cardColor: Colors.grey[100],
                   icon: FaIcon(
                     FontAwesomeIcons.mobile,
@@ -130,11 +123,10 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
                 style: TextButton.styleFrom(
                     splashFactory: NoSplash.splashFactory,
                     padding: const EdgeInsets.all(0.0)),
-                onPressed: () => externalDirController.launchPhoneCall(
-                    'tel: ${externalDirController.externaldirectoriesController[3].title}'),
+                onPressed: () => launchPhoneCall(
+                    'tel: ${externaldirectoriesController[3].title}'),
                 child: externaldirectoriesWidget(
-                  title: externalDirController
-                      .externaldirectoriesController[3].title,
+                  title: externaldirectoriesController[3].title,
                   cardColor: Colors.grey[100],
                   icon: FaIcon(
                     FontAwesomeIcons.mobile,
@@ -159,11 +151,10 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
                 style: TextButton.styleFrom(
                     splashFactory: NoSplash.splashFactory,
                     padding: const EdgeInsets.all(0.0)),
-                onPressed: () => externalDirController
-                    .launchUrl('https://www.facebook.com/ncmhcrisishotline/'),
+                onPressed: () =>
+                    launchUrl('https://www.facebook.com/ncmhcrisishotline/'),
                 child: externaldirectoriesWidget(
-                  title: externalDirController
-                      .externaldirectoriesController[4].title,
+                  title: externaldirectoriesController[4].title,
                   cardColor: Colors.grey[100],
                   icon: FaIcon(
                     FontAwesomeIcons.facebook,
@@ -178,11 +169,9 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
                 style: TextButton.styleFrom(
                     splashFactory: NoSplash.splashFactory,
                     padding: const EdgeInsets.all(0.0)),
-                onPressed: () => externalDirController
-                    .launchUrl('https://twitter.com/ncmhhotline'),
+                onPressed: () => launchUrl('https://twitter.com/ncmhhotline'),
                 child: externaldirectoriesWidget(
-                  title: externalDirController
-                      .externaldirectoriesController[5].title,
+                  title: externaldirectoriesController[5].title,
                   cardColor: Colors.grey[100],
                   icon: FaIcon(
                     FontAwesomeIcons.twitter,
@@ -197,8 +186,8 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
                 style: TextButton.styleFrom(
                     splashFactory: NoSplash.splashFactory,
                     padding: const EdgeInsets.all(0.0)),
-                onPressed: () => externalDirController
-                    .launchUrl('https://doh.gov.ph/NCMH-Crisis-Hotline'),
+                onPressed: () =>
+                    launchUrl('https://doh.gov.ph/NCMH-Crisis-Hotline'),
                 child: externaldirectoriesWidget(
                   title: "NCMH Crisis Hotline",
                   cardColor: Colors.grey[100],

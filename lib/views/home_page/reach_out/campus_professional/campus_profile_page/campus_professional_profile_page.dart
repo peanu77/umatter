@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
-import '../campus_profile_controller.dart';
+import 'package:umatter/controllers/reach_out_controller/external_directories_controller.dart';
 
 class CampusProfessionalProfilePage extends StatefulWidget {
   final controller;
@@ -20,7 +19,6 @@ class CampusProfessionalProfilePage extends StatefulWidget {
 
 class _CampusProfessionalProfilePageState
     extends State<CampusProfessionalProfilePage> {
-  final _profileController = CampusProfileControllerPage();
   @override
   Widget build(BuildContext context) {
     final _height = MediaQuery.of(context).size.height;
@@ -32,7 +30,7 @@ class _CampusProfessionalProfilePageState
             onPressed: () => Navigator.of(context).pop(),
             icon: Icon(
               Icons.chevron_left,
-              color: Colors.grey[700],
+              color: Colors.grey[500],
             ),
           ),
           actions: [
@@ -40,7 +38,7 @@ class _CampusProfessionalProfilePageState
               onPressed: () => Navigator.of(context).pop(),
               icon: Icon(
                 Icons.close,
-                color: Colors.grey[700],
+                color: Colors.grey[500],
               ),
             )
           ],
@@ -52,12 +50,12 @@ class _CampusProfessionalProfilePageState
           children: [
             FractionallySizedBox(
               alignment: Alignment.topCenter,
-              heightFactor: 0.65,
+              heightFactor: 0.68,
               child: Image.asset(
-                'assets/img/image.jpg',
+                widget.controller[widget.index].imgAsset,
                 width: double.infinity,
                 height: double.infinity,
-                fit: BoxFit.fill,
+                fit: BoxFit.contain,
               ),
             ),
             FractionallySizedBox(
@@ -69,11 +67,11 @@ class _CampusProfessionalProfilePageState
             ),
             SlidingUpPanel(
               minHeight: _height * 0.38,
-              maxHeight: _height * 0.75,
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(30.0),
-                topLeft: Radius.circular(30.0),
-              ),
+              maxHeight: _height * 0.5,
+              // borderRadius: const BorderRadius.only(
+              //   topRight: Radius.circular(30.0),
+              //   topLeft: Radius.circular(30.0),
+              // ),
               panelBuilder: (ScrollController controller) =>
                   SingleChildScrollView(
                 physics: const ClampingScrollPhysics(),
@@ -102,9 +100,10 @@ class _CampusProfessionalProfilePageState
                           Text(
                             widget.controller[widget.index].name,
                             // widget.controller[widget.index],
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.grey[800],
-                              fontSize: 22,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1.0,
                             ),
@@ -119,6 +118,10 @@ class _CampusProfessionalProfilePageState
                               color: Colors.grey[700],
                             ),
                           ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          Text("${widget.controller[widget.index].email}"),
                           const Spacer(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,7 +181,8 @@ class _CampusProfessionalProfilePageState
                           const Spacer(),
                           OutlinedButton(
                             // TODO: NAVIGATE TO MESSENGER
-                            onPressed: () {},
+                            onPressed: () => launchUrl(
+                                widget.controller[widget.index].formLink),
                             style: OutlinedButton.styleFrom(
                               primary: Colors.grey[800],
                               backgroundColor: Colors.white,
@@ -190,7 +194,7 @@ class _CampusProfessionalProfilePageState
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
-                            child: const Text('Message Counsellor'),
+                            child: const Text('Schedule Counselling '),
                           ),
                         ],
                       ),
@@ -234,20 +238,19 @@ class _CampusProfessionalProfilePageState
                           const SizedBox(
                             height: 30.0,
                           ),
-                          const Divider(),
-                          Text(
-                            widget.controller[widget.index].bio,
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.0,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 50.0,
-                          ),
+                          // Text(
+                          //   widget.controller[widget.index].bio,
+                          //   textAlign: TextAlign.justify,
+                          //   style: TextStyle(
+                          //     fontSize: 14.0,
+                          //     color: Colors.grey[700],
+                          //     fontWeight: FontWeight.bold,
+                          //     letterSpacing: 1.0,
+                          //   ),
+                          // ),
+                          // const SizedBox(
+                          //   height: 50.0,
+                          // ),
                         ],
                       ),
                     ),

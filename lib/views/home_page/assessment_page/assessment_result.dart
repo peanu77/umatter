@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:umatter/models/contants/constants.dart';
 import 'package:umatter/views/home_page/discover/discover_page.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
@@ -28,12 +27,12 @@ class _AssessmentResultState extends State<AssessmentResult> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Spacer(),
+              const Spacer(flex: 2),
               Center(
                 child: Text(
                   "Assessment Result".toUpperCase(),
                   style: TextStyle(
-                    fontSize: 22.0,
+                    fontSize: 20.0,
                     color: Colors.grey[700],
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.0,
@@ -41,12 +40,31 @@ class _AssessmentResultState extends State<AssessmentResult> {
                 ),
               ),
               const Spacer(),
+              Container(
+                padding: const EdgeInsets.all(50.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey[100],
+                ),
+                child: Text(
+                  assessmentScore,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 50.0,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.0,
+                  ),
+                ),
+              ),
+              const Spacer(
+                flex: 2,
+              ),
               RichText(
                 text: TextSpan(
                   children: [
                     TextSpan(
                       text:
-                          'Based from your answer on the Assessment Test, You are manifesting  ',
+                          'Based from your answer on the Assessment Test, You are manifesting a ',
                       style: TextStyle(
                           fontSize: 14.0,
                           color: Colors.grey[600],
@@ -55,7 +73,7 @@ class _AssessmentResultState extends State<AssessmentResult> {
                     TextSpan(
                       text: widget.assessmentRes,
                       style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.red[300],
                         fontStyle: FontStyle.italic,
@@ -76,17 +94,16 @@ class _AssessmentResultState extends State<AssessmentResult> {
                 ),
               ),
               const Spacer(),
-              Align(
-                alignment: Alignment.center,
-                child: CircularPercentIndicator(
-                  radius: 60,
-                  percent: double.parse(assessmentScore) / 27.0,
-                  center: Text(assessmentScore),
-                  animation: true,
-                  animationDuration: 1000,
-                ),
-              ),
-              const Spacer(),
+              // Align(
+              //   alignment: Alignment.center,
+              //   child: CircularPercentIndicator(
+              //     radius: 60,
+              //     percent: double.parse(assessmentScore) / 27.0,
+              //     center: Text(assessmentScore),
+              //     animation: true,
+              //     animationDuration: 1000,
+              //   ),
+              // ),
               SizedBox(
                 height: _size.height * 0.08,
                 width: double.infinity,
@@ -109,7 +126,7 @@ class _AssessmentResultState extends State<AssessmentResult> {
                   ),
                 ),
               ),
-              const Spacer(),
+              const Spacer(flex: 2),
             ],
           ),
         ),

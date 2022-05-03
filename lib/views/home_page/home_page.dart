@@ -35,6 +35,16 @@ class _HomePageState extends State<HomePage> {
 
   // Stream users = FirebaseFirestore.instance.collection('users').snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+  checkValidTime() {
+    // 2 weeks (336)
+    final now = DateTime.now();
+    final duration = Duration(hours: 336);
+    final hour = now.hour.toString();
+    final minute = now.minute.toString();
+    print("$hour : $minute");
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -58,6 +68,12 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // IconButton(
+                    //   onPressed: () {
+                    //     checkValidTime();
+                    //   },
+                    //   icon: Icon(Icons.add),
+                    // ),
                     // Greet / Username
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

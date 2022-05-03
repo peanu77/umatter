@@ -7,6 +7,7 @@ import 'package:umatter/utils/colors.dart';
 import 'package:umatter/views/home_page/discover/knowledge_test/game_page_controller.dart';
 import 'package:umatter/views/home_page/discover/knowledge_test/multiple_choice/multiple_choice_controller.dart';
 import 'package:umatter/views/home_page/discover/knowledge_test/true_false/trueorfalse_controller.dart';
+import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 
 import '../../../../components/back_button.dart';
 import '../../../../controllers/shared_pref_controller/shared_pref_controller.dart';
@@ -33,7 +34,8 @@ class _GamePageState extends State<GamePage> {
             style: kAppBarTitle,
           ),
           leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const NavBarPage())),
             icon: kbackButton,
           ),
           centerTitle: true,
@@ -51,7 +53,7 @@ class _GamePageState extends State<GamePage> {
                 score: double.parse(trueorfalseScore).round(),
                 bgScore: Colors.grey[300],
                 cardColor: gamepageController[0].cardColor,
-                questionLen: knowledgeController.length,
+                questionLen: trueorfalseController.length,
                 context: context,
                 size: size,
                 route: gamepageController[0].route,
