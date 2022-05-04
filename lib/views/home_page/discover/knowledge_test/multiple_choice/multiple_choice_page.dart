@@ -174,7 +174,7 @@ class _MultipleChoicePageState extends State<MultipleChoicePage> {
                         ),
                         Text(
                           isSelected
-                              ? multiplechoiceController[randomData()].trivia
+                              ? multiplechoiceController[index].trivia
                               : "",
                           style: TextStyle(
                             fontSize: 12.0,
