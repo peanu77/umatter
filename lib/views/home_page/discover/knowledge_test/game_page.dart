@@ -50,7 +50,7 @@ class _GamePageState extends State<GamePage> {
                 title: gamepageController[0].title,
                 subtitle: gamepageController[0].subtitle,
                 btnColor: kbtnColor,
-                score: double.parse(trueorfalseScore).round(),
+                score: trueorfalseScore,
                 bgScore: Colors.grey[300],
                 cardColor: gamepageController[0].cardColor,
                 questionLen: trueorfalseController.length,
@@ -65,7 +65,7 @@ class _GamePageState extends State<GamePage> {
                 title: gamepageController[1].title,
                 subtitle: gamepageController[1].subtitle,
                 btnColor: kbtnColor,
-                score: double.parse(multiplechoiceScore).round(),
+                score: multiplechoiceScore,
                 bgScore: Colors.grey[300],
                 cardColor: gamepageController[1].cardColor,
                 questionLen: multiplechoiceController.length,
@@ -115,8 +115,9 @@ Widget knowledgeTestWidget({
                 child: CircularPercentIndicator(
                   animateFromLastPercent: true,
                   radius: 50.0,
-                  percent: score / questionLen,
-                  center: Text("$score / $questionLen"),
+                  // percent: score / questionLen,
+                  percent: double.parse(score).round() / 50,
+                  center: Text("${double.parse(score).round()} / $questionLen"),
                   animation: true,
                   animationDuration: 1000,
                 ),
@@ -125,6 +126,7 @@ Widget knowledgeTestWidget({
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
+                    // "${questionLen.runtimeType}",
                     title,
                     style: const TextStyle(
                       color: Colors.white,

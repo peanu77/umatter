@@ -330,14 +330,6 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
     );
   }
 
-  final emojiList = [
-    "Happy",
-    "Crying",
-    "Cool",
-    "Lea",
-    "Crying",
-  ];
-
   selectedEmoji(data) {
     if (data['emojis'] == "Happy") {
       return Text(emotions[0], style: textStyle);

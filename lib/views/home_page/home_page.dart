@@ -28,8 +28,10 @@ class _HomePageState extends State<HomePage> {
 
   String assessmentScore = (SharePrefConfig.getAssessmentScore() ?? "0");
 
-  // final CollectionRef<QuerySnapshot> username =
-  //     FirebaseFirestore.instance.collection('users').snapshots();
+  CollectionReference ref = FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser?.uid)
+      .collection('user_info');
 
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
@@ -58,180 +60,185 @@ class _HomePageState extends State<HomePage> {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey[100],
-          body: FutureBuilder<Object>(
-              // future: users.doc(documentId).get(),
+          body: FutureBuilder<QuerySnapshot>(
+              future: ref.get(),
               builder: (context, snapshot) {
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 40.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // IconButton(
-                    //   onPressed: () {
-                    //     checkValidTime();
-                    //   },
-                    //   icon: Icon(Icons.add),
-                    // ),
-                    // Greet / Username
-                    Column(
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 40.0),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Greeting
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // IconButton(
+                        //   onPressed: () {
+                        //     checkValidTime();
+                        //   },
+                        //   icon: Icon(Icons.add),
+                        // ),
+                        // Greet / Username
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              _dayTimeChecker.dayTimeCheker(),
-                              style: TextStyle(
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.0,
-                                color: Colors.grey[800],
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50.0),
-                                color: Colors.grey[200],
-                              ),
-                              child: IconButton(
-                                onPressed: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const UserInfoPage(),
+                            // Greeting
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  _dayTimeChecker.dayTimeCheker(),
+                                  style: TextStyle(
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1.0,
+                                    color: Colors.grey[800],
                                   ),
                                 ),
-                                icon: Icon(
-                                  Icons.person,
-                                  color: Colors.grey[800],
-                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    color: Colors.grey[200],
+                                  ),
+                                  child: IconButton(
+                                    onPressed: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const UserInfoPage(),
+                                      ),
+                                    ),
+                                    icon: Icon(
+                                      Icons.person,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            // Container(
+                            //   child: StreamBuilder(
+                            //       stream: users,
+                            //       builder: (context, snapshot) {
+                            //         if (snapshot.hasError) {
+                            //           return Text('Something went wrong');
+                            //         }
+                            //         if (snapshot.data == null) {
+                            //           return Text('');
+                            //         }
+                            //         if (snapshot.connectionState ==
+                            //             ConnectionState.waiting) {
+                            //           return Text('Loading data...');
+                            //         }
+                            //       }),
+                            // ),
+
+                            Text(
+                              name,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                letterSpacing: 1.0,
+                                color: Colors.grey[600],
                               ),
                             )
                           ],
                         ),
-                        // Container(
-                        //   child: StreamBuilder(
-                        //       stream: users,
-                        //       builder: (context, snapshot) {
-                        //         if (snapshot.hasError) {
-                        //           return Text('Something went wrong');
-                        //         }
-                        //         if (snapshot.data == null) {
-                        //           return Text('');
-                        //         }
-                        //         if (snapshot.connectionState ==
-                        //             ConnectionState.waiting) {
-                        //           return Text('Loading data...');
-                        //         }
-                        //       }),
-                        // ),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
 
-                        Text(
-                          name,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            letterSpacing: 1.0,
-                            color: Colors.grey[600],
+                        _buildAssessmentPage(
+                            size, _runPreferences, assessmentScore),
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 20.0),
+                          // color: Colors.orange,
+                          child: Text(
+                            'Minor Intervention',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5,
+                            ),
                           ),
-                        )
+                        ),
+
+                        // Discover Page
+                        homePageCardWidget(
+                          title: homeController.homepageController[1].title,
+                          subtitle:
+                              homeController.homepageController[1].subtitle,
+                          btnColor: kbtnColor,
+                          logo: homeController.homepageController[1].img,
+                          bgLogo: Colors.grey[300],
+                          cardColor: homeController.homepageController[1].color,
+                          context: context,
+                          size: size,
+                          route: homeController.homepageController[1].route,
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+
+                        // Meditate Page
+                        homePageCardWidget(
+                          title: homeController.homepageController[2].title,
+                          subtitle:
+                              homeController.homepageController[2].subtitle,
+                          btnColor: kbtnColor,
+                          logo: homeController.homepageController[2].img,
+                          bgLogo: Colors.grey[300],
+                          cardColor: homeController.homepageController[2].color,
+                          context: context,
+                          size: size,
+                          route: homeController.homepageController[2].route,
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+
+                        // Diary Page
+                        homePageCardWidget(
+                          title: homeController.homepageController[3].title,
+                          subtitle:
+                              homeController.homepageController[3].subtitle,
+                          btnColor: kbtnColor,
+                          logo: homeController.homepageController[3].img,
+                          bgLogo: Colors.grey[300],
+                          cardColor: homeController.homepageController[3].color,
+                          context: context,
+                          size: size,
+                          route: homeController.homepageController[3].route,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 20.0),
+                          // color: Colors.orange,
+                          child: Text(
+                            'Major Intervention',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ),
+
+                        // Professional Page
+                        homePageCardWidget(
+                          title: homeController.homepageController[4].title,
+                          subtitle:
+                              homeController.homepageController[4].subtitle,
+                          btnColor: kbtnColor,
+                          logo: homeController.homepageController[4].img,
+                          bgLogo: Colors.grey[300],
+                          cardColor: homeController.homepageController[4].color,
+                          context: context,
+                          size: size,
+                          route: homeController.homepageController[4].route,
+                        ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 30.0,
-                    ),
-
-                    _buildAssessmentPage(
-                        size, _runPreferences, assessmentScore),
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      // color: Colors.orange,
-                      child: Text(
-                        'Minor Intervention',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                    ),
-
-                    // Discover Page
-                    homePageCardWidget(
-                      title: homeController.homepageController[1].title,
-                      subtitle: homeController.homepageController[1].subtitle,
-                      btnColor: kbtnColor,
-                      logo: homeController.homepageController[1].img,
-                      bgLogo: Colors.grey[300],
-                      cardColor: homeController.homepageController[1].color,
-                      context: context,
-                      size: size,
-                      route: homeController.homepageController[1].route,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-
-                    // Meditate Page
-                    homePageCardWidget(
-                      title: homeController.homepageController[2].title,
-                      subtitle: homeController.homepageController[2].subtitle,
-                      btnColor: kbtnColor,
-                      logo: homeController.homepageController[2].img,
-                      bgLogo: Colors.grey[300],
-                      cardColor: homeController.homepageController[2].color,
-                      context: context,
-                      size: size,
-                      route: homeController.homepageController[2].route,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-
-                    // Diary Page
-                    homePageCardWidget(
-                      title: homeController.homepageController[3].title,
-                      subtitle: homeController.homepageController[3].subtitle,
-                      btnColor: kbtnColor,
-                      logo: homeController.homepageController[3].img,
-                      bgLogo: Colors.grey[300],
-                      cardColor: homeController.homepageController[3].color,
-                      context: context,
-                      size: size,
-                      route: homeController.homepageController[3].route,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      // color: Colors.orange,
-                      child: Text(
-                        'Major Intervention',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                    ),
-
-                    // Professional Page
-                    homePageCardWidget(
-                      title: homeController.homepageController[4].title,
-                      subtitle: homeController.homepageController[4].subtitle,
-                      btnColor: kbtnColor,
-                      logo: homeController.homepageController[4].img,
-                      bgLogo: Colors.grey[300],
-                      cardColor: homeController.homepageController[4].color,
-                      context: context,
-                      size: size,
-                      route: homeController.homepageController[4].route,
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }),
+                  ),
+                );
+              }),
         ),
       ),
     );
