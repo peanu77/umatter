@@ -97,7 +97,7 @@ class SharePrefConfig {
       await _preferences.setString(_keyTrueorFalseScore, trueorfalseScore);
 
   static String? getTrueofFalse() =>
-      _preferences.getString(_keyAssessmentScore);
+      _preferences.getString(_keyTrueorFalseScore);
 
   // Multiple Choice Score
   static Future setMultipleChoice(String multiplechoiceScore) async =>

@@ -46,6 +46,10 @@ class _GamePageState extends State<GamePage> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
           child: Column(
             children: [
+              // Text('True or False Score : ${trueorfalseScore}'),
+              // Text('True or False Len: ${trueorfalseController.length}'),
+              // Text('True or False Score : ${multiplechoiceScore}'),
+              // Text('True or False Len: ${multiplechoiceController.length}'),
               knowledgeTestWidget(
                 title: gamepageController[0].title,
                 subtitle: gamepageController[0].subtitle,
@@ -105,6 +109,8 @@ Widget knowledgeTestWidget({
       ),
       child: Column(
         children: [
+          // Text('${score.runtimeType}'),
+          // Text('${double.parse(score).runtimeType}'),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,7 +122,7 @@ Widget knowledgeTestWidget({
                   animateFromLastPercent: true,
                   radius: 50.0,
                   // percent: score / questionLen,
-                  percent: double.parse(score).round() / 50,
+                  percent: double.parse(score) / questionLen,
                   center: Text("${double.parse(score).round()} / $questionLen"),
                   animation: true,
                   animationDuration: 1000,

@@ -1,10 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:umatter/components/close_button.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/utils/colors.dart';
-import 'package:umatter/views/home_page/discover/knowledge_test/multiple_choice/multiple_choice_controller.dart';
 import 'package:umatter/views/home_page/discover/knowledge_test/true_false/trueorfalse_result.dart';
 import 'package:umatter/views/home_page/discover/knowledge_test/true_false/trueorfalse_controller.dart';
 
@@ -27,17 +24,17 @@ class _TrueorFalsePageState extends State<TrueorFalsePage> {
   double score = 0.0;
   int currentIndex = 0;
 
-  randomData() {
-    var rand = Random();
+  // randomData() {
+  //   var rand = Random();
 
-    int randomNum = 0;
+  //   int randomNum = 0;
 
-    for (var i = 0; i < multiplechoiceController.length; i++) {
-      randomNum = rand.nextInt(multiplechoiceController.length);
-    }
-    // print(randomNum);
-    return randomNum;
-  }
+  //   for (var i = 0; i < multiplechoiceController.length; i++) {
+  //     randomNum = rand.nextInt(multiplechoiceController.length);
+  //   }
+  // print(randomNum);
+  //   return randomNum;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +153,8 @@ class _TrueorFalsePageState extends State<TrueorFalsePage> {
                 ),
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 20.0),
                     child: Column(
                       children: [
                         Text(
@@ -197,7 +195,7 @@ class _TrueorFalsePageState extends State<TrueorFalsePage> {
                   onPressed: isSelected
                       ? () {
                           currentIndex += 1;
-
+                          print(score);
                           if (currentIndex == trueorfalseController.length) {
                             SharePrefConfig.setTrueorFalse(score.toString());
 

@@ -7,42 +7,42 @@ List<CampusInfoPage> campusInfoPage = [
     title: "College of Law",
     subtitle:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-    color: Colors.grey.shade500,
+    color: Colors.white,
     imgAsset: 'assets/img/cit.png',
   ),
   CampusInfoPage(
     title: "College of Information Technology",
     subtitle:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-    color: Colors.grey.shade500,
+    color: Colors.white,
     imgAsset: 'assets/img/cit.png',
   ),
   CampusInfoPage(
     title: "Colllege of Manangement",
     subtitle:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-    color: Colors.grey.shade500,
+    color: Colors.white,
     imgAsset: 'assets/img/cit.png',
   ),
   CampusInfoPage(
     title: "College of Arts and Sciences",
     subtitle:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-    color: Colors.grey.shade500,
+    color: Colors.white,
     imgAsset: 'assets/img/cit.png',
   ),
   CampusInfoPage(
     title: "College of Engineering",
     subtitle:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-    color: Colors.grey.shade500,
+    color: Colors.white,
     imgAsset: 'assets/img/cit.png',
   ),
   CampusInfoPage(
     title: "College of Electro Mechanical Technology",
     subtitle:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-    color: Colors.grey.shade500,
+    color: Colors.white,
     imgAsset: 'assets/img/cit.png',
   ),
   CampusInfoPage(
@@ -50,13 +50,13 @@ List<CampusInfoPage> campusInfoPage = [
     subtitle:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
     imgAsset: 'assets/img/cit.png',
-    color: Colors.grey.shade500,
+    color: Colors.white,
   ),
   CampusInfoPage(
     title: "College of Technology",
     subtitle:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
     imgAsset: 'assets/img/cit.png',
-    color: Colors.grey.shade500,
+    color: Colors.white,
   ),
 ];

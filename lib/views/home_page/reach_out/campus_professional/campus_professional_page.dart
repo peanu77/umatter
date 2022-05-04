@@ -14,8 +14,6 @@ class CampusProfessionalPage extends StatefulWidget {
 }
 
 class _CampusProfessionalPageState extends State<CampusProfessionalPage> {
-  final professionalController = CampusProfileControllerPage();
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -47,6 +45,7 @@ class _CampusProfessionalPageState extends State<CampusProfessionalPage> {
           centerTitle: true,
           elevation: 0.0,
         ),
+        backgroundColor: Colors.grey[100],
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
@@ -80,7 +79,7 @@ class _CampusProfessionalPageState extends State<CampusProfessionalPage> {
                     cardColor: campusInfoPage[index].color,
                     context: context,
                     size: size,
-                    controller: professionalController.campusProfileController,
+                    controller: campusProfileController,
                     index: index,
                   ),
                 ),

@@ -6,7 +6,7 @@ import 'true_false/trueorfalse_page.dart';
 
 List<GamePageModel> gamepageController = [
   GamePageModel(
-    "True of False",
+    "True or False",
     "Test your knowledge with True of False",
     const Color(0xff457b9d),
     "",
