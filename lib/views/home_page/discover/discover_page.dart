@@ -24,11 +24,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Discover Page',
+            'Discover',
             style: kAppBarTitle,
           ),
           leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const NavBarPage())),
             icon: kbackButton,
           ),
           centerTitle: true,

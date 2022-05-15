@@ -1,36 +1,37 @@
 import 'package:umatter/views/home_page/meditate/acoustic_guitar_page/acoustic_guitar_page.dart';
 import 'package:umatter/views/home_page/meditate/instrumental/instrumental_page.dart';
 import 'package:umatter/views/home_page/meditate/lofi/lofi_music.dart';
-import 'package:umatter/views/home_page/meditate/meditate_info.dart';
 import 'package:umatter/views/home_page/meditate/piano/piano_page.dart';
+
+import '../../views/home_page/meditate/meditate_info.dart';
 
 class MeditatePageController {
   List<MeditateInfoPage> meditatePageController = [
     MeditateInfoPage(
-      title: "Lofi",
+      title: "Lo-Fi",
       subtitle:
-          "Lo-fi is a music or production quality in which elements usually regarded as imperfections",
+          "Lo-fi beats provides just enough stimulation for the brain to tune out stress and be productive.",
       imgAsset: '',
       route: const LofiMusicPage(),
     ),
     MeditateInfoPage(
-      title: "Acoustic Music",
+      title: "Acoustic",
       subtitle:
-          "Lo-fi is a music or production quality in which elements usually regarded as imperfections",
+          "Acoustic beats gives incredible positive effects on the brain.",
       imgAsset: '',
       route: const AcousticGuitarPage(),
     ),
     MeditateInfoPage(
       title: "Piano",
       subtitle:
-          "Lo-fi is a music or production quality in which elements usually regarded as imperfections",
+          "Piano beats are a terrific stress reliever and a great way to boost one's self-esteem.",
       imgAsset: '',
       route: const PianoPage(),
     ),
     MeditateInfoPage(
       title: "Instrumental",
       subtitle:
-          "Instrumental is a music or production quality in which elements usually regarded as imperfections",
+          "Instrumental beats promote cognitive recovery and mood improvement.",
       imgAsset: '',
       route: const InstrumentalPage(),
     )

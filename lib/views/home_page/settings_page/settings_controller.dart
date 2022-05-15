@@ -14,7 +14,7 @@ class SettingsControllerPage {
       actionIcon: const Icon(Icons.chevron_right),
     ),
     SettingsInfoPage(
-      title: "Privacy and Policy",
+      title: "Privacy Policy",
       icon: const Icon(Icons.privacy_tip_outlined),
       actionIcon: const Icon(Icons.chevron_right),
     ),
@@ -34,7 +34,7 @@ class SettingsControllerPage {
       actionIcon: const Icon(Icons.chevron_right),
     ),
     SettingsInfoPage(
-      title: "Logout",
+      title: "Log out",
       icon: const Icon(Icons.logout_rounded),
       actionIcon: const Icon(Icons.chevron_right),
     ),

@@ -50,9 +50,7 @@ class _TrueorFalsePageState extends State<TrueorFalsePage> {
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         onPageChanged: (currentPage) {
-          setState(() {
-            isSelected = false;
-          });
+          setState(() => isSelected = false);
         },
         itemCount: trueorfalseController.length,
         itemBuilder: (context, index) => Column(
@@ -195,7 +193,7 @@ class _TrueorFalsePageState extends State<TrueorFalsePage> {
                   onPressed: isSelected
                       ? () {
                           currentIndex += 1;
-                          print(score);
+                          // print(score);
                           if (currentIndex == trueorfalseController.length) {
                             SharePrefConfig.setTrueorFalse(score.toString());
 

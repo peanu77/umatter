@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:umatter/components/app_bar_component.dart';
@@ -50,6 +48,7 @@ class _GamePageState extends State<GamePage> {
               // Text('True or False Len: ${trueorfalseController.length}'),
               // Text('True or False Score : ${multiplechoiceScore}'),
               // Text('True or False Len: ${multiplechoiceController.length}'),
+
               knowledgeTestWidget(
                 title: gamepageController[0].title,
                 subtitle: gamepageController[0].subtitle,

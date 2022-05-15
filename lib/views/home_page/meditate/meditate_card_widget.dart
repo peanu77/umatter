@@ -55,7 +55,7 @@ Widget meditateCardWidget({
                 ),
                 onPressed: () => Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) => route)),
-                child: const Text('Continue'),
+                child: const Text('Check it out!'),
               ),
             ),
           ],

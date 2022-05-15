@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
-import 'package:umatter/models/onboarding_page_models/onboarding_info.dart';
+import 'package:umatter/models/onboarding_page_models/onboarding_model.dart';
 
 class OnboardingController {
-  var selectedPageIndex = 0.obs;
-  bool get isLastPage => selectedPageIndex.value == onboardingPages.length - 1;
-// PageController is a built-in widget
   var pageController = PageController();
 
   List<OnboardingInfo> onboardingPages = [

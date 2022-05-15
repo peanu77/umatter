@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:umatter/utils/colors.dart';
 import 'package:umatter/controllers/discover_controller/myths_controller_page.dart';
 
@@ -12,6 +13,24 @@ class MythsPage extends StatefulWidget {
 
 class _MythsPageState extends State<MythsPage> {
   final controller = MythsControllerPage();
+
+  final flutterTts = FlutterTts();
+
+  Future _speak(desc) async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setPitch(0.9);
+    await flutterTts.speak(desc);
+  }
+
+  _stop() async {
+    await flutterTts.stop();
+  }
+
+  var getCurrentPage = 0;
+
+  bool isPlaying = false;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -47,6 +66,9 @@ class _MythsPageState extends State<MythsPage> {
               itemCount: controller.mythsController.length,
               itemWidth: size.width - 2 * 65,
               layout: SwiperLayout.STACK,
+              onIndexChanged: (index) async {
+                getCurrentPage = index;
+              },
               pagination: SwiperPagination(
                 builder: DotSwiperPaginationBuilder(
                   activeSize: 15,
@@ -100,6 +122,30 @@ class _MythsPageState extends State<MythsPage> {
                   ],
                 );
               },
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50.0),
+                color: Colors.grey[300]),
+            child: IconButton(
+              onPressed: () async {
+                setState(() {
+                  isPlaying = !isPlaying;
+                });
+                if (isPlaying) {
+                  _speak(controller.mythsController[getCurrentPage].desc);
+                  // print(isPlaying);
+                }
+                return _stop();
+              },
+              icon: isPlaying
+                  ? const Icon(
+                      Icons.mic_rounded,
+                      size: 30.0,
+                    )
+                  : const Icon(Icons.mic_off_rounded),
             ),
           ),
           const Spacer(

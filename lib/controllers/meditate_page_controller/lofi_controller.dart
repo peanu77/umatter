@@ -1,4 +1,4 @@
-import 'package:umatter/models/meditate_page_models/lofi_page_info.dart';
+import 'package:umatter/models/meditate_page_models/lofi_model.dart';
 
 class LofiPageController {
   List<LofiPageInfo> lofiPageInfo = [

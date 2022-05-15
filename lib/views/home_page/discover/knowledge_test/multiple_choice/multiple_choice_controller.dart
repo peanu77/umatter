@@ -129,4 +129,24 @@ List<MultipleChoiceModel> multiplechoiceController = [
     },
     """Serious mental illness has a large impact on the U.S. It costs more than \$193 billion a year in lost earnings.""",
   ),
+  MultipleChoiceModel(
+    "How should you respond to a depressed person?",
+    {
+      "Be cheerful": false,
+      "Listen": true,
+      "Encourage the person to spend time alone": false,
+      "Spend time with the person but don’t talk about depression": false,
+    },
+    """Ask what is wrong if someone seems depressed. Be a listener. It may help the person figure out what started the depression.""",
+  ),
+  // MultipleChoiceModel(
+  //   "Which of these signs mean you should talk to a healthcare provider about your depression?",
+  //   {
+  //     "Trouble concentrating or remembering things": false,
+  //     "Constant tiredness or low energy": true,
+  //     """A feeling of the "blues" that doesn't go away""": false,
+  //     "All of the above.": false,
+  //   },
+  //   """Seek help if you have any of these problems for more than 2 weeks.""",
+  // ),
 ];

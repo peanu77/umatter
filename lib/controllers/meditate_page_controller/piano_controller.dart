@@ -1,4 +1,4 @@
-import 'package:umatter/models/meditate_page_models/piano_info_page.dart';
+import 'package:umatter/models/meditate_page_models/piano_model.dart';
 
 class PianoPageController {
   List<PianoInfoPage> pianoPageInfo = [

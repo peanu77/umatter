@@ -23,7 +23,7 @@ Widget professionalCardWidget({
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,

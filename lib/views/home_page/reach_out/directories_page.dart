@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/components/app_bar_component.dart';
-import 'package:umatter/controllers/professionals_page_controller/external_directories_page_controller.dart';
+import 'package:umatter/controllers/professionals_page_controller/external_directories_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 
 import '../../../components/widgets/professional_page/professional_card_widget.dart';
@@ -8,19 +8,17 @@ import '../../../components/widgets/professional_page/professional_card_widget.d
 import '../../../controllers/reach_out_controller/directories_controller.dart';
 import '../nav_bar/navbar_page.dart';
 
-class ProfessionalDirectoriesPage extends StatefulWidget {
-  const ProfessionalDirectoriesPage({
+class ReachOutPage extends StatefulWidget {
+  const ReachOutPage({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ProfessionalDirectoriesPage> createState() =>
-      _ProfessionalDirectoriesPage();
+  State<ReachOutPage> createState() => _ProfessionalDirectoriesPage();
 }
 
-class _ProfessionalDirectoriesPage extends State<ProfessionalDirectoriesPage> {
+class _ProfessionalDirectoriesPage extends State<ReachOutPage> {
   final interventionPage = InterventionPageController();
-  final _professionalController = ProfessionalControllerPage();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,20 +38,16 @@ class _ProfessionalDirectoriesPage extends State<ProfessionalDirectoriesPage> {
           elevation: 0.0,
         ),
         body: ListView.builder(
-          itemCount: _professionalController.professionalInfoController.length,
+          itemCount: professionalInfoController.length,
           itemBuilder: (context, index) => professionalCardWidget(
             context: context,
             width: double.infinity,
-            title:
-                _professionalController.professionalInfoController[index].title,
-            subtitle: _professionalController
-                .professionalInfoController[index].subtitle,
-            cardColor: Color(_professionalController
-                .professionalInfoController[index].color),
-            btnText: "Continue",
+            title: professionalInfoController[index].title,
+            subtitle: professionalInfoController[index].subtitle,
+            cardColor: Color(professionalInfoController[index].color),
+            btnText: "Take me there",
             btnColor: kPrimary,
-            route:
-                _professionalController.professionalInfoController[index].route,
+            route: professionalInfoController[index].route,
           ),
         ),
       ),

@@ -3,6 +3,8 @@ import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/utils/colors.dart';
 import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AddDiaryPage extends StatefulWidget {
   const AddDiaryPage({
@@ -205,16 +207,45 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
       child: ElevatedButton(
         onPressed: () {
           if (_formKey.currentState!.validate()) {
-            // Calling the Database manager' ScaffoldMessenger.of(context).showSnackBar(message);
-            databaseManager.addForm(title, desc, _formKey, emoji);
-            // Transfer data to the my diary home page using SharedPreferences
-            SharePrefConfig.setSelectedColor(bgColor.toString());
+            // Calling the Database manager'
+            ScaffoldMessenger.of(context).showSnackBar(message);
+            databaseManager.addForm(title, desc, _formKey, emoji, context);
+
+            CollectionReference ref = FirebaseFirestore.instance
+                .collection('users')
+                .doc('journal')
+                .collection('notes');
+
+            // Create user data
+            var data = {
+              'title': title,
+              'description': desc,
+              'created': DateTime.now(),
+              'emotions': emoji.toString(),
+            };
+            // Validate Form
+            ref.add(data);
+
+            CollectionReference emotionRef = FirebaseFirestore.instance
+                .collection('users')
+                .doc('emotions')
+                .collection('emotions-list');
+
+            // Create user data
+            var emotionData = {
+              'emotions': emoji.toString(),
+            };
+
+            // Validate Form
+            emotionRef.add(emotionData);
+
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => const MyDiaryPage(),
               ),
             );
+            // Navigator.of(context).pop();
           } else {
             return;
           }
@@ -281,63 +312,3 @@ class _AddDiaryPageState extends State<AddDiaryPage> {
     }
   }
 }
-
-
-
-
-// Color Picker
-//   _buildColorPicker(Size size) {
-//     return SizedBox(
-//       height: 120.0,
-      // height: size.height * 0.060,
-//       child: ListView.builder(
-//         itemCount: MyDiaryController().myDiaryController.length,
-//         itemBuilder: (context, index) {
-//           return Row(
-//             children: [
-//               Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
-//                 child: _buildBackgroundColorPicker(
-//                   color: Color(MyDiaryController().myDiaryController[index]),
-//                 ),
-//               ),
-//             ],
-//           );
-//         },
-//         scrollDirection: Axis.horizontal,
-//       ),
-//     );
-//   }
-
-  // / This widget is responsible for the size and styling of the color picker
-  // Widget _buildBackgroundColorPicker({required Color color}) {
-  //   return GestureDetector(
-  //     onTap: () {
-  //       setBackgroundColor(color);
-  //     },
-  //     child: Container(
-  //       width: 50,
-  //       decoration: BoxDecoration(
-  //         shape: BoxShape.circle,
-  //         color: color,
-  //         border: Border.all(color: Colors.white, width: 4),
-  //         boxShadow: [
-  //           BoxShadow(
-  //             color: Colors.black.withOpacity(0.4),
-  //             blurRadius: 5,
-  //             offset: const Offset(0, 3),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Background Color Setter
-  // setBackgroundColor(Color newColor) {
-  //   if (newColor != bgColor) {
-  //     setState(() {
-  //       bgColor = newColor;
-  //     });
-  //   }
-  // }

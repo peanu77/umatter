@@ -84,7 +84,7 @@ Widget homePageCardWidget({
                 MaterialPageRoute(builder: (context) => route),
               ),
               child: const Text(
-                'Continue',
+                'Let\'s go!',
               ),
             ),
           ),

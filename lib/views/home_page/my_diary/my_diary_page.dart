@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
-import 'package:showcaseview/showcaseview.dart';
 import 'package:umatter/components/app_bar_component.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:umatter/views/home_page/my_diary/page/select_emotion.dart';
 import 'package:umatter/views/home_page/my_diary/page/view_diary_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MyDiaryPage extends StatefulWidget {
   const MyDiaryPage({Key? key}) : super(key: key);
@@ -34,10 +33,10 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance?.addPostFrameCallback(
-        (timeStamp) => ShowCaseWidget.of(context)?.startShowCase([
-              keyOne,
-            ]));
+    // WidgetsBinding.instance?.addPostFrameCallback(
+    //     (timeStamp) => ShowCaseWidget.of(context)?.startShowCase([
+    //           keyOne,
+    //         ]));
   }
 
   final textStyle = const TextStyle(fontSize: 25.0);
@@ -60,11 +59,10 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('My Diary', style: kAppBarTitle),
+          title: Text('My Journal', style: kAppBarTitle),
           leading: IconButton(
             onPressed: () => Navigator.of(context).pop(),
             icon: Icon(
@@ -104,7 +102,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                   ),
                 );
               }
-
+  
               return RefreshIndicator(
                 onRefresh: () async {
                   // This will automatically refresh the page once the use saved the diary.
@@ -154,9 +152,9 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Most used emotion',
+                                  'Most used emotions',
                                   style: TextStyle(
-                                    fontSize: 16.0,
+                                    fontSize: 14.0,
                                     color: Colors.grey[400],
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: 1.0,
@@ -166,7 +164,8 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                                   height: 10.0,
                                 ),
                                 Text(
-                                  '😄',
+                                  "",
+                                  // '😄',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     color: Colors.grey[800],
@@ -192,6 +191,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                             String formattedDatetime =
                                 DateFormat.yMMMd().add_jm().format(dateTime);
                             selectedEmoji(data);
+
                             return Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 5.0),
@@ -305,25 +305,23 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
             }
           },
         ),
-        floatingActionButton: Showcase(
-          key: keyOne,
-          description: "Create Diary",
-          child: FloatingActionButton(
-            backgroundColor: kPrimaryFrmColor,
-            tooltip: "Create Diary",
-            child: const FaIcon(
-              FontAwesomeIcons.featherAlt,
-              // color: Colors.black,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: kPrimaryFrmColor,
+          tooltip: "Create Diary",
+          child: const FaIcon(
+            FontAwesomeIcons.featherAlt,
+            // color: Colors.black,
+          ),
+          onPressed: () => Navigator.of(context)
+              .push(
+            MaterialPageRoute(
+              builder: (context) => const EmojiSelectorPage(),
             ),
-            onPressed: () => Navigator.of(context)
-                .push(
-              MaterialPageRoute(
-                builder: (context) => const EmojiSelectorPage(),
-              ),
-            )
-                .then((value) {
+          )
+              .then(
+            (value) {
               setState(() {});
-            }),
+            },
           ),
         ),
       ),
@@ -331,31 +329,31 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
   }
 
   selectedEmoji(data) {
-    if (data['emojis'] == "Happy") {
+    if (data['emotions'] == "Happy") {
       return Text(emotions[0], style: textStyle);
-    } else if (data['emojis'] == "Crying") {
+    } else if (data['emotions'] == "Crying") {
       return Text(emotions[1], style: textStyle);
-    } else if (data['emojis'] == "Cool") {
+    } else if (data['emotions'] == "Cool") {
       return Text(emotions[2], style: textStyle);
-    } else if (data['emojis'] == "Love") {
+    } else if (data['emotions'] == "Love") {
       return Text(emotions[3], style: textStyle);
-    } else if (data['emojis'] == "Shock") {
+    } else if (data['emotions'] == "Shock") {
       return Text(emotions[4], style: textStyle);
-    } else if (data['emojis'] == "Sleepy") {
+    } else if (data['emotions'] == "Sleepy") {
       return Text(emotions[5], style: textStyle);
-    } else if (data['emojis'] == "Thinking") {
+    } else if (data['emotions'] == "Thinking") {
       return Text(emotions[6], style: textStyle);
-    } else if (data['emojis'] == "Tired") {
+    } else if (data['emotions'] == "Tired") {
       return Text(emotions[7], style: textStyle);
-    } else if (data['emojis'] == "Lonely") {
+    } else if (data['emotions'] == "Lonely") {
       return Text(emotions[8], style: textStyle);
-    } else if (data['emojis'] == "Blessed") {
+    } else if (data['emotions'] == "Blessed") {
       return Text(emotions[9], style: textStyle);
-    } else if (data['emojis'] == "Love") {
+    } else if (data['emotions'] == "Love") {
       return Text(emotions[10], style: textStyle);
-    } else if (data['emojis'] == "Exhausted") {
+    } else if (data['emotions'] == "Exhausted") {
       return Text(emotions[11], style: textStyle);
-    } else if (data['emojis'] == "Drooling") {
+    } else if (data['emotions'] == "Drooling") {
       return Text(emotions[12], style: textStyle);
     }
   }

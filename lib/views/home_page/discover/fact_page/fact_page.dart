@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:umatter/components/close_button.dart';
 import 'package:umatter/controllers/discover_controller/fact_controller.dart';
 import 'package:umatter/utils/colors.dart';
 
@@ -11,7 +13,25 @@ class FactPage extends StatefulWidget {
 }
 
 class _FactPageState extends State<FactPage> {
+  final pageController = PageController();
   final controller = FactCheckController();
+  final flutterTts = FlutterTts();
+
+  var getCurrentPage = 0;
+
+  bool isPlaying = false;
+
+  _speak(desc) async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setPitch(0.9);
+    await flutterTts.speak(desc);
+  }
+
+  _stop() async {
+    await flutterTts.stop();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -25,6 +45,7 @@ class _FactPageState extends State<FactPage> {
               color: Colors.grey[500],
             ),
           ),
+          actions: [closeButtonWidget(context: context)],
           elevation: 0.0,
           backgroundColor: Colors.transparent,
         ),
@@ -48,6 +69,10 @@ class _FactPageState extends State<FactPage> {
                 itemCount: controller.factCheckInfo.length,
                 itemWidth: size.width - 2 * 65,
                 layout: SwiperLayout.STACK,
+                onIndexChanged: (index) async {
+                  getCurrentPage = index;
+                },
+                // index: getCurrentPage,
                 pagination: SwiperPagination(
                   builder: DotSwiperPaginationBuilder(
                     activeSize: 15,
@@ -80,26 +105,58 @@ class _FactPageState extends State<FactPage> {
                                   width: size.width * 0.7,
                                   child: Center(
                                     child: SingleChildScrollView(
-                                      child: Text(
-                                        controller.factCheckInfo[index].desc,
-                                        style: TextStyle(
-                                          color: Colors.grey[600],
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                        ),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            controller
+                                                .factCheckInfo[index].desc,
+                                            style: TextStyle(
+                                              color: Colors.grey[600],
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: 0.5,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   );
                 },
+              ),
+            ),
+            const Spacer(
+              flex: 3,
+            ),
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50.0),
+                  color: Colors.grey[300]),
+              child: IconButton(
+                onPressed: () async {
+                  setState(() {
+                    isPlaying = !isPlaying;
+                  });
+                  if (isPlaying) {
+                    _speak(controller.factCheckInfo[getCurrentPage].desc);
+                    // print(isPlaying);
+                  }
+                  return _stop();
+                },
+                icon: isPlaying
+                    ? const Icon(
+                        Icons.mic_rounded,
+                        size: 30.0,
+                      )
+                    : const Icon(Icons.mic_off_rounded),
               ),
             ),
             const Spacer(

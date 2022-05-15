@@ -10,7 +10,7 @@ Widget externaldirectoriesWidget({
   return Card(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
     color: cardColor,
-    child: Container(
+    child: SizedBox(
       height: size.height * 0.08,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),

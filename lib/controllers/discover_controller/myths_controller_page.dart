@@ -1,4 +1,4 @@
-import 'package:umatter/models/discover_model/myths_model_page.dart';
+import 'package:umatter/models/discover_model/myths_model.dart';
 
 class MythsControllerPage {
   List<MythsInfo> mythsController = [

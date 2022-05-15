@@ -1,4 +1,4 @@
-import 'package:umatter/models/discover_model/knowledge_info_page.dart';
+import 'package:umatter/models/discover_model/knowledge_model.dart';
 
 class KnowledgeController {
   List<KnowledgeInfoPage> knowledgeController = [

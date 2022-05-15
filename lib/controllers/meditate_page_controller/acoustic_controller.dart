@@ -1,4 +1,4 @@
-import 'package:umatter/models/meditate_page_models/acoustic_info_page.dart';
+import 'package:umatter/models/meditate_page_models/acoustic_model.dart';
 
 class AcousticPageController {
   List<AcousticInfoPage> acousticPageController = [

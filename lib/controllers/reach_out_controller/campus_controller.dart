@@ -6,57 +6,50 @@ List<CampusInfoPage> campusInfoPage = [
   CampusInfoPage(
     title: "College of Law",
     subtitle:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+        "CLAW Guidance Counselor is just a few clicks away should you opt to set an appointment for consultation?",
     color: Colors.white,
-    imgAsset: 'assets/img/cit.png',
+    imgAsset: 'assets/img/professionals/colleges_logo/CLAW.png',
   ),
   CampusInfoPage(
     title: "College of Information Technology",
     subtitle:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+        "COT Guidance Counselor is just a few clicks away should you opt to set an appointment for consultation?",
     color: Colors.white,
-    imgAsset: 'assets/img/cit.png',
+    imgAsset: 'assets/img/professionals/colleges_logo/CIT.png',
   ),
   CampusInfoPage(
     title: "Colllege of Manangement",
     subtitle:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+        "COM Guidance Counselor is just a few clicks away should you opt to set an appointment for consultation?",
     color: Colors.white,
-    imgAsset: 'assets/img/cit.png',
+    imgAsset: 'assets/img/professionals/colleges_logo/COM.png',
   ),
   CampusInfoPage(
     title: "College of Arts and Sciences",
     subtitle:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+        "CAS Guidance Counselor is just a few clicks away should you opt to set an appointment for consultation?",
     color: Colors.white,
-    imgAsset: 'assets/img/cit.png',
+    imgAsset: 'assets/img/professionals/colleges_logo/CAS.png',
   ),
   CampusInfoPage(
     title: "College of Engineering",
     subtitle:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+        "COE Guidance Counselor is just a few clicks away should you opt to set an appointment for consultation?",
     color: Colors.white,
-    imgAsset: 'assets/img/cit.png',
-  ),
-  CampusInfoPage(
-    title: "College of Electro Mechanical Technology",
-    subtitle:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-    color: Colors.white,
-    imgAsset: 'assets/img/cit.png',
+    imgAsset: 'assets/img/professionals/colleges_logo/COE.png',
   ),
   CampusInfoPage(
     title: "College of Technical Education",
     subtitle:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-    imgAsset: 'assets/img/cit.png',
+        "CTED Guidance Counselor is just a few clicks away should you opt to set an appointment for consultation?",
+    imgAsset: 'assets/img/professionals/colleges_logo/CLAW.png',
     color: Colors.white,
   ),
   CampusInfoPage(
     title: "College of Technology",
     subtitle:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-    imgAsset: 'assets/img/cit.png',
+        "COT Guidance Counselor is just a few clicks away should you opt to set an appointment for consultation?",
+    imgAsset: 'assets/img/professionals/colleges_logo/COT.png',
     color: Colors.white,
   ),
 ];

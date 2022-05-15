@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -6,6 +7,9 @@ import 'package:umatter/auth/auth_pages/login_page.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
 import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
 import 'package:email_validator/email_validator.dart';
+
+import '../../components/termsandconditions.dart';
+import '../../utils/colors.dart';
 
 class CreateAccountPage extends StatefulWidget {
   const CreateAccountPage({Key? key}) : super(key: key);
@@ -22,6 +26,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   bool connection = true;
   bool isShow = true;
+  bool isChecked = false;
 
   @override
   void initState() {
@@ -63,6 +68,113 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         height: _size.height * 0.04,
                       ),
                       _buildCreateAccountBtn(_size),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Checkbox(
+                              value: isChecked,
+                              onChanged: (icChecked) {
+                                setState(() {
+                                  isChecked = !isChecked;
+                                });
+                              }),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    text: ' I agree to the ',
+                                    style: TextStyle(color: Colors.grey[700])),
+                                TextSpan(
+                                  text: "Terms and Condition",
+                                  style: TextStyle(color: Colors.blue),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0)),
+                                          content: SingleChildScrollView(
+                                            child: Text(
+                                              termsandConditions,
+                                              style: TextStyle(
+                                                color: Colors.grey[700],
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.bold,
+                                                letterSpacing: 1.0,
+                                              ),
+                                            ),
+                                          ),
+                                          actions: [
+                                            SizedBox(
+                                              height: _size.height * 0.06,
+                                              width: double.infinity,
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                    primary: kPrimaryColor),
+                                                onPressed: () =>
+                                                    Navigator.of(context).pop(),
+                                                child: const Text('Continue'),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                ),
+                                // TextSpan(
+                                //     text: " and ",
+                                //     style:
+                                //         TextStyle(color: Colors.grey[700])),
+                                // TextSpan(
+                                //   text: "Privacy Policy",
+                                //   style: TextStyle(color: Colors.blue),
+                                //   recognizer: TapGestureRecognizer()
+                                //     ..onTap = () {
+                                //       showDialog(
+                                //         context: context,
+                                //         builder: (context) => AlertDialog(
+                                //           shape: RoundedRectangleBorder(
+                                //               borderRadius:
+                                //                   BorderRadius.circular(
+                                //                       10.0)),
+                                //           content: SingleChildScrollView(
+                                //             child: Text(
+                                //               privacyandPolicy,
+                                //               style: TextStyle(
+                                //                 color: Colors.grey[700],
+                                //                 fontSize: 12.0,
+                                //                 fontWeight: FontWeight.bold,
+                                //                 letterSpacing: 1.0,
+                                //               ),
+                                //             ),
+                                //           ),
+                                //           actions: [
+                                //             SizedBox(
+                                //               height: _size.height * 0.06,
+                                //               width: double.infinity,
+                                //               child: ElevatedButton(
+                                //                 style:
+                                //                     ElevatedButton.styleFrom(
+                                //                         primary:
+                                //                             kPrimaryColor),
+                                //                 onPressed: () =>
+                                //                     Navigator.of(context)
+                                //                         .pop(),
+                                //                 child: const Text('Continue'),
+                                //               ),
+                                //             )
+                                //           ],
+                                //         ),
+                                //       );
+                                //     },
+                                // ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 )
@@ -75,19 +187,23 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   _buildLottieIcon() =>
       Lottie.asset('assets/img/authentication/sign_up.json', width: 240.0);
 
-  _buildGreetings() => const Padding(
-        padding: EdgeInsets.symmetric(vertical: 50.0),
+  _buildGreetings() => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 50.0),
         child: Text(
           "Create your account",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20.0),
+          style: TextStyle(
+            color: Colors.grey[800],
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       );
 
   _buildEmailField() => TextFormField(
         keyboardType: TextInputType.emailAddress,
         controller: emailController,
-        cursorColor: Colors.white,
+        cursorColor: Colors.black,
         textInputAction: TextInputAction.next,
         decoration: const InputDecoration(labelText: "Email"),
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -97,7 +213,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       );
   _buildPasswordField() => TextFormField(
         controller: passwordController,
-        cursorColor: Colors.white,
+        cursorColor: Colors.black,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           labelText: "Password",
@@ -133,7 +249,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               )),
-          onPressed: _createAccount,
+          onPressed: isChecked ? _createAccount : null,
           child: const Text('Sign In'),
         ),
       );

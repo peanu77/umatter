@@ -51,10 +51,7 @@ Widget musicCardListWidget({
                   ),
                 ],
               ),
-
-              // img shit
               Container(
-                // color: Colors.orange,
                 padding: const EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50.0),

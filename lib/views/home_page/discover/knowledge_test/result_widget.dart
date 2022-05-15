@@ -12,7 +12,7 @@ Widget resultWidget({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Spacer(),
+        const Spacer(),
         // Titlte
         Text(
           'Congratulations you got',
@@ -24,7 +24,7 @@ Widget resultWidget({
           ),
         ),
 
-        Spacer(),
+        const Spacer(),
 
         // Quiz result
         Container(
@@ -51,10 +51,10 @@ Widget resultWidget({
             style: kElevatedbtnprimary,
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                  builder: (context) => GamePage(),
+                  builder: (context) => const GamePage(),
                 ),
                 (route) => false),
-            child: Text('Continue'),
+            child: const Text('Continue'),
           ),
         ),
         const Spacer(),

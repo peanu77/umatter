@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/components/app_bar_component.dart';
 import 'package:umatter/views/home_page/meditate/meditate_card_widget.dart';
-import 'package:umatter/views/home_page/meditate/meditate_controller.dart';
+import 'package:umatter/controllers/meditate_page_controller/meditate_controller.dart';
 
 class MeditatePage extends StatefulWidget {
   const MeditatePage({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class _MeditatePageState extends State<MeditatePage> {
               onPressed: () => Navigator.of(context).pop(),
             ),
             title: Text(
-              'Music Therapy',
+              'U-Tunes',
               style: kAppBarTitle,
             ),
             centerTitle: true,

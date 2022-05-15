@@ -80,7 +80,7 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
                     ),
                   ),
                   content: const Text(
-                    'By sharing the information to other user you take responsibility of your own action.',
+                    """Are you willing to share your journal entries, should you opt to consult with a licensed professional?""",
                     // textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
@@ -283,7 +283,8 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
   }
 
   void shareDiary(BuildContext context) async {
-    String diary = "$title \n\n$desc";
+    String diary =
+        "Emotion: ${widget.emotion} \nTitle: $title \n\nDescription: $desc";
     final box = context.findRenderObject() as RenderBox?;
 
     await Share.share(diary,
@@ -292,43 +293,43 @@ class _ViewDiaryPageState extends State<ViewDiaryPage> {
   }
 
   selectedEmoji() {
-    if (widget.data['emojis'] == "Happy") {
+    if (widget.data['emotions'] == "Happy") {
       return Text(myEmotions[0], style: ktextStyle);
     }
-    if (widget.data['emojis'] == "Crying") {
+    if (widget.data['emotions'] == "Crying") {
       return Text(myEmotions[1], style: ktextStyle);
     }
-    if (widget.data['emojis'] == "Cool") {
+    if (widget.data['emotions'] == "Cool") {
       return Text(myEmotions[2], style: ktextStyle);
     }
-    if (widget.data['emojis'] == "Love") {
+    if (widget.data['emotions'] == "Love") {
       return Text(myEmotions[3], style: ktextStyle);
     }
-    if (widget.data['emojis'] == "Shock") {
+    if (widget.data['emotions'] == "Shock") {
       return Text(myEmotions[4], style: ktextStyle);
     }
-    if (widget.data['emojis'] == "Sleepy") {
+    if (widget.data['emotions'] == "Sleepy") {
       return Text(myEmotions[5], style: ktextStyle);
     }
-    if (widget.data['emojis'] == "Thinking") {
+    if (widget.data['emotions'] == "Thinking") {
       return Text(myEmotions[6], style: ktextStyle);
     }
-    if (widget.data['emojis'] == "Tired") {
+    if (widget.data['emotions'] == "Tired") {
       return Text(myEmotions[7], style: ktextStyle);
     }
-    if (widget.data['emojis'] == "Lonely") {
+    if (widget.data['emotions'] == "Lonely") {
       return Text(myEmotions[8], style: ktextStyle);
     }
-    if (widget.data['emojis'] == "Blessed") {
+    if (widget.data['emotions'] == "Blessed") {
       return Text(myEmotions[9], style: ktextStyle);
     }
-    if (widget.data['emojis'] == "Love") {
+    if (widget.data['emotions'] == "Love") {
       return Text(myEmotions[10], style: ktextStyle);
     }
-    if (widget.data['emojis'] == "Exhausted") {
+    if (widget.data['emotions'] == "Exhausted") {
       return Text(myEmotions[11], style: ktextStyle);
     }
-    if (widget.data['emojis'] == "Drooling") {
+    if (widget.data['emotions'] == "Drooling") {
       return Text(myEmotions[12], style: ktextStyle);
     }
   }

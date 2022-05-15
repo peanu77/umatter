@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
+import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/utils/colors.dart';
 import 'package:umatter/utils/daytime_checker.dart';
@@ -7,10 +10,10 @@ import 'package:umatter/views/home_page/assessment_page/assessment_disclaimer.da
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../components/widgets/home_page_card_widget.dart';
-import '../../controllers/home_page_controller/home_page_controller.dart';
-import '../../preferences/run_preferences.dart';
-
+import '../../controllers/home_page_controller/homepage_controller.dart';
 import 'get_user_information_page/get_user_data_page.dart';
+
+int? isDisplayed;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,49 +23,68 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final keyOne = GlobalKey();
   final _dayTimeChecker = DayTimeChecker();
-
-  String name = SharePrefConfig.getUsername() ?? "";
   final homeController = HomePageController();
 
+  var data;
+  var res;
+
+  bool isDisabled = false;
+  bool isAnswered = false;
+
   String assessmentScore = (SharePrefConfig.getAssessmentScore() ?? "0");
+  String answered = (SharePrefConfig.getAnswered() ?? "");
+  DatabaseManager databaseManager = DatabaseManager();
+  Future<SharedPreferences> pref = SharedPreferences.getInstance();
+  SharePrefConfig sharePrefConfig = SharePrefConfig();
+  // Shared Preferences
+  final keyOne = GlobalKey();
+  final keyTwo = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      // final getCount = sharePrefConfig.incrementCount();
+
+      // if (getCount == 1) {
+      ShowCaseWidget.of(context)?.startShowCase([
+        keyOne,
+        keyTwo,
+      ]);
+      //   } else {
+      //     print('na');
+      //   }
+    });
+  }
+
+  CollectionReference assessmentRef = FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser?.uid)
+      .collection('assessment');
 
   CollectionReference ref = FirebaseFirestore.instance
       .collection('users')
       .doc(FirebaseAuth.instance.currentUser?.uid)
       .collection('user_info');
 
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-
-  // Stream users = FirebaseFirestore.instance.collection('users').snapshots();
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
-
-  checkValidTime() {
-    // 2 weeks (336)
-    final now = DateTime.now();
-    final duration = Duration(hours: 336);
-    final hour = now.hour.toString();
-    final minute = now.minute.toString();
-    print("$hour : $minute");
-  }
-
   @override
   Widget build(BuildContext context) {
+    sharePrefConfig.onetimeShowcase();
     final size = MediaQuery.of(context).size;
-    final _runPreferences = RunPreferences();
+    // final _runPreferences = RunPreferences();
     return RefreshIndicator(
       onRefresh: () async {
-        setState(() {
-          name;
-        });
+        setState(() {});
       },
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey[100],
-          body: FutureBuilder<QuerySnapshot>(
-              future: ref.get(),
+          body: StreamBuilder<QuerySnapshot>(
+              stream: ref.snapshots(),
               builder: (context, snapshot) {
+                getUserData(snapshot);
+                // print(data);
                 return SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -71,15 +93,17 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // IconButton(
-                        //   onPressed: () {
-                        //     checkValidTime();
-                        //   },
-                        //   icon: Icon(Icons.add),
-                        // ),
+                        //     onPressed: () {
+                        //       print(ress);
+                        //     },
+                        //     icon: const Icon(Icons.add)),
+
                         // Greet / Username
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            // Text('${sharePrefConfig.onetimeShowcase()}'),
+                            // Text('$isDisplayed'),
                             // Greeting
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,45 +117,53 @@ class _HomePageState extends State<HomePage> {
                                     color: Colors.grey[800],
                                   ),
                                 ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50.0),
-                                    color: Colors.grey[200],
-                                  ),
-                                  child: IconButton(
-                                    onPressed: () => Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const UserInfoPage(),
-                                      ),
+
+                                // Get user data
+
+                                Showcase(
+                                  key: keyOne,
+                                  description: 'Setup your profile',
+                                  disposeOnTap: true,
+                                  onTargetClick: () => Navigator.of(context)
+                                      .push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const UserInfoPage(),
+                                        ),
+                                      )
+                                      .then((value) => setState(() {
+                                            ShowCaseWidget.of(context)!
+                                                .startShowCase([keyTwo]);
+                                          })),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      color: Colors.grey[200],
                                     ),
-                                    icon: Icon(
-                                      Icons.person,
-                                      color: Colors.grey[800],
-                                    ),
+                                    child: data == null
+                                        ? IconButton(
+                                            onPressed: () =>
+                                                Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const UserInfoPage(),
+                                              ),
+                                            ),
+                                            icon: Icon(
+                                              Icons.person,
+                                              color: Colors.grey[800],
+                                            ),
+                                          )
+                                        : null,
                                   ),
-                                )
+                                ),
                               ],
                             ),
-                            // Container(
-                            //   child: StreamBuilder(
-                            //       stream: users,
-                            //       builder: (context, snapshot) {
-                            //         if (snapshot.hasError) {
-                            //           return Text('Something went wrong');
-                            //         }
-                            //         if (snapshot.data == null) {
-                            //           return Text('');
-                            //         }
-                            //         if (snapshot.connectionState ==
-                            //             ConnectionState.waiting) {
-                            //           return Text('Loading data...');
-                            //         }
-                            //       }),
-                            // ),
-
+                            const SizedBox(
+                              height: 10.0,
+                            ),
                             Text(
-                              name,
+                              data != null ? data!['username'] : '',
                               style: TextStyle(
                                 fontSize: 16.0,
                                 letterSpacing: 1.0,
@@ -144,8 +176,7 @@ class _HomePageState extends State<HomePage> {
                           height: 30.0,
                         ),
 
-                        _buildAssessmentPage(
-                            size, _runPreferences, assessmentScore),
+                        _buildAssessmentPage(size, assessmentScore, isDisabled),
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 20.0),
                           // color: Colors.orange,
@@ -194,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                           height: 20.0,
                         ),
 
-                        // Diary Page
+                        // My Journal
                         homePageCardWidget(
                           title: homeController.homepageController[3].title,
                           subtitle:
@@ -244,95 +275,142 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _buildAssessmentPage(size, _runPreferences, assessmentScore) {
-    return Container(
-      decoration: BoxDecoration(
-        color: homeController.homepageController[0].color,
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 15.0,
-          vertical: 10.0,
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey[300],
-                  ),
-                  height: size.height * 0.19,
-                  width: size.width * 0.24,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: CircularPercentIndicator(
-                      radius: 40,
-                      percent: double.parse(assessmentScore) / 27.0,
-                      center: Text(assessmentScore),
-                      animation: true,
-                      animationDuration: 1000,
-                    ),
-                  ),
+  _buildAssessmentPage(size, assessmentScore, isDisabled) {
+    return Showcase(
+      key: keyTwo,
+      description: 'Take an assessment',
+      disposeOnTap: true,
+      onTargetClick: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const AssessmentDisclaimerPage())),
+      child: StreamBuilder(
+          stream: assessmentRef.snapshots(),
+          builder: (context, snapshot) {
+            getAssessmentRes(snapshot);
+
+            return Container(
+              decoration: BoxDecoration(
+                color: homeController.homepageController[0].color,
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15.0,
+                  vertical: 10.0,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
                   children: [
-                    Text(
-                      homeController.homepageController[0].title,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 1.0,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10.0,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey[300],
+                          ),
+                          height: size.height * 0.19,
+                          width: size.width * 0.24,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: CircularPercentIndicator(
+                              radius: 40,
+                              percent: double.parse(assessmentScore) / 27.0,
+                              center: Text(assessmentScore),
+                              animation: true,
+                              animationDuration: 1000,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              homeController.homepageController[0].title,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 1.0,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            SizedBox(
+                              width: size.width * 0.5,
+                              child: Text(
+                                homeController.homepageController[0].subtitle,
+                                style: const TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.white70,
+                                  letterSpacing: 1.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                     SizedBox(
-                      width: size.width * 0.5,
-                      child: Text(
-                        homeController.homepageController[0].subtitle,
-                        style: const TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.white70,
-                          letterSpacing: 1.0,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: kbtnColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              15.0,
+                            ),
+                          ),
+                        ),
+                        onPressed: () async {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  const AssessmentDisclaimerPage()));
+                        },
+                        child: const Text(
+                          'Continue',
                         ),
                       ),
                     ),
                   ],
                 ),
-              ],
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: kbtnColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      15.0,
-                    ),
-                  ),
-                ),
-                onPressed: () async {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const AssessmentDisclaimerPage()));
-                },
-                child: const Text(
-                  'Continue',
-                ),
               ),
-            ),
-          ],
-        ),
-      ),
+            );
+          }),
     );
+  }
+
+  getDateRange() async {
+    final now = DateTime.now();
+    final later = now.add(const Duration(hours: 336));
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // print(later);
+    // print(now);
+
+    // print(answered);
+    if (answered == "1") {
+      isDisabled == true;
+      if (now == later) {
+        setState(() {
+          isDisabled = false;
+        });
+      } else {
+        sharedPreferences.remove("answered");
+        isDisabled = false;
+      }
+    } else {
+      return true;
+    }
+    // print(answered);
+    // print(isDisabled);
+  }
+
+  getAssessmentRes(snapshot) {
+    snapshot.data?.docs.forEach((doc) => {res = doc.data()});
+  }
+
+  getUserData(snapshot) {
+    snapshot.data?.docs.forEach((doc) => {data = doc.data()});
   }
 }

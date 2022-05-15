@@ -4,9 +4,8 @@ import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/components/close_button.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.dart';
-import 'package:umatter/preferences/run_preferences.dart';
-
-import '../../../preferences/consts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserInfoPage extends StatefulWidget {
   const UserInfoPage({Key? key}) : super(key: key);
@@ -19,11 +18,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
   PageController pageController = PageController();
   DatabaseManager databaseManager = DatabaseManager();
   SharePrefConfig sharePrefConfig = SharePrefConfig();
-  // TextEditingController usernameController = TextEditingController();
-  // TextEditingController ageController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  final _runPreferences = RunPreferences();
 
   final civilStatusItem = ['Single', 'Married', 'Separated', 'Widowed'];
   final genderItem = ["Male", "Female", "Others"];
@@ -33,27 +29,15 @@ class _UserInfoPageState extends State<UserInfoPage> {
   String? genderValue;
   String? civilStatusValue;
 
+  final email = FirebaseAuth.instance.currentUser?.email;
+
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          actions: [
-            // Padding(
-            //   padding: const EdgeInsets.only(right: 30.0),
-            //   child: InkWell(
-            //     splashFactory: NoSplash.splashFactory,
-            //     onTap: () => Navigator.of(context).pop(),
-            //     child: Icon(
-            //       Icons.close,
-            //       color: Colors.grey[300],
-            //     ),
-            //   ),
-            // )
-
-            closeButtonWidget(context: context)
-          ],
+          actions: [closeButtonWidget(context: context)],
           backgroundColor: Colors.transparent,
           elevation: 0.0,
         ),
@@ -94,11 +78,11 @@ class _UserInfoPageState extends State<UserInfoPage> {
                           });
                         },
                         validator: (value) {
-                          if (value!.length <= 3) {
-                            return "Username must be greater than 3";
-                          }
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return "Username field is required";
+                          }
+                          if (value.length <= 3) {
+                            return "Username must be greater than 3";
                           }
                           if (value.length > 10) {
                             return "Username must be less than 10";
@@ -123,11 +107,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                           int parseAge = int.parse(age);
                           if (value!.isEmpty) {
                             return "Age field required";
-                          }
-                          if (value.length > 10) {
-                            return "Username too long!";
-                          }
-                          if (parseAge >= 12 || parseAge <= 60) {
+                          } else if (parseAge >= 12 || parseAge <= 60) {
                             return "Invalid age type";
                           }
                           // if (int.parse(value) >= 16 &&
@@ -232,21 +212,23 @@ class _UserInfoPageState extends State<UserInfoPage> {
                             ),
                           ),
                           onPressed: () async {
-                            // print(username);
-                            // print(age);
-                            // print(genderValue);
-                            // print(civilStatusValue);
                             final isValid = _formKey.currentState!.validate();
-                            sharePrefConfig.userInfoController();
-                            _runPreferences.disableFirstRun(assessmentRunKey);
+                            databaseManager.createUserInfo(email, username, age,
+                                genderValue, civilStatusValue);
 
-                            databaseManager.createUserInfo(
-                                username, age, genderValue, civilStatusValue);
+                            CollectionReference ref = FirebaseFirestore.instance
+                                .collection('users')
+                                .doc('users_list')
+                                .collection('users_info');
 
-                            SharePrefConfig.setUsername(username);
-                            SharePrefConfig.setAge(age);
-                            SharePrefConfig.setGender(genderValue!);
-                            SharePrefConfig.setCivilStatus(civilStatusValue!);
+                            var userData = {
+                              'email': email,
+                              'username': username,
+                              'age': age,
+                              'gender': genderValue,
+                              "civil_status": civilStatusValue,
+                            };
+                            ref.add(userData);
 
                             Navigator.of(context).pop();
                           },

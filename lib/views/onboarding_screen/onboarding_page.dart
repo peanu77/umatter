@@ -4,6 +4,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:umatter/auth/auth_pages/login_page_controller.dart';
 import 'package:umatter/controllers/onboarding_screen_controller/onboarding_controller.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
+import 'package:umatter/utils/colors.dart';
+
+import '../../components/termsandconditions.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -84,8 +87,40 @@ class _OnboardingPageState extends State<OnboardingPage> {
               isLastPage
                   ? ElevatedButton(
                       onPressed: () async {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => const LogInPage()));
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                            content: SingleChildScrollView(
+                              child: Text(
+                                termsandConditions,
+                                style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1.0,
+                                ),
+                              ),
+                            ),
+                            actions: [
+                              SizedBox(
+                                height: _size.height * 0.06,
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: kPrimaryColor),
+                                  onPressed: () => Navigator.of(context)
+                                      .pushReplacement(MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LogInPage())),
+                                  child: const Text('Continue'),
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+
                         await sharedPref.onboardingPageInfoController();
                       },
                       style: ElevatedButton.styleFrom(
@@ -138,7 +173,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
       // title
       Text(
         title,
-        style: const TextStyle(fontSize: 20.0),
+        style: TextStyle(
+          color: Colors.grey[800],
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1.0,
+        ),
       ),
       const Spacer(),
       // subtitle
@@ -146,7 +186,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: Text(
           subtitle,
-          style: TextStyle(fontSize: 16.0, color: Colors.grey[600]),
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.grey[600],
+            letterSpacing: 1.0,
+          ),
           textAlign: TextAlign.center,
         ),
       ),

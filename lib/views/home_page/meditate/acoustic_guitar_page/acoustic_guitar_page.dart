@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/components/app_bar_component.dart';
-import 'package:umatter/controllers/meditate_page_controller/acoustic_controller_page.dart';
+import 'package:umatter/controllers/meditate_page_controller/acoustic_controller.dart';
 import 'package:umatter/views/home_page/meditate/acoustic_guitar_page/acoustic_view_page.dart';
 import 'package:umatter/views/home_page/meditate/music_card_list_widget.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:umatter/controllers/home_page_controller/home_page_controller.dart';
+import 'package:umatter/controllers/home_page_controller/homepage_controller.dart';
 import 'package:umatter/preferences/consts.dart';
 import 'package:umatter/utils/colors.dart';
 import 'package:umatter/views/home_page/get_user_information_page/get_user_data_page.dart';

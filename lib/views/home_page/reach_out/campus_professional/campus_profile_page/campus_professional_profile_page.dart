@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:umatter/controllers/reach_out_controller/external_directories_controller.dart';
+
+import '../../../../../controllers/reach_out_controller/external_directories_controller.dart';
 
 class CampusProfessionalProfilePage extends StatefulWidget {
   final controller;
   final index;
+
   // final
   const CampusProfessionalProfilePage({
     Key? key,
@@ -180,9 +182,14 @@ class _CampusProfessionalProfilePageState
                           ),
                           const Spacer(),
                           OutlinedButton(
-                            // TODO: NAVIGATE TO MESSENGER
                             onPressed: () => launchUrl(
                                 widget.controller[widget.index].formLink),
+                            // onPressed: () {
+                            //   // Navigator.of(context).push(
+                            //   //   MaterialPageRoute(
+                            //   //       builder: (context) =>
+                            //   //           const ScheduleCounsellingPage()
+                            // },
                             style: OutlinedButton.styleFrom(
                               primary: Colors.grey[800],
                               backgroundColor: Colors.white,
@@ -194,7 +201,7 @@ class _CampusProfessionalProfilePageState
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
-                            child: const Text('Schedule Counselling '),
+                            child: const Text('Schedule Counselling'),
                           ),
                         ],
                       ),
@@ -211,7 +218,7 @@ class _CampusProfessionalProfilePageState
                             children: [
                               // Room No.
                               Text(
-                                "Room No. \n${widget.controller[widget.index].buildingNo}",
+                                "Room No. \n${widget.controller[widget.index].roomNo}",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 18.0,

@@ -19,7 +19,7 @@ class _EmojiSelectorPageState extends State<EmojiSelectorPage> {
   List<String> reasonList = SharePrefConfig.getReasons() ?? [];
 
   final selectEmojiController = SelectEmojiController();
-  final pageController = PageController(initialPage: 1);
+  final pageController = PageController(initialPage: 0);
   setEmotion() {
     return setState(() {
       emotions;
@@ -82,7 +82,7 @@ class _EmojiSelectorPageState extends State<EmojiSelectorPage> {
                   } else if (index == 12) {
                     emotions = "Drooling";
                   }
-                  print(setEmotion());
+                  setEmotion();
                 },
                 children: [
                   Image.asset(
@@ -152,9 +152,9 @@ class _EmojiSelectorPageState extends State<EmojiSelectorPage> {
                     size: 30.0,
                   ),
                 ),
-                const SizedBox(
-                  width: 50.0,
-                ),
+                // const SizedBox(
+                //   width: 50.0,
+                // ),
                 IconButton(
                   onPressed: () => pageController.nextPage(
                     duration: const Duration(milliseconds: 500),
@@ -190,7 +190,7 @@ class _EmojiSelectorPageState extends State<EmojiSelectorPage> {
                       ),
                     );
                   },
-                  child: const Text('Continue'),
+                  child: const Text('Set Mood'),
                 ),
               ),
             ),

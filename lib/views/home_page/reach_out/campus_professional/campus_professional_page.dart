@@ -51,22 +51,6 @@ class _CampusProfessionalPageState extends State<CampusProfessionalPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // GestureDetector(
-              //   onTap: () => Navigator.of(context).pop(),
-              //   child: closeButtonWidget(context: context),
-              // ),
-              // settingsLabelWidget(
-              //   title: "DMMMSU Counsellor",
-              //   width: 0.0,
-              //   height: 0.0,
-              //   fontSize: 20.0,
-              //   fontColor: Colors.grey[600],
-              //   fontWeight: FontWeight.bold,
-              //   letterSpacing: 1.0,
-              // ),
-              // const SizedBox(
-              //   height: 20.0,
-              // ),
               Expanded(
                 child: ListView.builder(
                   itemCount: campusInfoPage.length,

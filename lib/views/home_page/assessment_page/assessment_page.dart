@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:umatter/components/close_button.dart';
+import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/controllers/assessment_controller/assessment_controller.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/home_page/assessment_page/assessment_result.dart';
+import 'package:umatter/views/home_page/nav_bar/navbar_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AssessmentPage extends StatefulWidget {
   const AssessmentPage({Key? key}) : super(key: key);
@@ -16,14 +17,20 @@ class AssessmentPage extends StatefulWidget {
 
 class _AssessmentPageState extends State<AssessmentPage> {
   PageController pageController = PageController();
+  DatabaseManager databaseManager = DatabaseManager();
+
   final controller = AssessmentController();
 
   List<int> scores = [];
   List<String> assessmentList = [];
   List<String> assessmentScores = [];
-  var selectedItem = '';
+
   String depressionLevel = '';
+  int totalScore = 0;
+  var selectedItem = '';
   var selectedPageIndex = 0.obs;
+
+  final email = FirebaseAuth.instance.currentUser?.email;
 
   Color btnColor = const Color(0xffffcb77);
 
@@ -34,10 +41,18 @@ class _AssessmentPageState extends State<AssessmentPage> {
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        actions: [closeButtonWidget(context: context)],
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const NavBarPage()),
+                (route) => false),
+            icon: const Icon(Icons.close_rounded),
+          )
+        ],
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
@@ -133,8 +148,8 @@ class _AssessmentPageState extends State<AssessmentPage> {
           assessmentList.add(selectedItem);
           assessmentScores.add(score.toString());
           nextPageController();
-          print(score);
-          print(selectedItem);
+          // print(score);
+          // print(selectedItem);
           // print(selectedItem);
         },
         child: const Text(
@@ -167,7 +182,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
           assessmentScores.add(score.toString());
 
           nextPageController();
-          print(score);
+          // print(score);
           // print(selectedItem);
         },
         child: const Text(
@@ -200,7 +215,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
           assessmentScores.add(score.toString());
           nextPageController();
 
-          print(score);
+          // print(score);
           // print(selectedItem);
         },
         child: const Text(
@@ -233,7 +248,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
           assessmentScores.add(score.toString());
           nextPageController();
 
-          print(score);
+          // print(score);
           // print(selectedItem);
         },
         child: const Text(
@@ -247,26 +262,14 @@ class _AssessmentPageState extends State<AssessmentPage> {
     );
   }
 
-  addAssessmentForm() async {
-    CollectionReference ref = FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection('assessment');
-
-    var data = {
-      "question": controller.questionsController.length,
-      "user_selection": assessmentList,
-      "depression_severity": sumScores().toString(),
-    };
-    ref.add(data);
-  }
-
   sumScores() {
     num score = 0;
     for (var e in scores) {
       score += e;
       SharePrefConfig.setAssessmentScore(score.toString());
     }
+    totalScore = score.toInt();
+
     if (score >= 0 && score <= 5) {
       depressionLevel = "Mild";
       return depressionLevel;
@@ -277,7 +280,7 @@ class _AssessmentPageState extends State<AssessmentPage> {
       depressionLevel = "Moderately Severe";
       return depressionLevel;
     } else if (score >= 16) {
-      depressionLevel = "Severe Depression";
+      depressionLevel = "Severe";
       return depressionLevel;
     }
     // SharePrefConfig.setAssessmentScore(score.toString());
@@ -294,10 +297,25 @@ class _AssessmentPageState extends State<AssessmentPage> {
           ),
         ),
       );
-      print(sumScores());
+      // print(sumScores());
       SharePrefConfig.setAssessment(assessmentList);
       SharePrefConfig.setAssessment(assessmentScores);
-      addAssessmentForm();
+      databaseManager.addAssessmentForm(controller.questionsController.length,
+          assessmentList, sumScores().toString(), totalScore);
+
+      CollectionReference ref = FirebaseFirestore.instance
+          .collection('users')
+          .doc('assessment')
+          .collection('assessment');
+
+      var data = {
+        "question": controller.questionsController.length,
+        "user_selection": assessmentList,
+        "depression_severity": sumScores().toString(),
+        "score": totalScore,
+        "email": email
+      };
+      ref.add(data);
     } else {
       pageController.nextPage(
           duration: const Duration(milliseconds: 300), curve: Curves.ease);

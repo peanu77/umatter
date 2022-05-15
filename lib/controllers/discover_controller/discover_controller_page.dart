@@ -1,4 +1,4 @@
-import 'package:umatter/models/discover_model/discover_info_page.dart';
+import 'package:umatter/models/discover_model/discover_model.dart';
 import 'package:umatter/views/home_page/discover/fact_page/fact_page.dart';
 import 'package:umatter/views/home_page/discover/knowledge_test/game_page.dart';
 import 'package:umatter/views/home_page/discover/myths/myths_page.dart';
@@ -18,7 +18,7 @@ class DiscoverControllerPage {
       const MythsPage(),
     ),
     DiscoverInfoPage(
-      "Knowledge Test",
+      "Quizzes",
       "See how well you know when it comes to Depression.",
       "assets/img/discover/knowledge.svg",
       const GamePage(),

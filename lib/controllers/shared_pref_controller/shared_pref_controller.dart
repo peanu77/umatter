@@ -8,55 +8,40 @@ class SharePrefConfig {
     await sharedPreferences.setInt("onboarding", isViewed);
   }
 
-  userInfoController() async {
+  onetimeShowcase() async {
     int isDisplayed = 0;
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-    await sharedPreferences.setInt('user_info', isDisplayed);
+    await sharedPreferences.setInt("showcase", isDisplayed);
   }
+
+  // getOnetime() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  //   int? isDisplayed = prefs.getInt('showcase');
+  //   return isDisplayed;
+  // }
+
+  // userInfoController() async {
+  //   int isDisplayed = 0;
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+  //   await sharedPreferences.setInt('user_info', isDisplayed);
+  // }
 
   static SharedPreferences _preferences =
       SharedPreferences.getInstance() as SharedPreferences;
 
-  static const _keyUsername = 'username';
-  static const _keyAge = 'age';
-  static const _keyGender = 'gender';
-  static const _keyCivilStatus = 'civilstatus';
   static const _keyReason = 'reasonList';
   static const _keyEmotions = 'emotions';
-  static const _keySelectedColor = 'selectedColor';
   static const _keyAssessment = 'assessment';
   static const _keyAssessmentScore = 'assessmentScore';
   static const _keyTrueorFalseScore = 'trueorfalseScore';
   static const _keyTrueorMultipleChoiceScore = 'multiplechoiceScore';
+  static const _keyAnswered = 'answered';
 
   static Future init() async =>
       _preferences = await SharedPreferences.getInstance();
-
-  // Username
-  static Future setUsername(String username) async =>
-      await _preferences.setString(_keyUsername, username);
-
-  static String? getUsername() => _preferences.getString(_keyUsername);
-
-  // Age
-  static Future setAge(String age) async =>
-      await _preferences.setString(_keyAge, age);
-
-  static String? getAge() => _preferences.getString(_keyAge);
-
-  // Gender
-  static Future setGender(String gender) async =>
-      await _preferences.setString(_keyGender, gender);
-
-  static String? getGender() => _preferences.getString(_keyGender);
-
-  // Civil Status
-  static Future setCivilStatus(String civilstatus) async =>
-      await _preferences.setString(_keyCivilStatus, civilstatus);
-
-  static String? getCivilStatus() => _preferences.getString(_keyCivilStatus);
-
 // Reasons
   static Future setReasons(List<String> reasonList) async =>
       await _preferences.setStringList(_keyReason, reasonList);
@@ -68,14 +53,6 @@ class SharePrefConfig {
       _preferences.setString(_keyEmotions, emotions);
 
   static String? getEmoji() => _preferences.getString(_keyEmotions);
-
-// Selected Colors
-
-  static Future setSelectedColor(String selectedColor) async =>
-      await _preferences.setString(_keySelectedColor, selectedColor);
-
-  static String? getSelectedColor() =>
-      _preferences.getString(_keySelectedColor);
 
   //  Assessment
   static Future setAssessment(List<String> assessment) async =>
@@ -106,4 +83,10 @@ class SharePrefConfig {
 
   static String? getMultipleChoice() =>
       _preferences.getString(_keyTrueorMultipleChoiceScore);
+
+  // Multiple Choice Score
+  static Future setAnswered(String answered) async =>
+      await _preferences.setString(_keyAnswered, answered);
+
+  static String? getAnswered() => _preferences.getString(_keyAnswered);
 }

@@ -30,16 +30,16 @@ class SelectEmojiController {
       'assets/img/diary/lonely.png',
     ),
     SelectEmojiModel(
-      'assets/img/diary/angry.jpg',
+      'assets/img/diary/angry.png',
     ),
     SelectEmojiModel(
-      'assets/img/diary/blessed.jpg',
+      'assets/img/diary/blessed.png',
     ),
     SelectEmojiModel(
       'assets/img/diary/fail.png',
     ),
     SelectEmojiModel(
-      'assets/img/diary/drooling.jpg',
+      'assets/img/diary/drooling.png',
     ),
   ];
 }

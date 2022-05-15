@@ -8,6 +8,7 @@ import 'package:umatter/views/onboarding_screen/onboarding_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 int? isViewed;
+// int? isDisplayed;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Prevent the screen to rotate
@@ -18,7 +19,6 @@ void main() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   isViewed = sharedPreferences.getInt("onboarding");
   await SharePrefConfig.init();
-  // userScreen = await sharedPreferences.getInt("userScreen");
 
   await Firebase.initializeApp();
 

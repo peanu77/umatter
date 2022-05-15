@@ -19,7 +19,7 @@ class _ExternalDirectoriesPageState extends State<ExternalDirectoriesPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('DOH Directories', style: kAppBarTitle),
+        title: Text('DOH Hotlines', style: kAppBarTitle),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),

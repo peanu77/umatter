@@ -2,7 +2,6 @@ class CampusProfileInfoPage {
   final String imgAsset;
   final String name;
   final String profession;
-  final String buildingNo;
   final String floor;
   final String roomNo;
   final String officeStart;
@@ -13,7 +12,6 @@ class CampusProfileInfoPage {
     required this.imgAsset,
     required this.name,
     required this.profession,
-    required this.buildingNo,
     required this.floor,
     required this.roomNo,
     required this.officeStart,

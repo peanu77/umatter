@@ -19,13 +19,16 @@ class AssessmentDisclaimerPage extends StatelessWidget {
             const Spacer(
               flex: 2,
             ),
-            Text(
-              'Before you proceed, let us assess your condition first',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.grey[700],
-                fontWeight: FontWeight.bold,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Text(
+                'Before you proceed, let\'s assess your condition first',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.grey[700],
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             const Spacer(),
@@ -52,23 +55,28 @@ class AssessmentDisclaimerPage extends StatelessWidget {
                       ),
                       backgroundColor: Colors.grey[50],
                       contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 30.0, vertical: 30.0),
+                        horizontal: 30.0,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      titlePadding: const EdgeInsets.all(15.0),
-                      title: const Padding(
-                        padding: EdgeInsets.only(top: 30.0),
+                      title: Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
                         child: Text(
                           'Disclaimer',
                           textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.grey[800],
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       content: Text(
-                        'The following Assessment is from the Primary Care Evaluation of Mental Disorders Patient Health Questionnaire (PRIME-MD PHQ). The PHQ was developed by Drs. Robert L. Spitzer, Janet B.W. Williams, Kurt Kroenke and colleagues. For research information, contact Dr. Spitzer at rls8@columbia.edu. PRIME-MD® is a trademark of Pfizer Inc. Copyright© 1999 Pfizer Inc. All rights reserved. Reproduced with permission',
+                        'The following Assessment is from the Primary Care Evaluation of Mental Disorders Patient Health Questionnaire (PRIME-MD PHQ). The PHQ was developed by Drs. Robert L. Spitzer, Janet B.W. Williams, Kurt Kroenke and colleagues. For research information, contact Dr. Spitzer at rls8@columbia.edu. PRIME-MD® is a trademark of Pfizer Inc. Copyright© 1999 Pfizer Inc. All rights reserved. Reproduced with permission.',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 12.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[600],
                           letterSpacing: 1.0,
@@ -93,7 +101,7 @@ class AssessmentDisclaimerPage extends StatelessWidget {
                                 ),
                               ),
 
-                              child: const Text('Continue'),
+                              child: const Text('Understood'),
                               style: ElevatedButton.styleFrom(
                                 primary: kbtnColor,
                                 shape: RoundedRectangleBorder(
@@ -108,7 +116,7 @@ class AssessmentDisclaimerPage extends StatelessWidget {
                   );
                 },
                 child: const Text(
-                  'Get Started',
+                  'Sure thing!',
                   style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.w400,
@@ -117,21 +125,22 @@ class AssessmentDisclaimerPage extends StatelessWidget {
                 ),
               ),
             ),
-            const Spacer(),
-            Text(
-              "This Application is not intended to replace any clinical diagnosis or treatment.",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.red[500],
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.0,
-                fontStyle: FontStyle.italic,
+            const Spacer(flex: 3),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Text(
+                "* Important Notice : UMatter is not intended to replace any clinical diagnosis or treatment.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.red[500],
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.0,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ),
-            const Spacer(
-              flex: 2,
-            ),
+            const Spacer(),
           ],
         ),
       ),

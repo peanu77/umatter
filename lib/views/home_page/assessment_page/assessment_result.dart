@@ -20,9 +20,9 @@ class _AssessmentResultState extends State<AssessmentResult> {
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,7 +64,7 @@ class _AssessmentResultState extends State<AssessmentResult> {
                   children: [
                     TextSpan(
                       text:
-                          'Based from your answer on the Assessment Test, You are manifesting a ',
+                          'Based on the result of your PHQ9 Assessment, you are manifesting ',
                       style: TextStyle(
                           fontSize: 14.0,
                           color: Colors.grey[600],
@@ -75,15 +75,14 @@ class _AssessmentResultState extends State<AssessmentResult> {
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
-                        color: Colors.red[300],
-                        fontStyle: FontStyle.italic,
+                        color: Colors.red[100],
+                        // fontStyle: FontStyle.italic,
                         decoration: TextDecoration.underline,
                         letterSpacing: 1.0,
                       ),
                     ),
                     TextSpan(
-                      text:
-                          " a symptoms of a seemingly mental health condition.",
+                      text: " of a seemingly mental health condition",
                       style: TextStyle(
                         fontSize: 14.0,
                         color: Colors.grey[600],
@@ -94,34 +93,26 @@ class _AssessmentResultState extends State<AssessmentResult> {
                 ),
               ),
               const Spacer(),
-              // Align(
-              //   alignment: Alignment.center,
-              //   child: CircularPercentIndicator(
-              //     radius: 60,
-              //     percent: double.parse(assessmentScore) / 27.0,
-              //     center: Text(assessmentScore),
-              //     animation: true,
-              //     animationDuration: 1000,
-              //   ),
-              // ),
               SizedBox(
                 height: _size.height * 0.08,
                 width: double.infinity,
                 child: ElevatedButton(
                   style: kElevatedbtnprimary,
                   onPressed: () {
-                    if (widget.assessmentRes == "Moderateley Severe" ||
-                        widget.assessmentRes == "Severe Depression") {
+                    if (widget.assessmentRes == "Mild" ||
+                        widget.assessmentRes == "Moderate") {
+                      SharePrefConfig.setAnswered('1');
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const DiscoverPage()));
+                    } else if (widget.assessmentRes == "Moderately Severe" ||
+                        widget.assessmentRes == "Severe") {
+                      SharePrefConfig.setAnswered('1');
                       _buildDialog();
-                    } else {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => const DiscoverPage()),
-                          (route) => false);
                     }
+                    // print(widget.assessmentRes);
                   },
                   child: const Text(
-                    'Continue',
+                    'Got it!',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -165,8 +156,7 @@ class _AssessmentResultState extends State<AssessmentResult> {
               IconButton(
                 onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
-                        builder: (context) =>
-                            const ProfessionalDirectoriesPage()),
+                        builder: (context) => const ReachOutPage()),
                     (route) => false),
                 icon: Icon(
                   Icons.check,

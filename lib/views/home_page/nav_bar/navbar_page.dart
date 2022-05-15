@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:showcaseview/showcaseview.dart';
+import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/views/home_page/home_page.dart';
 import 'package:umatter/views/home_page/settings_page/settings_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,10 +15,18 @@ class NavBarPage extends StatefulWidget {
 }
 
 class _NavBarPageState extends State<NavBarPage> {
-  List pages = const [
-    HomePage(),
-    QuotesPage(),
-    SettingsPage(),
+  List pages = [
+    ShowCaseWidget(
+      onFinish: () async {
+        SharePrefConfig sharePrefConfig = SharePrefConfig();
+        // sharePrefConfig.incrementCount();
+      },
+      builder: Builder(
+        builder: (_) => const HomePage(),
+      ),
+    ),
+    const QuotesPage(),
+    const SettingsPage(),
   ];
   int currentIndex = 0;
   void onTap(int index) {
