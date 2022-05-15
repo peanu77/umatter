@@ -8,8 +8,7 @@ List<ProfessionalInfoPage> professionalInfoController = [
   ProfessionalInfoPage(
     route: const ScheduleCounsellingPage(),
     title: "Schedule Counselling",
-    subtitle:
-        "Check the list of Department of Health Hotlines that you can dial and visit .",
+    subtitle: "Get Consultation with just a few taps.",
     color: 0xff58c29e,
   ),
   ProfessionalInfoPage(
