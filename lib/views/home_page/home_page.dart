@@ -12,8 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../components/widgets/home_page_card_widget.dart';
 import '../../controllers/home_page_controller/homepage_controller.dart';
 import 'get_user_information_page/get_user_data_page.dart';
-
-int? isDisplayed;
+import '../../preferences/first_login_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,6 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _dayTimeChecker = DayTimeChecker();
   final homeController = HomePageController();
+  final _firstLoginPreferences = FirstLoginPreferences();
 
   var data;
   var res;
@@ -37,21 +37,31 @@ class _HomePageState extends State<HomePage> {
   DatabaseManager databaseManager = DatabaseManager();
   Future<SharedPreferences> pref = SharedPreferences.getInstance();
   SharePrefConfig sharePrefConfig = SharePrefConfig();
+  bool _isFirstLogin = true;
   // Shared Preferences
   final keyOne = GlobalKey();
   final keyTwo = GlobalKey();
 
+  initFirstLogin() async {
+    _isFirstLogin = await FirstLoginPreferences().isFirstLogin();
+    print('IS FIRST LOGIN: ' + _isFirstLogin.toString());
+  }
+
   @override
   void initState() {
+    initFirstLogin();
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       // final getCount = sharePrefConfig.incrementCount();
 
       // if (getCount == 1) {
-      ShowCaseWidget.of(context)?.startShowCase([
-        keyOne,
-        keyTwo,
-      ]);
+      if (_isFirstLogin == true) {
+        _firstLoginPreferences.disabledFirstLogin();
+        ShowCaseWidget.of(context)?.startShowCase([
+          keyOne,
+          keyTwo,
+        ]);
+      }
       //   } else {
       //     print('na');
       //   }
