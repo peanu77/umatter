@@ -86,7 +86,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     style: TextStyle(color: Colors.grey[700])),
                                 TextSpan(
                                   text: "Terms and Condition",
-                                  style: TextStyle(color: Colors.blue),
+                                  style: const TextStyle(color: Colors.blue),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
                                       showDialog(

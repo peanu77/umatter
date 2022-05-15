@@ -353,7 +353,7 @@ class _LoginWidgetState extends State<LoginWidget>
                 context,
                 MaterialPageRoute(
                     builder: (context) => const ForgetPasswordPage())),
-            child: const Text('Forget Password'),
+            child: const Text('Forgot Password'),
           )
         ],
       );

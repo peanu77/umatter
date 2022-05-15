@@ -178,7 +178,7 @@ class _ScheduleCounsellingPageState extends State<ScheduleCounsellingPage> {
                               this.academic = academic!;
                             });
                             if (this.academic == true) {
-                              academicRes = 'Personal-Social';
+                              academicRes = 'Academic';
                             } else if (academic == false) {
                               academicRes = '';
                             }
