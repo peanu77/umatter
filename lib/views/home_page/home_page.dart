@@ -42,26 +42,26 @@ class _HomePageState extends State<HomePage> {
   final keyOne = GlobalKey();
   final keyTwo = GlobalKey();
 
-  initFirstLogin() async {
-    _isFirstLogin = await FirstLoginPreferences().isFirstLogin();
-    print('IS FIRST LOGIN: ' + _isFirstLogin.toString());
-  }
+  // initFirstLogin() async {
+  //   _isFirstLogin = await FirstLoginPreferences().isFirstLogin();
+  //   print('IS FIRST LOGIN: ' + _isFirstLogin.toString());
+  // }
 
   @override
   void initState() {
-    initFirstLogin();
+    // initFirstLogin();
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       // final getCount = sharePrefConfig.incrementCount();
 
       // if (getCount == 1) {
-      if (_isFirstLogin == true) {
-        _firstLoginPreferences.disabledFirstLogin();
-        ShowCaseWidget.of(context)?.startShowCase([
-          keyOne,
-          keyTwo,
-        ]);
-      }
+      // if (_isFirstLogin == true) {
+      //   _firstLoginPreferences.disabledFirstLogin();
+      //   ShowCaseWidget.of(context)?.startShowCase([
+      //     keyOne,
+      //     keyTwo,
+      //   ]);
+      // }
       //   } else {
       //     print('na');
       //   }
