@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:umatter/components/app_bar_component.dart';
 import 'package:umatter/utils/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -271,6 +272,9 @@ class _ScheduleCounsellingPageState extends State<ScheduleCounsellingPage> {
                               final isValid = formKey.currentState!.validate();
 
                               if (isValid) {
+                                var dNow = DateFormat.yMMMd()
+                                    .add_jm()
+                                    .format(DateTime.now());
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(message);
                                 // print(email);
@@ -292,6 +296,7 @@ class _ScheduleCounsellingPageState extends State<ScheduleCounsellingPage> {
                                   "full_name": fullname,
                                   "home_address": homeAddress,
                                   "contact": contact,
+                                  "created_at": dNow,
                                   "purpose": {
                                     "academic": academicRes,
                                     "personal": personalRes,
@@ -313,6 +318,7 @@ class _ScheduleCounsellingPageState extends State<ScheduleCounsellingPage> {
                                   "full_name": fullname,
                                   "home_address": homeAddress,
                                   "contact": contact,
+                                  "created_at": dNow,
                                   "purpose": {
                                     "academic": academicRes,
                                     "personal": personalRes,
@@ -322,7 +328,6 @@ class _ScheduleCounsellingPageState extends State<ScheduleCounsellingPage> {
                                 };
 
                                 counsellingRef.add(counsellingData);
-
                                 Navigator.of(context).pop();
                               }
                             }

@@ -25,7 +25,7 @@ class _ProfessionalDirectoriesPage extends State<ReachOutPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'List of Directories',
+            'Directories',
             style: kAppBarTitle,
           ),
           centerTitle: true,

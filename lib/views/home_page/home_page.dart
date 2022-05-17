@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:showcaseview/showcaseview.dart';
 import 'package:umatter/auth/database_manager.dart';
 import 'package:umatter/controllers/shared_pref_controller/shared_pref_controller.dart';
 import 'package:umatter/utils/colors.dart';
@@ -12,7 +11,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../components/widgets/home_page_card_widget.dart';
 import '../../controllers/home_page_controller/homepage_controller.dart';
 import 'get_user_information_page/get_user_data_page.dart';
-import '../../preferences/first_login_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,7 +22,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _dayTimeChecker = DayTimeChecker();
   final homeController = HomePageController();
-  final _firstLoginPreferences = FirstLoginPreferences();
 
   var data;
   var res;
@@ -36,37 +33,10 @@ class _HomePageState extends State<HomePage> {
   String answered = (SharePrefConfig.getAnswered() ?? "");
   DatabaseManager databaseManager = DatabaseManager();
   Future<SharedPreferences> pref = SharedPreferences.getInstance();
-  SharePrefConfig sharePrefConfig = SharePrefConfig();
-  bool _isFirstLogin = true;
+
   // Shared Preferences
   final keyOne = GlobalKey();
   final keyTwo = GlobalKey();
-
-  // initFirstLogin() async {
-  //   _isFirstLogin = await FirstLoginPreferences().isFirstLogin();
-  //   print('IS FIRST LOGIN: ' + _isFirstLogin.toString());
-  // }
-
-  @override
-  void initState() {
-    // initFirstLogin();
-    super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      // final getCount = sharePrefConfig.incrementCount();
-
-      // if (getCount == 1) {
-      // if (_isFirstLogin == true) {
-      //   _firstLoginPreferences.disabledFirstLogin();
-      //   ShowCaseWidget.of(context)?.startShowCase([
-      //     keyOne,
-      //     keyTwo,
-      //   ]);
-      // }
-      //   } else {
-      //     print('na');
-      //   }
-    });
-  }
 
   CollectionReference assessmentRef = FirebaseFirestore.instance
       .collection('users')
@@ -80,7 +50,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    sharePrefConfig.onetimeShowcase();
     final size = MediaQuery.of(context).size;
     // final _runPreferences = RunPreferences();
     return RefreshIndicator(
@@ -102,19 +71,10 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // IconButton(
-                        //     onPressed: () {
-                        //       print(ress);
-                        //     },
-                        //     icon: const Icon(Icons.add)),
-
                         // Greet / Username
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Text('${sharePrefConfig.onetimeShowcase()}'),
-                            // Text('$isDisplayed'),
-                            // Greeting
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -130,42 +90,26 @@ class _HomePageState extends State<HomePage> {
 
                                 // Get user data
 
-                                Showcase(
-                                  key: keyOne,
-                                  description: 'Setup your profile',
-                                  disposeOnTap: true,
-                                  onTargetClick: () => Navigator.of(context)
-                                      .push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const UserInfoPage(),
-                                        ),
-                                      )
-                                      .then((value) => setState(() {
-                                            ShowCaseWidget.of(context)!
-                                                .startShowCase([keyTwo]);
-                                          })),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50.0),
-                                      color: Colors.grey[200],
-                                    ),
-                                    child: data == null
-                                        ? IconButton(
-                                            onPressed: () =>
-                                                Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const UserInfoPage(),
-                                              ),
-                                            ),
-                                            icon: Icon(
-                                              Icons.person,
-                                              color: Colors.grey[800],
-                                            ),
-                                          )
-                                        : null,
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    color: Colors.grey[200],
                                   ),
+                                  child: data == null
+                                      ? IconButton(
+                                          onPressed: () =>
+                                              Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const UserInfoPage(),
+                                            ),
+                                          ),
+                                          icon: Icon(
+                                            Icons.person,
+                                            color: Colors.grey[800],
+                                          ),
+                                        )
+                                      : null,
                                 ),
                               ],
                             ),
@@ -286,109 +230,102 @@ class _HomePageState extends State<HomePage> {
   }
 
   _buildAssessmentPage(size, assessmentScore, isDisabled) {
-    return Showcase(
-      key: keyTwo,
-      description: 'Take an assessment',
-      disposeOnTap: true,
-      onTargetClick: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const AssessmentDisclaimerPage())),
-      child: StreamBuilder(
-          stream: assessmentRef.snapshots(),
-          builder: (context, snapshot) {
-            getAssessmentRes(snapshot);
+    return StreamBuilder(
+        stream: assessmentRef.snapshots(),
+        builder: (context, snapshot) {
+          getAssessmentRes(snapshot);
 
-            return Container(
-              decoration: BoxDecoration(
-                color: homeController.homepageController[0].color,
-                borderRadius: BorderRadius.circular(20.0),
+          return Container(
+            decoration: BoxDecoration(
+              color: homeController.homepageController[0].color,
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15.0,
+                vertical: 10.0,
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 15.0,
-                  vertical: 10.0,
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey[300],
-                          ),
-                          height: size.height * 0.19,
-                          width: size.width * 0.24,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: CircularPercentIndicator(
-                              radius: 40,
-                              percent: double.parse(assessmentScore) / 27.0,
-                              center: Text(assessmentScore),
-                              animation: true,
-                              animationDuration: 1000,
-                            ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey[300],
+                        ),
+                        height: size.height * 0.19,
+                        width: size.width * 0.24,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: CircularPercentIndicator(
+                            radius: 40,
+                            percent: double.parse(assessmentScore) / 27.0,
+                            center: Text(assessmentScore),
+                            animation: true,
+                            animationDuration: 1000,
                           ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              homeController.homepageController[0].title,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            homeController.homepageController[0].title,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 1.0,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          SizedBox(
+                            width: size.width * 0.5,
+                            child: Text(
+                              homeController.homepageController[0].subtitle,
                               style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w400,
+                                fontSize: 14.0,
+                                color: Colors.white70,
                                 letterSpacing: 1.0,
                               ),
                             ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            SizedBox(
-                              width: size.width * 0.5,
-                              child: Text(
-                                homeController.homepageController[0].subtitle,
-                                style: const TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.white70,
-                                  letterSpacing: 1.0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: kbtnColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              15.0,
-                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: kbtnColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            15.0,
                           ),
                         ),
-                        onPressed: () async {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  const AssessmentDisclaimerPage()));
-                        },
-                        child: const Text(
-                          'Continue',
-                        ),
+                      ),
+                      onPressed: () async {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                const AssessmentDisclaimerPage()));
+                      },
+                      child: const Text(
+                        'Continue',
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          }),
-    );
+            ),
+          );
+        });
   }
 
   getDateRange() async {
