@@ -8,26 +8,7 @@ class SharePrefConfig {
     await sharedPreferences.setInt("onboarding", isViewed);
   }
 
-  onetimeShowcase() async {
-    int isDisplayed = 0;
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    await sharedPreferences.setInt("showcase", isDisplayed);
-  }
-
-  // getOnetime() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  //   int? isDisplayed = prefs.getInt('showcase');
-  //   return isDisplayed;
-  // }
-
-  // userInfoController() async {
-  //   int isDisplayed = 0;
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-  //   await sharedPreferences.setInt('user_info', isDisplayed);
-  // }
+   
 
   static SharedPreferences _preferences =
       SharedPreferences.getInstance() as SharedPreferences;

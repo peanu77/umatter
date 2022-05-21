@@ -102,7 +102,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                   ),
                 );
               }
-  
+
               return RefreshIndicator(
                 onRefresh: () async {
                   // This will automatically refresh the page once the use saved the diary.
@@ -181,6 +181,8 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                       const SizedBox(
                         height: 20.0,
                       ),
+
+                      //
                       Expanded(
                         child: ListView.builder(
                           itemCount: snapshot.data?.docs.length,
