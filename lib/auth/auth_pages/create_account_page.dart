@@ -236,6 +236,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
           if (value.length < 6) {
             return "Password must be atleast 6 characters";
           }
+          return null;
         },
       );
 

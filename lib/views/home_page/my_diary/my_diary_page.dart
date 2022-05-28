@@ -9,6 +9,7 @@ import 'package:umatter/views/home_page/my_diary/page/constant/diary_constant.da
 import 'package:umatter/views/home_page/my_diary/page/select_emotion.dart';
 import 'package:umatter/views/home_page/my_diary/page/view_diary_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:math';
 
 class MyDiaryPage extends StatefulWidget {
   const MyDiaryPage({Key? key}) : super(key: key);
@@ -27,16 +28,15 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
     color: Colors.white,
     letterSpacing: 1.0,
   );
+  // CollectionReference emojiRef = FirebaseFirestore.instance
+  //     .collection('users')
+  //     .doc('emotions')
+  //     .collection('');
 
   final keyOne = GlobalKey();
   @override
   void initState() {
     super.initState();
-
-    // WidgetsBinding.instance?.addPostFrameCallback(
-    //     (timeStamp) => ShowCaseWidget.of(context)?.startShowCase([
-    //           keyOne,
-    //         ]));
   }
 
   final textStyle = const TextStyle(fontSize: 25.0);
@@ -57,6 +57,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
     "🤤"
   ];
 
+  var emotionsList = [];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -75,9 +76,78 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
           backgroundColor: Colors.transparent,
         ),
         backgroundColor: Colors.grey[100],
-        body: FutureBuilder<QuerySnapshot>(
-          future: ref.get(),
+        body: StreamBuilder<QuerySnapshot>(
+          stream: ref.snapshots(),
           builder: (context, snapshot) {
+            List sample = [];
+            List temparr = [];
+
+            // Get the data from the firestore
+            snapshot.data?.docs.forEach((doc) {
+              sample.add(doc.data());
+            });
+
+            // Get the emotions and store it to the tempaar
+            for (var temp in sample) {
+              temparr.add(temp['emotions']);
+            }
+            // temparr.sort();
+            // print(temparr);
+
+            // if (temparr != null && temparr.isNotEmpty) {
+            //   temparr.sort((a, b) => a.compareTo(b));
+            //   print(temparr.last);
+            // }
+
+// Happy, Crying, Cool,Love, Shock, Sleepy, Thinking, Tired,Lonely, Blessed, Angry,Blessed, Exhausted, Drooling
+            // var counts = {};
+            // temparr.map((x) {
+            //   counts[x] = (counts[x] || 0) + 1;
+            //   print(x);
+            // });
+
+            var map = Map();
+
+            temparr.forEach(
+              (x) {
+                map[x] = !map.containsKey(x) ? (1) : (map[x] + 1);
+              },
+            );
+            var total = [];
+            var res = [];
+            map.forEach((f, k) {
+              total.add(k);
+              res.add(f);
+            });
+            // print(total);
+            var large = total[0];
+            var total_res;
+            for (var i = 0; i < total.length; i++) {
+              if (total[i] >= large) {
+                total_res = total[i];
+              }
+            }
+            print(total_res);
+            var mostUsedEmotion;
+            var finalShit;
+            map.forEach((f, k) {
+              if (k == total_res) {
+                mostUsedEmotion = f;
+              }
+            });
+            // print(mostUsedEmotion);
+            mostUsed(mostUsedEmotion ?? "");
+            // print(large.runtimeType);
+
+            // print(map);
+
+            // temparr.forEach((data) {
+            //   counts[data] = (counts[data] || 0) + 1;
+            // });
+            // print(counts);
+            // for (var arr in temparr) {
+            //   print(arr);
+            // }
             if (snapshot.hasData) {
               if (snapshot.data!.docs.isEmpty) {
                 return Align(
@@ -113,6 +183,8 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                       horizontal: 20.0, vertical: 10.0),
                   child: Column(
                     children: [
+                      // getEmojiData(),
+                      //
                       Container(
                         padding: const EdgeInsets.symmetric(vertical: 40.0),
                         decoration: BoxDecoration(
@@ -163,26 +235,12 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                                 const SizedBox(
                                   height: 10.0,
                                 ),
-                                Text(
-                                  "",
-                                  // '😄',
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.grey[800],
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.0,
-                                  ),
-                                ),
+                                mostUsed(mostUsedEmotion),
                               ],
                             )
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-
-                      //
                       Expanded(
                         child: ListView.builder(
                           itemCount: snapshot.data?.docs.length,
@@ -194,6 +252,7 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
                                 DateFormat.yMMMd().add_jm().format(dateTime);
                             selectedEmoji(data);
 
+                            data['emotions'];
                             return Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 5.0),
@@ -349,14 +408,117 @@ class _MyDiaryPageState extends State<MyDiaryPage> {
       return Text(emotions[7], style: textStyle);
     } else if (data['emotions'] == "Lonely") {
       return Text(emotions[8], style: textStyle);
-    } else if (data['emotions'] == "Blessed") {
+    } else if (data['emotions'] == "Angry") {
       return Text(emotions[9], style: textStyle);
-    } else if (data['emotions'] == "Love") {
+    } else if (data['emotions'] == "Blessed") {
       return Text(emotions[10], style: textStyle);
     } else if (data['emotions'] == "Exhausted") {
       return Text(emotions[11], style: textStyle);
     } else if (data['emotions'] == "Drooling") {
       return Text(emotions[12], style: textStyle);
     }
+  }
+
+  mostUsed(data) {
+    if (data == "Happy") {
+      return Text(emotions[0], style: textStyle);
+    } else if (data == "Crying") {
+      return Text(emotions[1], style: textStyle);
+    } else if (data == "Cool") {
+      return Text(emotions[2], style: textStyle);
+    } else if (data == "Love") {
+      return Text(emotions[3], style: textStyle);
+    } else if (data == "Shock") {
+      return Text(emotions[4], style: textStyle);
+    } else if (data == "Sleepy") {
+      return Text(emotions[5], style: textStyle);
+    } else if (data == "Thinking") {
+      return Text(emotions[6], style: textStyle);
+    } else if (data == "Tired") {
+      return Text(emotions[7], style: textStyle);
+    } else if (data == "Lonely") {
+      return Text(emotions[8], style: textStyle);
+    } else if (data == "Angry") {
+      return Text(emotions[9], style: textStyle);
+    } else if (data == "Blessed") {
+      return Text(emotions[10], style: textStyle);
+    } else if (data == "Exhausted") {
+      return Text(emotions[11], style: textStyle);
+    } else if (data == "Drooling") {
+      return Text(emotions[12], style: textStyle);
+    }
+  }
+
+  getEmojiData() {
+    StreamBuilder(
+      stream: ref.snapshots(),
+      builder: (context, snapshot) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 40.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            color: Colors.white,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Total Notes',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.grey[400],
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.0,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    'as',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.grey[800],
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.0,
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Most used emotions',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.grey[400],
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.0,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    "",
+                    // '😄',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.grey[800],
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.0,
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 }

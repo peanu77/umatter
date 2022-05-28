@@ -2,7 +2,7 @@ class DiscoverInfoPage {
   final String title;
   final String subtitle;
   final String img;
-  final route;
+  dynamic route;
 
   DiscoverInfoPage(
     this.title,

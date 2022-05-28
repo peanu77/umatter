@@ -23,8 +23,8 @@ class _HomePageState extends State<HomePage> {
   final _dayTimeChecker = DayTimeChecker();
   final homeController = HomePageController();
 
-  var data;
-  var res;
+  dynamic data;
+  dynamic res;
 
   bool isDisabled = false;
   bool isAnswered = false;

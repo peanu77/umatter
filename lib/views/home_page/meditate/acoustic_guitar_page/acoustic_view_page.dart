@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:umatter/components/app_bar_component.dart';
 
-import '../music_card_widget.dart';
+import '../../../../components/widgets/music_card_widget.dart';
 
 class AcousticViewPage extends StatefulWidget {
   final controller;
   final index;
-  const AcousticViewPage({Key? key, this.controller, this.index})
+  const AcousticViewPage(
+      {Key? key, required this.controller, required this.index})
       : super(key: key);
 
   @override

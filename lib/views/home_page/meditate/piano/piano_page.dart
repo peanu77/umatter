@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:umatter/components/app_bar_component.dart';
-import 'package:umatter/views/home_page/meditate/music_card_widget.dart';
+
+import '../../../../components/widgets/music_card_widget.dart';
 
 class PianoPage extends StatefulWidget {
   final index;

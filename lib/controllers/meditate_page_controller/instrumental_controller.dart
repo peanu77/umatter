@@ -1,4 +1,4 @@
-import 'package:umatter/views/home_page/meditate/instrumental/intrumental_info.dart';
+import 'package:umatter/models/meditate_page_models/intrumental_model.dart';
 
 class InstrumentalPageController {
   List<InstrumentalInfo> instrumentalController = [

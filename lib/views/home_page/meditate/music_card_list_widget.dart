@@ -14,7 +14,7 @@ Widget musicCardListWidget({
     child: Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
-      ),
+    ),
       child: SizedBox(
         height: size.height * 0.12,
         child: Padding(

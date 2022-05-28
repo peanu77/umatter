@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:umatter/components/app_bar_component.dart';
 
-import '../music_card_widget.dart';
+import '../../../../components/widgets/music_card_widget.dart';
 
 class PianoViewPage extends StatefulWidget {
   final controller;

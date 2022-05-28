@@ -94,8 +94,8 @@ class DatabaseManager {
             ),
           ),
         );
-        print(
-            'The user must reauthenticate before this operation can be executed');
+        // print(
+        //     'The user must reauthenticate before this operation can be executed');
       }
     }
   }
@@ -156,15 +156,15 @@ class DatabaseManager {
     ref.add(data);
   }
 
-  getAssessmentScore(snapshot) {
-    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    CollectionReference ref = FirebaseFirestore.instance
-        .collection('users')
-        .doc(firebaseAuth.currentUser?.uid)
-        .collection('assessment');
-    var data;
-    snapshot.data?.docs.forEach((doc) => {data = doc.data()});
+  // getAssessmentScore(snapshot) {
+  //   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  //   CollectionReference ref = FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(firebaseAuth.currentUser?.uid)
+  //       .collection('assessment');
+  //   var data;
+  //   snapshot.data?.docs.forEach((doc) => {data = doc.data()});
 
-    return data;
-  }
+  //   return data;
+  // }
 }

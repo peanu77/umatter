@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:umatter/components/app_bar_component.dart';
-import 'package:umatter/views/home_page/meditate/instrumental/instrumental_controller.dart';
+import 'package:umatter/controllers/meditate_page_controller/instrumental_controller.dart';
 import 'package:umatter/views/home_page/meditate/instrumental/instrumental_view_page.dart';
 
 import '../music_card_list_widget.dart';

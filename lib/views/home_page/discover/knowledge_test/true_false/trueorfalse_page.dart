@@ -24,18 +24,6 @@ class _TrueorFalsePageState extends State<TrueorFalsePage> {
   double score = 0.0;
   int currentIndex = 0;
 
-  // randomData() {
-  //   var rand = Random();
-
-  //   int randomNum = 0;
-
-  //   for (var i = 0; i < multiplechoiceController.length; i++) {
-  //     randomNum = rand.nextInt(multiplechoiceController.length);
-  //   }
-  // print(randomNum);
-  //   return randomNum;
-  // }
-
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;

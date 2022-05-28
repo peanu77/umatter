@@ -3,7 +3,7 @@ import 'package:umatter/views/home_page/meditate/instrumental/instrumental_page.
 import 'package:umatter/views/home_page/meditate/lofi/lofi_music.dart';
 import 'package:umatter/views/home_page/meditate/piano/piano_page.dart';
 
-import '../../views/home_page/meditate/meditate_info.dart';
+import '../../models/meditate_page_models/meditate_model.dart';
 
 class MeditatePageController {
   List<MeditateInfoPage> meditatePageController = [

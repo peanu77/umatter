@@ -27,7 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
       .doc(FirebaseAuth.instance.currentUser?.uid)
       .collection('user_info');
 
-  var data;
+  dynamic data;
   getUserData(snapshot) {
     snapshot.data?.docs.forEach((doc) => {data = doc.data()});
   }

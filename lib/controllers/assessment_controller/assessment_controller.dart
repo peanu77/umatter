@@ -3,23 +3,18 @@ import 'package:umatter/models/assessment_model/assessment_model.dart';
 
 class AssessmentController extends GetxController {
   List<QuestionsModel> questionsController = [
-    QuestionsModel("Little interest or pleasure in doing things.", 1),
-    QuestionsModel("Feeling down, depressed, or hopeless.", 2),
+    QuestionsModel("Little interest or pleasure in doing things."),
+    QuestionsModel("Feeling down, depressed, or hopeless."),
+    QuestionsModel("Trouble falling or staying asleep, or sleeping too much."),
+    QuestionsModel("Feeling tired or having little energy."),
+    QuestionsModel("Poor appetite or overeating."),
     QuestionsModel(
-        "Trouble falling or staying asleep, or sleeping too much.", 3),
-    QuestionsModel("Feeling tired or having little energy.", 4),
-    QuestionsModel("Poor appetite or overeating.", 5),
+        "Feeling bad about yourself or that you are a failure or have let yourself or your family down."),
     QuestionsModel(
-        "Feeling bad about yourself or that you are a failure or have let yourself or your family down.",
-        6),
+        "Trouble concentrating on things, such as reading the newspaper or watching television."),
     QuestionsModel(
-        "Trouble concentrating on things, such as reading the newspaper or watching television.",
-        7),
+        "Moving or speaking so slowly that other people could have noticed? Or the opposite being so fidgety or restless that you have been moving around a lot more than usual."),
     QuestionsModel(
-        "Moving or speaking so slowly that other people could have noticed? Or the opposite being so fidgety or restless that you have been moving around a lot more than usual.",
-        8),
-    QuestionsModel(
-        "Thoughts that you would be better off dead or of hurting yourself in some way",
-        9),
+        "Thoughts that you would be better off dead or of hurting yourself in some way"),
   ];
 }

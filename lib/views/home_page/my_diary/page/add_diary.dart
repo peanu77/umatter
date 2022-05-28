@@ -4,7 +4,6 @@ import 'package:umatter/controllers/shared_pref_controller/shared_pref_controlle
 import 'package:umatter/utils/colors.dart';
 import 'package:umatter/views/home_page/my_diary/my_diary_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class AddDiaryPage extends StatefulWidget {
   const AddDiaryPage({

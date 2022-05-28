@@ -2,7 +2,7 @@ class ProfessionalInfoPage {
   String title;
   String subtitle;
   int color;
-  final route;
+  dynamic route;
   ProfessionalInfoPage({
     required this.route,
     required this.title,

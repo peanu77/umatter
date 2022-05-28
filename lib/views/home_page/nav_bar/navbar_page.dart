@@ -15,14 +15,6 @@ class NavBarPage extends StatefulWidget {
 class _NavBarPageState extends State<NavBarPage> {
   List pages = [
     const HomePage(),
-    // ShowCaseWidget(
-    //   onFinish: () async {
-    //     // sharePrefConfig.incrementCount();
-    //   },
-    //   builder: Builder(
-    //     builder: (_) => const HomePage(),
-    //   ),
-    // ),
     const QuotesPage(),
     const SettingsPage(),
   ];

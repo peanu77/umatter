@@ -212,7 +212,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                             ),
                           ),
                           onPressed: () async {
-                            final isValid = _formKey.currentState!.validate();
+                            _formKey.currentState!.validate();
                             databaseManager.createUserInfo(email, username, age,
                                 genderValue, civilStatusValue);
 

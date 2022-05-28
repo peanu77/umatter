@@ -4,7 +4,7 @@ class HomePageInfo {
   final String title;
   final String subtitle;
   final String img;
-  final route;
+  dynamic route;
   Color color;
 
   HomePageInfo(

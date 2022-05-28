@@ -26,7 +26,6 @@ List<ProfessionalInfoPage> professionalInfoController = [
     color: 0xffe4be9e,
   ),
 
-  // TODO: Uncomment this later
   // ProfessionalInfoPage(
   //   route: const MentalHealthCommunitiesPage(),
   //   title: "Mental Health Communities",
