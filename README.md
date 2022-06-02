@@ -6,6 +6,7 @@ In completion to our Capstone Project we the researchers developed a Mobile Appl
 - Make sure to watch and follow this tutorial [Flutter Installation](https://www.youtube.com/watch?v=Z2ugnpCQuyw)
 - If you prefer reading through the documentation [Flutter Installation Docs](https://docs.flutter.dev/get-started/editor)
 
+
 Make sure to run pub get on terminal after opening the project.
 
 ```bash
