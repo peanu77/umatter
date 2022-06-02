@@ -19,6 +19,16 @@ Then to run the application.
 flutter run --no-sound-null-safety
 ```
 
+
+## To build the APK you can simply run the command below  
+```bash
+flutter build apk --release --no-sound-null-safety
+```
+Then navigate to your project folder:
+```bash
+build\app\outputs\flutter-apk
+```
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
