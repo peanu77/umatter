@@ -29,6 +29,11 @@ Then navigate to your project folder:
 build\app\outputs\flutter-apk
 ```
 
+
+## Application Release
+- V 1.0.0 [Download](https://drive.google.com/file/d/1LrGnkzaTG7dWbBMVAQSlD0meaE2i6YaC/view?usp=sharing)
+
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
